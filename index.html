@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEA OtTeRS & SEAL Lab</title>
+<meta name="description" content="Research team website: SEA OtTeRS (extragalactic astronomy and observational cosmology) and SEAL Lab (SPDT engineering, assembly and laser metrology).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --bg-2: #F1F2ED;
+    --ink: #1C2028;
+    --ink-2: #4A515C;
+    --muted: #767E88;
+    --rule: #DEE0DA;
+    --sea: #0E6B72;
+    --sea-soft: #E2EFEE;
+    --seal: #B03A2B;
+    --seal-soft: #F4E6E2;
+    --link: #0E6B72;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+    --max: 1120px;
+    --measure: 64ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171C; --bg-2: #1C2027; --ink: #ECEDE8; --ink-2: #C3C6BE; --muted: #8B9199; --rule: #2C313A;
+      --sea: #5FBFC4; --sea-soft: #16302F; --seal: #E4796A; --seal-soft: #3A211D; --link: #5FBFC4;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171C; --bg-2: #1C2027; --ink: #ECEDE8; --ink-2: #C3C6BE; --muted: #8B9199; --rule: #2C313A;
+    --sea: #5FBFC4; --sea-soft: #16302F; --seal: #E4796A; --seal-soft: #3A211D; --link: #5FBFC4;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 17px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--sea); outline-offset: 3px; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; line-height: 1.15; margin: 0; text-wrap: balance; }
+  h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -0.01em; }
+  h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  h3 { font-size: 1.35rem; }
+  p { margin: 0; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: var(--mono); font-size: 0.85em; }
+  .eyebrow { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .eyebrow.keep { text-transform: none; letter-spacing: 0.04em; font-size: 0.9rem; }
+  .eyebrow.sea { color: var(--sea); } .eyebrow.seal { color: var(--seal); }
+  .placeholder { color: var(--muted); font-style: italic; }
+  .measure { max-width: var(--measure); }
+
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 60px; }
+  .brand { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); display: flex; align-items: center; gap: 10px; }
+  .brand .dots { display: inline-flex; gap: 3px; }
+  .brand .dots i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+  .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 22px; font-size: 0.95rem; font-weight: 500; }
+  .nav ul a { color: var(--ink-2); }
+  .nav ul a:hover { color: var(--ink); text-decoration: none; }
+  @media (max-width: 760px) { .nav ul { display: none; } }
+
+  /* Hero */
+  .hero { padding: 72px 0 40px; }
+  .hero .lede { font-family: var(--serif); font-size: 1.3rem; color: var(--ink-2); line-height: 1.45; margin-top: 20px; max-width: 60ch; }
+  .hero .org { margin-top: 26px; font-size: 0.95rem; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
+  .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 48px 0 0; }
+  @media (max-width: 760px) { .doors { grid-template-columns: 1fr; } }
+  .door { display: block; color: var(--ink); border: 1px solid var(--rule); border-top: 4px solid var(--door); padding: 28px 28px 30px; background: var(--bg); transition: background .2s; }
+  .door:hover { background: var(--bg-2); text-decoration: none; }
+  .door.sea { --door: var(--sea); } .door.seal { --door: var(--seal); }
+  .door .acronym { font-family: var(--serif); font-size: 2rem; font-weight: 500; margin-top: 8px; }
+  .door .expands { color: var(--ink-2); margin-top: 6px; font-size: 1rem; line-height: 1.4; }
+  .door .blurb { margin-top: 16px; color: var(--ink-2); }
+  .door .go { display: inline-block; margin-top: 18px; font-weight: 600; color: var(--door); }
+
+  /* Sections */
+  section { padding: 72px 0; border-top: 1px solid var(--rule); }
+  .sec-head { display: grid; grid-template-columns: 1fr 2fr; gap: 32px; align-items: start; margin-bottom: 36px; }
+  @media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; gap: 12px; } }
+  .sec-head p { color: var(--ink-2); max-width: var(--measure); }
+  .group { --g: var(--sea); --g-soft: var(--sea-soft); }
+  .group.seal { --g: var(--seal); --g-soft: var(--seal-soft); }
+  .group h2 { position: relative; padding-left: 18px; }
+  .group h2::before { content: ""; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 4px; background: var(--g); }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rule); margin: 8px 0 36px; }
+  @media (max-width: 760px) { .facts { grid-template-columns: 1fr; } }
+  .fact { padding: 18px 20px; border-right: 1px solid var(--rule); }
+  .fact:last-child { border-right: 0; }
+  @media (max-width: 760px) { .fact { border-right: 0; border-bottom: 1px solid var(--rule); } .fact:last-child { border-bottom: 0; } }
+  .fact .k { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .fact .v { font-family: var(--mono); font-size: 1.05rem; margin-top: 6px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .fact .s { font-size: 0.9rem; color: var(--ink-2); margin-top: 2px; }
+
+  .themes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 40px; }
+  @media (max-width: 760px) { .themes { grid-template-columns: 1fr; } }
+  .theme h3 { font-size: 1.2rem; }
+  .theme p { color: var(--ink-2); margin-top: 8px; font-size: 1rem; }
+  .theme .tag { display: inline-block; font-family: var(--mono); font-size: 0.75rem; color: var(--g); background: var(--g-soft); padding: 2px 8px; border-radius: 3px; margin-bottom: 8px; }
+
+  /* People */
+  .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px 24px; }
+  .person { display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start; }
+  .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-2); border: 1px solid var(--rule); display: grid; place-items: center; font-family: var(--serif); color: var(--muted); font-size: 1.1rem; }
+  .person .n { font-weight: 600; }
+  .person .r { color: var(--ink-2); font-size: 0.95rem; }
+  .person .aff { display: inline-block; margin-top: 6px; font-family: var(--mono); font-size: 0.72rem; padding: 1px 7px; border-radius: 3px; }
+  .aff.sea { color: var(--sea); background: var(--sea-soft); } .aff.seal { color: var(--seal); background: var(--seal-soft); } .aff.both { color: var(--ink-2); background: var(--bg-2); }
+  .subhead { font-family: var(--serif); font-size: 1.15rem; color: var(--ink-2); margin: 40px 0 18px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+  .subhead:first-of-type { margin-top: 0; }
+
+  /* Projects / facilities */
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  @media (max-width: 760px) { .projects { grid-template-columns: 1fr; } }
+  .project { border: 1px solid var(--rule); padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; }
+  .project .status { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+  .project .status b { color: var(--g); font-weight: 500; }
+  .project h3 { font-size: 1.25rem; }
+  .project p { color: var(--ink-2); font-size: 1rem; }
+  .project .meta { margin-top: auto; padding-top: 10px; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; }
+  .caps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 32px; }
+  @media (max-width: 760px) { .caps { grid-template-columns: 1fr; } }
+  .caps li { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 1rem; }
+  .caps li span:last-child { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* Publications */
+  .pubs { list-style: none; margin: 0; padding: 0; }
+  .pubs li { display: grid; grid-template-columns: 64px 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+  .pubs .yr { font-family: var(--mono); color: var(--muted); font-size: 0.9rem; padding-top: 3px; }
+  .pubs .t { font-weight: 600; }
+  .pubs .au { color: var(--ink-2); font-size: 0.97rem; }
+  .pubs .j { color: var(--muted); font-size: 0.92rem; font-style: italic; }
+  .pubs .links { margin-top: 4px; font-family: var(--mono); font-size: 0.78rem; display: flex; gap: 14px; }
+  .pubs-note { margin-top: 18px; font-size: 0.95rem; color: var(--muted); }
+
+  /* News */
+  .news { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .news li { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  @media (max-width: 560px) { .news li { grid-template-columns: 1fr; gap: 4px; } }
+  .news time { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); padding-top: 3px; }
+  .news .h { font-weight: 600; }
+  .news p { color: var(--ink-2); font-size: 0.97rem; }
+
+  /* Contact */
+  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  @media (max-width: 760px) { .contact { grid-template-columns: 1fr; } }
+  .contact-block { border-top: 4px solid var(--g); padding-top: 16px; }
+  .contact-block.sea { --g: var(--sea); } .contact-block.seal { --g: var(--seal); }
+  .contact-block h3 { font-size: 1.3rem; }
+  .contact-block p { color: var(--ink-2); margin-top: 8px; }
+  .contact-block dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; margin: 18px 0 0; font-size: 0.97rem; }
+  .contact-block dt { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding-top: 3px; }
+  .contact-block dd { margin: 0; }
+  .visit { margin-top: 40px; padding: 22px 26px; background: var(--bg-2); border: 1px solid var(--rule); max-width: 72ch; }
+  .visit h3 { font-size: 1.15rem; }
+  .visit p { color: var(--ink-2); margin-top: 8px; font-size: 1rem; }
+
+  footer { border-top: 1px solid var(--rule); padding: 28px 0 40px; color: var(--muted); font-size: 0.9rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="dots" aria-hidden="true"><i style="background:var(--sea)"></i><i style="background:var(--seal)"></i></span>SEA OtTeRS &amp; SEAL Lab</a>
+    <ul>
+      <li><a href="#sea-otters">SEA OtTeRS</a></li>
+      <li><a href="#seal-lab">SEAL Lab</a></li>
+      <li><a href="#people">People</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">Research team · Chiang Mai, Thailand</div>
+    <h1 style="margin-top:14px">From the observed sky to the instruments that see it.</h1>
+    <p class="lede">We are one team with two working groups: astronomers who study galaxies and active nuclei across cosmic time, and engineers who build and measure the precision hardware that observation depends on.</p>
+    <div class="org">
+      <span>Hosted at the <span class="placeholder">[institute / affiliation]</span></span>
+      <span>Observing with the 2.4-m Thai National Telescope and international facilities</span>
+    </div>
+
+    <div class="doors">
+      <a class="door sea" href="#sea-otters">
+        <div class="eyebrow sea">Group 1 · Observational science</div>
+        <div class="acronym">SEA OtTeRS</div>
+        <div class="expands">Synergy in Extragalactic Astronomy with Observation through Temporal and Redshift Spaces</div>
+        <p class="blurb">Observational cosmology and extragalactic astronomy: how galaxies and their central black holes assemble, seen through both the time axis (variability, reverberation) and the redshift axis (deep surveys, evolution).</p>
+        <span class="go">Explore the science →</span>
+      </a>
+      <a class="door seal" href="#seal-lab">
+        <div class="eyebrow seal">Group 2 · Instrumentation &amp; technology</div>
+        <div class="acronym">SEAL Lab</div>
+        <div class="expands">SPDT Engineering, Assembly, and Laser Metrology Laboratory</div>
+        <p class="blurb">Single-point diamond turning of optical and mechanical components, precision assembly, and laser-based metrology — the support technology behind instruments, telescopes and the experiments that use them.</p>
+        <span class="go">See the lab →</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== SEA OtTeRS ===================== -->
+<section id="sea-otters" class="group sea">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow sea keep">SEA OtTeRS</div>
+        <h2 style="margin-top:10px">Extragalactic astronomy in time and redshift</h2>
+      </div>
+      <p>Galaxies change on two very different clocks. Over billions of years, they grow, quench and merge — a story we read by looking further out in redshift. Over days to years, their active nuclei flicker — a story we read by watching the same object again and again. SEA OtTeRS works at the meeting point of these two axes, combining multi-epoch monitoring with deep multi-wavelength surveys.</p>
+    </div>
+
+    <div class="facts" aria-label="Key facts">
+      <div class="fact"><div class="k">Temporal space</div><div class="v">hours → years</div><div class="s">AGN variability, reverberation mapping, transients</div></div>
+      <div class="fact"><div class="k">Redshift space</div><div class="v">z ≈ 0 → 6+</div><div class="s">Galaxy evolution from the local universe to the JWST era</div></div>
+      <div class="fact"><div class="k">Wavelengths</div><div class="v">optical · NIR · IR</div><div class="s">ugriz photometry, spectroscopy, SED modelling</div></div>
+    </div>
+
+    <div class="themes">
+      <div class="theme">
+        <span class="tag">temporal</span>
+        <h3>Reverberation mapping of active galactic nuclei</h3>
+        <p>Photometric monitoring campaigns that measure the time lag between continuum and line emission, yielding black-hole masses and broad-line-region sizes for AGN well beyond the local universe.</p>
+      </div>
+      <div class="theme">
+        <span class="tag">redshift</span>
+        <h3>Galaxy evolution and star-formation histories</h3>
+        <p>Spectral energy distribution fitting and morphology of galaxies in deep fields, tracing the star-forming main sequence and its scatter across cosmic time.</p>
+      </div>
+      <div class="theme">
+        <span class="tag">temporal</span>
+        <h3>Time-domain follow-up with the TNT</h3>
+        <p>Rapid and scheduled observations with the 2.4-m Thai National Telescope and high-cadence instruments, contributing Thailand's longitude to global monitoring networks.</p>
+      </div>
+      <div class="theme">
+        <span class="tag">redshift</span>
+        <h3>AGN hosts and the black hole–galaxy connection</h3>
+        <p>Host-galaxy structure and environment of active galaxies, linking nuclear activity to the growth of the galaxy around it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SEAL Lab ===================== -->
+<section id="seal-lab" class="group seal">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow seal keep">SEAL Lab</div>
+        <h2 style="margin-top:10px">Precision engineering for instruments and experiments</h2>
+      </div>
+      <p>Good data begins with good hardware. SEAL Lab develops the instrumentation and support technology behind observation: diamond-turned optics and mechanical parts, careful assembly and alignment, and laser metrology that verifies form, position and stability to the precision that optics demand.</p>
+    </div>
+
+    <div class="facts" aria-label="Key facts">
+      <div class="fact"><div class="k">SPDT</div><div class="v">single-point diamond turning</div><div class="s">Ultra-precision machining of metal optics and mounts</div></div>
+      <div class="fact"><div class="k">Assembly</div><div class="v">clean, aligned, characterised</div><div class="s">Opto-mechanical integration and alignment</div></div>
+      <div class="fact"><div class="k">Laser metrology</div><div class="v">λ = 632.8 nm reference</div><div class="s">Interferometric and displacement measurement</div></div>
+    </div>
+
+    <div class="themes">
+      <div class="theme">
+        <span class="tag">machining</span>
+        <h3>Diamond-turned optical components</h3>
+        <p>Design and fabrication of mirrors, lens mounts and precision mechanical parts by single-point diamond turning, with surface form and roughness verified in-house.</p>
+      </div>
+      <div class="theme">
+        <span class="tag">metrology</span>
+        <h3>Laser interferometry and displacement measurement</h3>
+        <p>Laser-based measurement of surface form, straightness and positioning, supporting both fabrication tolerances and the calibration of telescope and instrument mechanisms.</p>
+      </div>
+      <div class="theme">
+        <span class="tag">assembly</span>
+        <h3>Opto-mechanical assembly and alignment</h3>
+        <p>Integration of optical subsystems in controlled conditions, from bench prototypes to instrument modules ready for the telescope.</p>
+      </div>
+      <div class="theme">
+        <span class="tag">support</span>
+        <h3>Support technology for observation</h3>
+        <p>Custom fixtures, test rigs and measurement tooling that keep instruments and telescopes performing to specification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== People ===================== -->
+<section id="people">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">People</div>
+        <h2 style="margin-top:10px">Who we are</h2>
+      </div>
+      <p>Researchers, engineers and students across both groups. <span class="placeholder">Names, roles and photos below are placeholders to be replaced with the team roster.</span></p>
+    </div>
+
+    <div class="subhead">Principal investigators &amp; staff</div>
+    <div class="people">
+      <div class="person"><div class="avatar" aria-hidden="true">B</div><div><div class="n">Bright <span class="placeholder">[surname]</span></div><div class="r">Team lead · observational cosmology</div><span class="aff both">SEA OtTeRS · SEAL Lab</span></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Senior researcher · AGN &amp; variability</div><span class="aff sea">SEA OtTeRS</span></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Lead engineer · SPDT &amp; metrology</div><span class="aff seal">SEAL Lab</span></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Opto-mechanical engineer</div><span class="aff seal">SEAL Lab</span></div></div>
+    </div>
+
+    <div class="subhead">Students &amp; early-career researchers</div>
+    <div class="people">
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">PhD student · galaxy evolution</div><span class="aff sea">SEA OtTeRS</span></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">MSc student · reverberation mapping</div><span class="aff sea">SEA OtTeRS</span></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Engineering intern · laser metrology</div><span class="aff seal">SEAL Lab</span></div></div>
+    </div>
+
+    <div class="subhead">Alumni &amp; collaborators</div>
+    <p class="measure" style="color:var(--ink-2)"><span class="placeholder">[Former members and visiting researchers, with current affiliations.]</span></p>
+  </div>
+</section>
+
+<!-- ===================== Projects & facilities ===================== -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Projects &amp; facilities</div>
+        <h2 style="margin-top:10px">What we are working on</h2>
+      </div>
+      <p>Active research projects from SEA OtTeRS and the facilities and capabilities of SEAL Lab. Status labels and dates are kept current on this page.</p>
+    </div>
+
+    <div class="group sea">
+      <div class="subhead">SEA OtTeRS · research projects</div>
+      <div class="projects">
+        <div class="project">
+          <div class="status"><b>active</b> · monitoring campaign</div>
+          <h3>Reverberation mapping of an AGN behind MACS J1149</h3>
+          <p>Multi-band (ugriz) photometric monitoring of a z ≈ 0.535 active nucleus with ULTRASPEC on the 2.4-m TNT, measuring continuum and line lags to derive the black-hole mass.</p>
+          <div class="meta"><span>z = 0.535</span><span>ULTRASPEC / TNT</span><span>2020 campaign →</span></div>
+        </div>
+        <div class="project">
+          <div class="status"><b>active</b> · survey analysis</div>
+          <h3>Bursty star formation on the main sequence at z &gt; 6</h3>
+          <p>Using JWST-era photometry and SED fitting to test how burstiness shapes the scatter of the star-forming main sequence in the first billion years.</p>
+          <div class="meta"><span>z &gt; 6</span><span>SED fitting</span><span>JWST archival</span></div>
+        </div>
+        <div class="project">
+          <div class="status"><b>active</b> · morphology</div>
+          <h3>Structure and hosts of active galaxies</h3>
+          <p>Sérsic-profile decomposition of AGN host galaxies in deep imaging, separating nuclear and host light to study the black hole–galaxy connection.</p>
+          <div class="meta"><span>HST / ground-based</span><span>2D fitting</span></div>
+        </div>
+        <div class="project">
+          <div class="status"><b>planned</b> · <span class="placeholder">[project]</span></div>
+          <h3 class="placeholder">[Next project title]</h3>
+          <p class="placeholder">[One-paragraph description: question, data, method, expected outcome.]</p>
+          <div class="meta"><span class="placeholder">[facility]</span><span class="placeholder">[timeline]</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="group seal" style="margin-top:44px">
+      <div class="subhead">SEAL Lab · facilities &amp; capabilities</div>
+      <div class="projects" style="margin-bottom:28px">
+        <div class="project">
+          <div class="status"><b>facility</b> · machining</div>
+          <h3>Single-point diamond turning</h3>
+          <p>Ultra-precision lathe for aluminium and other diamond-turnable materials: flat, spherical and aspheric surfaces, including off-axis optics.</p>
+          <div class="meta"><span class="placeholder">[machine model]</span><span class="placeholder">[max diameter]</span></div>
+        </div>
+        <div class="project">
+          <div class="status"><b>facility</b> · metrology</div>
+          <h3>Laser metrology bench</h3>
+          <p>Interferometric measurement of surface form and displacement, with environmental control for repeatable, traceable results.</p>
+          <div class="meta"><span>λ = 632.8 nm</span><span class="placeholder">[instrument]</span></div>
+        </div>
+      </div>
+      <ul class="caps" aria-label="Capabilities and typical specifications">
+        <li><span>Surface form accuracy (diamond turning)</span><span class="placeholder">[e.g. &lt; λ/4 PV]</span></li>
+        <li><span>Surface roughness</span><span class="placeholder">[e.g. Ra &lt; 5 nm]</span></li>
+        <li><span>Displacement measurement resolution</span><span class="placeholder">[e.g. 1 nm]</span></li>
+        <li><span>Workpiece size range</span><span class="placeholder">[Ø min–max mm]</span></li>
+        <li><span>Materials</span><span>Al, Cu, Ni-P, polymers, IR crystals</span></li>
+        <li><span>Assembly environment</span><span class="placeholder">[clean-room class]</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Publications ===================== -->
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Publications</div>
+        <h2 style="margin-top:10px">Selected papers</h2>
+      </div>
+      <p>Refereed articles, proceedings and technical reports from both groups. <span class="placeholder">The entries below are formatting examples — replace with the real list (an ADS library export drops straight into this format).</span></p>
+    </div>
+    <ul class="pubs">
+      <li>
+        <div class="yr">2026</div>
+        <div>
+          <div class="t placeholder">[Reverberation mapping of a z = 0.535 AGN with ULTRASPEC on the Thai National Telescope]</div>
+          <div class="au"><span class="placeholder">[Authors]</span></div>
+          <div class="j">The Astrophysical Journal, in preparation</div>
+          <div class="links"><a href="#">ADS</a><a href="#">arXiv</a><a href="#">DOI</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="yr">2025</div>
+        <div>
+          <div class="t placeholder">[Paper title]</div>
+          <div class="au"><span class="placeholder">[Authors]</span></div>
+          <div class="j"><span class="placeholder">[Journal, volume, page]</span></div>
+          <div class="links"><a href="#">ADS</a><a href="#">arXiv</a><a href="#">DOI</a></div>
+        </div>
+      </li>
+      <li>
+        <div class="yr">2025</div>
+        <div>
+          <div class="t placeholder">[Technical report: diamond-turned off-axis mirror for a near-infrared instrument]</div>
+          <div class="au"><span class="placeholder">[Authors]</span></div>
+          <div class="j">Proc. SPIE <span class="placeholder">[volume]</span></div>
+          <div class="links"><a href="#">DOI</a><a href="#">PDF</a></div>
+        </div>
+      </li>
+    </ul>
+    <p class="pubs-note">Full list: <a href="#">NASA ADS library</a> · <a href="#">ORCID</a> · <a href="#">Google Scholar</a></p>
+  </div>
+</section>
+
+<!-- ===================== News ===================== -->
+<section id="news">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">News</div>
+        <h2 style="margin-top:10px">Updates from the team</h2>
+      </div>
+      <p>Observing runs, new members, talks, papers and hardware milestones.</p>
+    </div>
+    <ul class="news">
+      <li><time datetime="2026-09">Sep 2026</time><div><div class="h">Team website launched</div><p>SEA OtTeRS and SEAL Lab now share one home online. This page will carry news from both groups.</p></div></li>
+      <li><time datetime="2026-08">Aug 2026</time><div><div class="h placeholder">[Observing run / paper submitted / new member]</div><p class="placeholder">[Two sentences on what happened and why it matters.]</p></div></li>
+      <li><time datetime="2026-07">Jul 2026</time><div><div class="h placeholder">[Hardware milestone in SEAL Lab]</div><p class="placeholder">[e.g. first diamond-turned mirror measured on the laser metrology bench.]</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== Contact ===================== -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Contact</div>
+        <h2 style="margin-top:10px">Work with us</h2>
+      </div>
+      <p>We welcome collaborations, joint proposals, student projects and visits. Write to the group closest to your interest, or to the team lead if it spans both.</p>
+    </div>
+
+    <div class="contact">
+      <div class="contact-block sea">
+        <h3>SEA OtTeRS · science collaborations</h3>
+        <p>Joint monitoring campaigns, TNT time for time-domain follow-up, survey analysis, and co-supervision of students in extragalactic astronomy.</p>
+        <dl>
+          <dt>Contact</dt><dd>Bright <span class="placeholder">[surname]</span></dd>
+          <dt>Email</dt><dd><a href="mailto:contact@example.org" class="placeholder">[email@institute]</a></dd>
+          <dt>Proposals</dt><dd>Open to co-Is on TNT and international facility proposals</dd>
+        </dl>
+      </div>
+      <div class="contact-block seal">
+        <h3>SEAL Lab · engineering &amp; metrology</h3>
+        <p>Diamond-turned optics, precision parts, assembly and alignment services, and laser-metrology measurements for research groups and industry partners.</p>
+        <dl>
+          <dt>Contact</dt><dd><span class="placeholder">[Lab lead]</span></dd>
+          <dt>Email</dt><dd><a href="mailto:contact@example.org" class="placeholder">[email@institute]</a></dd>
+          <dt>Requests</dt><dd>Send drawings or a short description of the part / measurement</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="visit">
+      <h3>Visiting</h3>
+      <p><span class="placeholder">[Institute name and address]</span>, Chiang Mai, Thailand. The 2.4-m Thai National Telescope sits on Doi Inthanon, about two hours from the city; visits to the lab and observatory can be arranged for collaborators.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 SEA OtTeRS &amp; SEAL Lab · <span class="placeholder">[institute]</span></span>
+    <span>Site source on <a href="#">GitHub</a></span>
+  </div>
+</footer>
+</body>
+</html>
