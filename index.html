@@ -6,35 +6,35 @@
 <title>SEA OtTeRS & SEAL Lab</title>
 <meta name="description" content="Research team website: SEA OtTeRS (extragalactic astronomy and observational cosmology) and SEAL Lab (SPDT engineering, assembly and laser metrology).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root {
-    --bg: #FAFAF7;
-    --bg-2: #F1F2ED;
-    --ink: #1C2028;
-    --ink-2: #4A515C;
-    --muted: #767E88;
-    --rule: #DEE0DA;
-    --sea: #0E6B72;
-    --sea-soft: #E2EFEE;
-    --seal: #B03A2B;
-    --seal-soft: #F4E6E2;
-    --link: #0E6B72;
+    --bg: #FFFFFF;
+    --bg-2: #F4F7F8;
+    --ink: #111315;
+    --ink-2: #3D4349;
+    --muted: #6E767D;
+    --rule: #E3E7EA;
+    --sea: #1A9C86;
+    --sea-soft: #E4F5F1;
+    --seal: #2F86C9;
+    --seal-soft: #E5F0FA;
+    --link: #1A9C86;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    --serif: "Newsreader", Georgia, "Times New Roman", serif;
-    --sans: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+    --serif: "Manrope", "Helvetica Neue", Arial, sans-serif;
+    --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --max: 1120px;
     --measure: 64ch;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #14171C; --bg-2: #1C2027; --ink: #ECEDE8; --ink-2: #C3C6BE; --muted: #8B9199; --rule: #2C313A;
-      --sea: #5FBFC4; --sea-soft: #16302F; --seal: #E4796A; --seal-soft: #3A211D; --link: #5FBFC4;
+      --bg: #0F1214; --bg-2: #171B1E; --ink: #F2F4F5; --ink-2: #C5CACE; --muted: #868E95; --rule: #272D32;
+      --sea: #4FD1B8; --sea-soft: #12312B; --seal: #6FB4EA; --seal-soft: #14283A; --link: #4FD1B8;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #14171C; --bg-2: #1C2027; --ink: #ECEDE8; --ink-2: #C3C6BE; --muted: #8B9199; --rule: #2C313A;
-    --sea: #5FBFC4; --sea-soft: #16302F; --seal: #E4796A; --seal-soft: #3A211D; --link: #5FBFC4;
+    --bg: #0F1214; --bg-2: #171B1E; --ink: #F2F4F5; --ink-2: #C5CACE; --muted: #868E95; --rule: #272D32;
+    --sea: #4FD1B8; --sea-soft: #12312B; --seal: #6FB4EA; --seal-soft: #14283A; --link: #4FD1B8;
   }
 
   * { box-sizing: border-box; }
@@ -42,16 +42,16 @@
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
-    font-family: var(--sans); font-size: 17px; line-height: 1.55;
+    font-family: var(--sans); font-size: 16.5px; line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--link); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 3px; }
   a:focus-visible, button:focus-visible { outline: 2px solid var(--sea); outline-offset: 3px; }
-  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; line-height: 1.15; margin: 0; text-wrap: balance; }
-  h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -0.01em; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; line-height: 1.12; margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(2.3rem, 4.6vw, 3.3rem); letter-spacing: -0.03em; font-weight: 700; }
   h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
-  h3 { font-size: 1.35rem; }
+  h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
   p { margin: 0; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
   .mono { font-family: var(--mono); font-size: 0.85em; }
@@ -59,12 +59,21 @@
   .eyebrow.keep { text-transform: none; letter-spacing: 0.04em; font-size: 0.9rem; }
   .eyebrow.sea { color: var(--sea); } .eyebrow.seal { color: var(--seal); }
   .placeholder { color: var(--muted); font-style: italic; }
+  .logo { display: block; object-fit: contain; }
+  .brand .logos { display: inline-flex; gap: 6px; align-items: center; }
+  .brand .logos img { width: 26px; height: 26px; object-fit: contain; }
+  .door-head { display: flex; align-items: center; gap: 18px; margin-top: 10px; }
+  .door-head .logo { width: 84px; height: 84px; flex: none; }
+  .sec-head .with-logo { display: flex; align-items: flex-start; gap: 18px; }
+  .sec-head .with-logo .logo { width: 72px; height: 72px; flex: none; margin-top: 6px; }
+  .person .links { margin-top: 6px; font-size: 0.85rem; }
+  .person .links a { font-weight: 500; }
   .measure { max-width: var(--measure); }
 
   /* Nav */
   .nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); }
   .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 60px; }
-  .brand { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); display: flex; align-items: center; gap: 10px; }
+  .brand { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); display: flex; align-items: center; gap: 10px; }
   .brand .dots { display: inline-flex; gap: 3px; }
   .brand .dots i { width: 9px; height: 9px; border-radius: 50%; display: block; }
   .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 22px; font-size: 0.95rem; font-weight: 500; }
@@ -74,14 +83,14 @@
 
   /* Hero */
   .hero { padding: 72px 0 40px; }
-  .hero .lede { font-family: var(--serif); font-size: 1.3rem; color: var(--ink-2); line-height: 1.45; margin-top: 20px; max-width: 60ch; }
+  .hero .lede { font-family: var(--sans); font-size: 1.25rem; font-weight: 400; color: var(--ink-2); line-height: 1.5; margin-top: 20px; max-width: 60ch; }
   .hero .org { margin-top: 26px; font-size: 0.95rem; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
   .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 48px 0 0; }
   @media (max-width: 760px) { .doors { grid-template-columns: 1fr; } }
-  .door { display: block; color: var(--ink); border: 1px solid var(--rule); border-top: 4px solid var(--door); padding: 28px 28px 30px; background: var(--bg); transition: background .2s; }
+  .door { display: block; color: var(--ink); border: 1px solid var(--rule); border-top: 3px solid var(--door); border-radius: 6px; padding: 28px 28px 30px; background: var(--bg); transition: background .2s; }
   .door:hover { background: var(--bg-2); text-decoration: none; }
   .door.sea { --door: var(--sea); } .door.seal { --door: var(--seal); }
-  .door .acronym { font-family: var(--serif); font-size: 2rem; font-weight: 500; margin-top: 8px; }
+  .door .acronym { font-family: var(--serif); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-top: 8px; }
   .door .expands { color: var(--ink-2); margin-top: 6px; font-size: 1rem; line-height: 1.4; }
   .door .blurb { margin-top: 16px; color: var(--ink-2); }
   .door .go { display: inline-block; margin-top: 18px; font-weight: 600; color: var(--door); }
@@ -95,7 +104,7 @@
   .group.seal { --g: var(--seal); --g-soft: var(--seal-soft); }
   .group h2 { position: relative; padding-left: 18px; }
   .group h2::before { content: ""; position: absolute; left: 0; top: 0.2em; bottom: 0.2em; width: 4px; background: var(--g); }
-  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rule); margin: 8px 0 36px; }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--bg-2); margin: 8px 0 36px; }
   @media (max-width: 760px) { .facts { grid-template-columns: 1fr; } }
   .fact { padding: 18px 20px; border-right: 1px solid var(--rule); }
   .fact:last-child { border-right: 0; }
@@ -113,18 +122,18 @@
   /* People */
   .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px 24px; }
   .person { display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start; }
-  .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-2); border: 1px solid var(--rule); display: grid; place-items: center; font-family: var(--serif); color: var(--muted); font-size: 1.1rem; }
+  .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-2); border: 1px solid var(--rule); display: grid; place-items: center; font-family: var(--serif); font-weight: 600; color: var(--muted); font-size: 1.1rem; }
   .person .n { font-weight: 600; }
   .person .r { color: var(--ink-2); font-size: 0.95rem; }
   .person .aff { display: inline-block; margin-top: 6px; font-family: var(--mono); font-size: 0.72rem; padding: 1px 7px; border-radius: 3px; }
   .aff.sea { color: var(--sea); background: var(--sea-soft); } .aff.seal { color: var(--seal); background: var(--seal-soft); } .aff.both { color: var(--ink-2); background: var(--bg-2); }
-  .subhead { font-family: var(--serif); font-size: 1.15rem; color: var(--ink-2); margin: 40px 0 18px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+  .subhead { font-family: var(--serif); font-weight: 600; font-size: 1rem; color: var(--ink); margin: 40px 0 18px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
   .subhead:first-of-type { margin-top: 0; }
 
   /* Projects / facilities */
   .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
   @media (max-width: 760px) { .projects { grid-template-columns: 1fr; } }
-  .project { border: 1px solid var(--rule); padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; }
+  .project { border: 1px solid var(--rule); border-radius: 6px; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; }
   .project .status { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
   .project .status b { color: var(--g); font-weight: 500; }
   .project h3 { font-size: 1.25rem; }
@@ -156,14 +165,14 @@
   /* Contact */
   .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
   @media (max-width: 760px) { .contact { grid-template-columns: 1fr; } }
-  .contact-block { border-top: 4px solid var(--g); padding-top: 16px; }
+  .contact-block { border-top: 3px solid var(--g); padding-top: 16px; }
   .contact-block.sea { --g: var(--sea); } .contact-block.seal { --g: var(--seal); }
   .contact-block h3 { font-size: 1.3rem; }
   .contact-block p { color: var(--ink-2); margin-top: 8px; }
   .contact-block dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; margin: 18px 0 0; font-size: 0.97rem; }
   .contact-block dt { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding-top: 3px; }
   .contact-block dd { margin: 0; }
-  .visit { margin-top: 40px; padding: 22px 26px; background: var(--bg-2); border: 1px solid var(--rule); max-width: 72ch; }
+  .visit { margin-top: 40px; padding: 22px 26px; background: var(--bg-2); border: 1px solid var(--rule); border-radius: 6px; max-width: 72ch; }
   .visit h3 { font-size: 1.15rem; }
   .visit p { color: var(--ink-2); margin-top: 8px; font-size: 1rem; }
 
@@ -175,7 +184,7 @@
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
-    <a class="brand" href="#top"><span class="dots" aria-hidden="true"><i style="background:var(--sea)"></i><i style="background:var(--seal)"></i></span>SEA OtTeRS &amp; SEAL Lab</a>
+    <a class="brand" href="#top"><span class="logos"><img src="assets/logo-sea-otters.png" alt=""><img src="assets/logo-seal-lab.png" alt=""></span>SEA OtTeRS &amp; SEAL Lab</a>
     <ul>
       <li><a href="#sea-otters">SEA OtTeRS</a></li>
       <li><a href="#seal-lab">SEAL Lab</a></li>
@@ -201,15 +210,21 @@
     <div class="doors">
       <a class="door sea" href="#sea-otters">
         <div class="eyebrow sea">Group 1 · Observational science</div>
-        <div class="acronym">SEA OtTeRS</div>
-        <div class="expands">Synergy in Extragalactic Astronomy with Observation through Temporal and Redshift Spaces</div>
+        <div class="door-head">
+          <img class="logo" src="assets/logo-sea-otters.png" alt="SEA OtTeRS logo — a sea otter in a space helmet, “Monitoring the Universe”">
+          <div><div class="acronym" style="margin-top:0">SEA OtTeRS</div>
+          <div class="expands">Synergy in Extragalactic Astronomy with Observation through Temporal and Redshift Spaces</div></div>
+        </div>
         <p class="blurb">Observational cosmology and extragalactic astronomy: how galaxies and their central black holes assemble, seen through both the time axis (variability, reverberation) and the redshift axis (deep surveys, evolution).</p>
         <span class="go">Explore the science →</span>
       </a>
       <a class="door seal" href="#seal-lab">
         <div class="eyebrow seal">Group 2 · Instrumentation &amp; technology</div>
-        <div class="acronym">SEAL Lab</div>
-        <div class="expands">SPDT Engineering, Assembly, and Laser Metrology Laboratory</div>
+        <div class="door-head">
+          <img class="logo" src="assets/logo-seal-lab.png" alt="SEAL Lab logo — a seal at a diamond-turning lathe">
+          <div><div class="acronym" style="margin-top:0">SEAL Lab</div>
+          <div class="expands">SPDT Engineering, Assembly, and Laser Metrology Laboratory</div></div>
+        </div>
         <p class="blurb">Single-point diamond turning of optical and mechanical components, precision assembly, and laser-based metrology — the support technology behind instruments, telescopes and the experiments that use them.</p>
         <span class="go">See the lab →</span>
       </a>
@@ -221,11 +236,14 @@
 <section id="sea-otters" class="group sea">
   <div class="wrap">
     <div class="sec-head">
-      <div>
-        <div class="eyebrow sea keep">SEA OtTeRS</div>
-        <h2 style="margin-top:10px">Extragalactic astronomy in time and redshift</h2>
+      <div class="with-logo">
+        <img class="logo" src="assets/logo-sea-otters.png" alt="">
+        <div>
+          <div class="eyebrow sea keep">SEA OtTeRS</div>
+          <h2 style="margin-top:10px">Extragalactic astronomy in time and redshift</h2>
+        </div>
       </div>
-      <p>Galaxies change on two very different clocks. Over billions of years, they grow, quench and merge — a story we read by looking further out in redshift. Over days to years, their active nuclei flicker — a story we read by watching the same object again and again. SEA OtTeRS works at the meeting point of these two axes, combining multi-epoch monitoring with deep multi-wavelength surveys.</p>
+      <p>Galaxies change on two very different clocks. Over billions of years, they grow, quench and merge — a story we read by looking further out in redshift. Over days to years, their active nuclei flicker — a story we read by watching the same object again and again. SEA OtTeRS works at the meeting point of these two axes, combining multi-epoch monitoring with deep multi-wavelength surveys — and builds the low-resolution spectrographs that put redshifts and line diagnostics within reach of Thailand’s own telescopes.</p>
     </div>
 
     <div class="facts" aria-label="Key facts">
@@ -255,6 +273,16 @@
         <h3>AGN hosts and the black hole–galaxy connection</h3>
         <p>Host-galaxy structure and environment of active galaxies, linking nuclear activity to the growth of the galaxy around it.</p>
       </div>
+      <div class="theme">
+        <span class="tag">instrumentation</span>
+        <h3>Low-resolution spectroscopy on Thai telescopes</h3>
+        <p>Two in-house spectrographs — LRS for the 2.4-m TNT and CoLoRS for the 0.7-m TRT — designed for redshifts, classification and follow-up of variable and transient sources, built together with SEAL Lab.</p>
+      </div>
+      <div class="theme">
+        <span class="tag">temporal · redshift</span>
+        <h3>AI-assisted analysis</h3>
+        <p>Machine-learning tools for light-curve classification, SED inference and survey-scale data, so that monitoring and survey work scale with the data volume.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -263,9 +291,12 @@
 <section id="seal-lab" class="group seal">
   <div class="wrap">
     <div class="sec-head">
-      <div>
-        <div class="eyebrow seal keep">SEAL Lab</div>
-        <h2 style="margin-top:10px">Precision engineering for instruments and experiments</h2>
+      <div class="with-logo">
+        <img class="logo" src="assets/logo-seal-lab.png" alt="">
+        <div>
+          <div class="eyebrow seal keep">SEAL Lab</div>
+          <h2 style="margin-top:10px">Precision engineering for instruments and experiments</h2>
+        </div>
       </div>
       <p>Good data begins with good hardware. SEAL Lab develops the instrumentation and support technology behind observation: diamond-turned optics and mechanical parts, careful assembly and alignment, and laser metrology that verifies form, position and stability to the precision that optics demand.</p>
     </div>
@@ -309,22 +340,22 @@
         <div class="eyebrow">People</div>
         <h2 style="margin-top:10px">Who we are</h2>
       </div>
-      <p>Researchers, engineers and students across both groups. <span class="placeholder">Names, roles and photos below are placeholders to be replaced with the team roster.</span></p>
+      <p>Researchers, engineers and students across both groups, led by Krittapas Chanchaiworawit. Each member has a profile page with a short bio, CV or résumé, and links. <span class="placeholder">Names other than the PI are placeholders to be replaced with the team roster.</span></p>
     </div>
 
     <div class="subhead">Principal investigators &amp; staff</div>
     <div class="people">
-      <div class="person"><div class="avatar" aria-hidden="true">B</div><div><div class="n">Bright <span class="placeholder">[surname]</span></div><div class="r">Team lead · observational cosmology</div><span class="aff both">SEA OtTeRS · SEAL Lab</span></div></div>
-      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Senior researcher · AGN &amp; variability</div><span class="aff sea">SEA OtTeRS</span></div></div>
-      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Lead engineer · SPDT &amp; metrology</div><span class="aff seal">SEAL Lab</span></div></div>
-      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Opto-mechanical engineer</div><span class="aff seal">SEAL Lab</span></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">KC</div><div><div class="n">Krittapas Chanchaiworawit, PhD</div><div class="r">Principal Investigator · SEA OtTeRS and SEAL Lab · Team PI</div><span class="aff both">SEA OtTeRS · SEAL Lab</span><div class="links"><a href="people/krittapas-chanchaiworawit.html">Profile, CV &amp; publications →</a></div></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Senior researcher · AGN &amp; variability</div><span class="aff sea">SEA OtTeRS</span><div class="links"><a href="people/template.html" class="placeholder">Profile →</a></div></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Lead engineer · SPDT &amp; metrology</div><span class="aff seal">SEAL Lab</span><div class="links"><a href="people/template.html" class="placeholder">Profile →</a></div></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Opto-mechanical engineer</div><span class="aff seal">SEAL Lab</span><div class="links"><a href="people/template.html" class="placeholder">Profile →</a></div></div></div>
     </div>
 
     <div class="subhead">Students &amp; early-career researchers</div>
     <div class="people">
-      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">PhD student · galaxy evolution</div><span class="aff sea">SEA OtTeRS</span></div></div>
-      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">MSc student · reverberation mapping</div><span class="aff sea">SEA OtTeRS</span></div></div>
-      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Engineering intern · laser metrology</div><span class="aff seal">SEAL Lab</span></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">PhD student · galaxy evolution</div><span class="aff sea">SEA OtTeRS</span><div class="links"><a href="people/template.html" class="placeholder">Profile →</a></div></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">MSc student · reverberation mapping</div><span class="aff sea">SEA OtTeRS</span><div class="links"><a href="people/template.html" class="placeholder">Profile →</a></div></div></div>
+      <div class="person"><div class="avatar" aria-hidden="true">·</div><div><div class="n placeholder">[Name]</div><div class="r">Engineering intern · laser metrology</div><span class="aff seal">SEAL Lab</span><div class="links"><a href="people/template.html" class="placeholder">Profile →</a></div></div></div>
     </div>
 
     <div class="subhead">Alumni &amp; collaborators</div>
@@ -365,10 +396,16 @@
           <div class="meta"><span>HST / ground-based</span><span>2D fitting</span></div>
         </div>
         <div class="project">
-          <div class="status"><b>planned</b> · <span class="placeholder">[project]</span></div>
-          <h3 class="placeholder">[Next project title]</h3>
-          <p class="placeholder">[One-paragraph description: question, data, method, expected outcome.]</p>
-          <div class="meta"><span class="placeholder">[facility]</span><span class="placeholder">[timeline]</span></div>
+          <div class="status"><b>in development</b> · instrument</div>
+          <h3>LRS — Low-Resolution Spectrograph for the 2.4-m TNT</h3>
+          <p>An optical low-resolution spectrograph for the Thai National Telescope, giving the TNT an in-house capability for redshifts, spectral classification and rapid follow-up of AGN, transients and galaxies from our monitoring programmes.</p>
+          <div class="meta"><span>2.4-m TNT</span><span>optical · low-R</span><span class="placeholder">[R, λ range, first light]</span></div>
+        </div>
+        <div class="project">
+          <div class="status"><b>in development</b> · instrument</div>
+          <h3>CoLoRS — Compact Low-Resolution Spectrograph for the 0.7-m TRT</h3>
+          <p>A compact, low-cost spectrograph for the 0.7-m Thai Robotic Telescope network, bringing automated low-resolution spectroscopy of bright variable sources to a robotic platform.</p>
+          <div class="meta"><span>0.7-m TRT</span><span>optical · low-R</span><span>Presented at SPIE 2025</span></div>
         </div>
       </div>
     </div>
@@ -379,8 +416,8 @@
         <div class="project">
           <div class="status"><b>facility</b> · machining</div>
           <h3>Single-point diamond turning</h3>
-          <p>Ultra-precision lathe for aluminium and other diamond-turnable materials: flat, spherical and aspheric surfaces, including off-axis optics.</p>
-          <div class="meta"><span class="placeholder">[machine model]</span><span class="placeholder">[max diameter]</span></div>
+          <p>Five-axis ultra-precision diamond-turning machine in a temperature-controlled enclosure: flat, spherical, aspheric and freeform surfaces in aluminium and other diamond-turnable materials, including off-axis optics.</p>
+          <div class="meta"><span>5-axis SPDT</span><span class="placeholder">[machine model]</span><span class="placeholder">[max diameter]</span></div>
         </div>
         <div class="project">
           <div class="status"><b>facility</b> · metrology</div>
@@ -390,8 +427,8 @@
         </div>
       </div>
       <ul class="caps" aria-label="Capabilities and typical specifications">
-        <li><span>Surface form accuracy (diamond turning)</span><span class="placeholder">[e.g. &lt; λ/4 PV]</span></li>
-        <li><span>Surface roughness</span><span class="placeholder">[e.g. Ra &lt; 5 nm]</span></li>
+        <li><span>Surface form accuracy (diamond turning)</span><span>PV &lt; λ/10</span></li>
+        <li><span>Surface roughness</span><span>Ra &lt; 5 nm</span></li>
         <li><span>Displacement measurement resolution</span><span class="placeholder">[e.g. 1 nm]</span></li>
         <li><span>Workpiece size range</span><span class="placeholder">[Ø min–max mm]</span></li>
         <li><span>Materials</span><span>Al, Cu, Ni-P, polymers, IR crystals</span></li>
@@ -433,9 +470,9 @@
       <li>
         <div class="yr">2025</div>
         <div>
-          <div class="t placeholder">[Technical report: diamond-turned off-axis mirror for a near-infrared instrument]</div>
+          <div class="t placeholder">[CoLoRS: a Compact Low-Resolution Spectrograph for the 0.7-m Thai Robotic Telescope]</div>
           <div class="au"><span class="placeholder">[Authors]</span></div>
-          <div class="j">Proc. SPIE <span class="placeholder">[volume]</span></div>
+          <div class="j">Proc. SPIE 2025 <span class="placeholder">[volume, paper no.]</span></div>
           <div class="links"><a href="#">DOI</a><a href="#">PDF</a></div>
         </div>
       </li>
@@ -470,7 +507,7 @@
         <div class="eyebrow">Contact</div>
         <h2 style="margin-top:10px">Work with us</h2>
       </div>
-      <p>We welcome collaborations, joint proposals, student projects and visits. Write to the group closest to your interest, or to the team lead if it spans both.</p>
+      <p>We welcome collaborations, joint proposals, student projects and visits. Write to the group closest to your interest; both are led by the same PI, so a message to either reaches the whole team.</p>
     </div>
 
     <div class="contact">
@@ -478,7 +515,7 @@
         <h3>SEA OtTeRS · science collaborations</h3>
         <p>Joint monitoring campaigns, TNT time for time-domain follow-up, survey analysis, and co-supervision of students in extragalactic astronomy.</p>
         <dl>
-          <dt>Contact</dt><dd>Bright <span class="placeholder">[surname]</span></dd>
+          <dt>Contact</dt><dd>Krittapas Chanchaiworawit, PhD (PI)</dd>
           <dt>Email</dt><dd><a href="mailto:contact@example.org" class="placeholder">[email@institute]</a></dd>
           <dt>Proposals</dt><dd>Open to co-Is on TNT and international facility proposals</dd>
         </dl>
@@ -487,7 +524,7 @@
         <h3>SEAL Lab · engineering &amp; metrology</h3>
         <p>Diamond-turned optics, precision parts, assembly and alignment services, and laser-metrology measurements for research groups and industry partners.</p>
         <dl>
-          <dt>Contact</dt><dd><span class="placeholder">[Lab lead]</span></dd>
+          <dt>Contact</dt><dd>Krittapas Chanchaiworawit, PhD (PI)</dd>
           <dt>Email</dt><dd><a href="mailto:contact@example.org" class="placeholder">[email@institute]</a></dd>
           <dt>Requests</dt><dd>Send drawings or a short description of the part / measurement</dd>
         </dl>
@@ -507,5 +544,6 @@
     <span>Site source on <a href="#">GitHub</a></span>
   </div>
 </footer>
+
 </body>
 </html>
