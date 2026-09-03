@@ -21,17 +21,17 @@ assets/
 
 Main-page anchors: `#sea-otters`, `#seal-lab`, `#people`, `#projects`, `#publications`, `#news`, `#contact`.
 
-Text shown in *grey italics* (class `placeholder`) marks content still to be filled in.
+Text shown in *gray italics* (class `placeholder`) marks content still to be filled in.
 
 ## Adding a member
 
 1. Copy `people/template.html` to `people/firstname-lastname.html`.
-2. Fill in name, role, bio, interests, publications and contact; put the CV / résumé PDFs next to the page (e.g. `people/cv_lastname.pdf`) and point the buttons at them.
+2. Fill in name, role, bio, interests, publications and contact; put the CV / resume PDFs next to the page (e.g. `people/cv_lastname.pdf`) and point the buttons at them.
 3. Add a card in the People section of `index.html` linking to the new page.
 
 ## Editing the look
 
-Colours and type are CSS variables at the top of each `<style>` block (aquamarine `--sea` for SEA OtTeRS, light blue `--seal` for SEAL Lab). Fonts load from Google Fonts (Manrope, IBM Plex Sans, IBM Plex Mono). Light and dark themes are both supported.
+Colors and type are CSS variables at the top of each `<style>` block (aquamarine `--sea` for SEA OtTeRS, light blue `--seal` for SEAL Lab). Fonts load from Google Fonts (Manrope, IBM Plex Sans, IBM Plex Mono). Light and dark themes are both supported.
 
 ## Publishing on GitHub Pages
 
