@@ -1,3 +1,11 @@
+# hi-res originals and raw exports stay out of the repo
+assets/photos/*.zip
+assets/photos/raw/
+assets/*_profile_*.jpg
+assets/Krittapas_headshot_square_2400.jpg
+*.img
 .DS_Store
-Thumbs.db
-*.swp
+_to_delete/
+assets/photos/website_photos_*
+assets/photos/contact-sheet_*.jpg
+_site_v3_repo.zip

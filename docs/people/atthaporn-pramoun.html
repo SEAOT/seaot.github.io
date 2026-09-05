@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atthaporn Pramoun · SEA OtTeRS &amp; SEAL Lab</title>
+<meta name="description" content="SEA OtTeRS and SEAL Lab — research and instrumentation groups at NARIT, Chiang Mai.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg:#FFFFFF; --bg-2:#F4F7F8; --bg-3:#EAEFF1; --ink:#111315; --ink-2:#3D4349; --muted:#6E767D; --rule:#E3E7EA;
+  --sea:#1A9C86; --sea-soft:#E4F5F1; --seal:#2F86C9; --seal-soft:#E5F0FA; --gold:#C98A1F; --gold-soft:#FBF1DE; --link:#1A9C86;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace; --display:"Manrope","Helvetica Neue",Arial,sans-serif; --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --max:1140px; --measure:64ch;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0F1214; --bg-2:#171B1E; --bg-3:#1F2529; --ink:#F2F4F5; --ink-2:#C5CACE; --muted:#868E95; --rule:#272D32; --sea:#4FD1B8; --sea-soft:#12312B; --seal:#6FB4EA; --seal-soft:#14283A; --gold:#E2AE55; --gold-soft:#3A2B10; --link:#4FD1B8; } }
+:root[data-theme="dark"]{ --bg:#0F1214; --bg-2:#171B1E; --bg-3:#1F2529; --ink:#F2F4F5; --ink-2:#C5CACE; --muted:#868E95; --rule:#272D32; --sea:#4FD1B8; --sea-soft:#12312B; --seal:#6FB4EA; --seal-soft:#14283A; --gold:#E2AE55; --gold-soft:#3A2B10; --link:#4FD1B8; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth} @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--link);text-decoration:none} a:hover{text-decoration:underline;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--sea);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-0.02em}
+h1{font-size:clamp(2.2rem,4.4vw,3.2rem);letter-spacing:-0.03em;font-weight:700} h2{font-size:clamp(1.6rem,2.8vw,2.1rem)} h3{font-size:1.2rem;letter-spacing:-0.01em} h4{font-size:1rem}
+p{margin:0} img{max-width:100%;display:block}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono);font-size:.85em}
+.eyebrow{font-size:.76rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.eyebrow.sea{color:var(--sea)} .eyebrow.seal{color:var(--seal)} .eyebrow.gold{color:var(--gold)}
+.measure{max-width:var(--measure)} .muted{color:var(--muted)} .ink2{color:var(--ink-2)}
+.pill{display:inline-block;font-family:var(--mono);font-size:.74rem;padding:2px 9px;border-radius:999px;background:var(--bg-3);color:var(--ink-2);white-space:nowrap}
+.pill.sea{background:var(--sea-soft);color:var(--sea)} .pill.seal{background:var(--seal-soft);color:var(--seal)} .pill.gold{background:var(--gold-soft);color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:6px} .chips .pill{white-space:normal}
+.btn{display:inline-block;font-weight:600;padding:10px 16px;border-radius:6px;border:1px solid var(--rule);color:var(--ink);background:var(--bg)}
+.btn:hover{background:var(--bg-2);text-decoration:none} .btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)} .btn.primary:hover{opacity:.9}
+.btn.sea{background:var(--sea);border-color:var(--sea);color:#fff} .btn.seal{background:var(--seal);border-color:var(--seal);color:#fff}
+/* nav */
+.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:60px}
+.brand{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-0.01em;color:var(--ink);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand img{width:26px;height:26px;object-fit:contain} .brand:hover{text-decoration:none}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:18px;font-size:.92rem;font-weight:500;flex-wrap:wrap;justify-content:flex-end}
+.nav ul a{color:var(--ink-2);padding:4px 0;border-bottom:2px solid transparent} .nav ul a:hover{color:var(--ink);text-decoration:none}
+.nav ul a.active{color:var(--ink);border-bottom-color:var(--sea)} .nav ul a.soon::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-left:5px;vertical-align:middle}
+.nav .menu{display:none;border:1px solid var(--rule);background:var(--bg);border-radius:6px;padding:6px 10px;font:inherit;color:var(--ink)}
+@media (max-width:900px){.nav ul{display:none;position:absolute;left:0;right:0;top:60px;background:var(--bg);border-bottom:1px solid var(--rule);padding:12px 24px 16px;flex-direction:column;gap:10px} .nav ul.open{display:flex} .nav .menu{display:block}}
+/* page frame */
+.page{display:block} .page[hidden]{display:none}
+.pagehead{padding:56px 0 28px} .pagehead h1{margin-top:8px} .pagehead .lede{font-size:1.18rem;color:var(--ink-2);margin-top:14px;max-width:62ch;line-height:1.5}
+section{padding:56px 0;border-top:1px solid var(--rule)} section.flush{border-top:0;padding-top:0}
+.sec-head{display:grid;grid-template-columns:1fr 2fr;gap:28px;align-items:start;margin-bottom:28px} @media (max-width:760px){.sec-head{grid-template-columns:1fr;gap:10px}}
+.sec-head p{color:var(--ink-2);max-width:var(--measure)}
+.group{--g:var(--sea);--g-soft:var(--sea-soft)} .group.seal{--g:var(--seal);--g-soft:var(--seal-soft)} .group.gold{--g:var(--gold);--g-soft:var(--gold-soft)}
+.group h2{position:relative;padding-left:18px} .group h2::before{content:"";position:absolute;left:0;top:.2em;bottom:.2em;width:4px;background:var(--g)}
+/* hero */
+.hero{padding:48px 0 32px} .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center} @media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.hero .lede{font-size:1.2rem;color:var(--ink-2);line-height:1.5;margin-top:18px;max-width:56ch}
+.hero .org{margin-top:22px;font-size:.92rem;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.hero-photo{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:4/3;background:var(--bg-2)} .hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-photo .cap{position:absolute;left:0;right:0;bottom:0;padding:10px 14px;font-size:.78rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.55))}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px} @media (max-width:760px){.doors{grid-template-columns:1fr}}
+.door{display:grid;grid-template-columns:64px 1fr;gap:16px;color:var(--ink);border:1px solid var(--rule);border-top:3px solid var(--door);border-radius:6px;padding:22px 22px 24px;background:var(--bg);transition:background .15s}
+.door:hover{background:var(--bg-2);text-decoration:none} .door.sea{--door:var(--sea)} .door.seal{--door:var(--seal)}
+.door img{width:64px;height:64px;object-fit:contain} .door .acronym{font-family:var(--display);font-size:1.6rem;font-weight:700;letter-spacing:-0.02em}
+.door .expands{color:var(--ink-2);margin-top:4px;font-size:.95rem;line-height:1.4} .door .go{display:inline-block;margin-top:12px;font-weight:600;color:var(--door)}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--bg-2)} @media (max-width:980px){.stats{grid-template-columns:repeat(3,1fr)}} @media (max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{padding:18px 18px 16px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)} .stat .n{font-family:var(--display);font-size:2rem;font-weight:700;letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums;color:var(--c,var(--ink))}
+.stat .l{font-size:.86rem;color:var(--ink-2);margin-top:8px;line-height:1.35} .stat.sea{--c:var(--sea)} .stat.seal{--c:var(--seal)} .stat.gold{--c:var(--gold)}
+/* pipeline infographic */
+.pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:8px;position:relative} @media (max-width:760px){.pipe{grid-template-columns:1fr 1fr}}
+.pipe .step{padding:18px 18px 18px 0;border-top:3px solid var(--c);margin-right:18px} .pipe .step:last-child{margin-right:0}
+.pipe .step .k{font-family:var(--mono);font-size:.74rem;color:var(--c);letter-spacing:.06em} .pipe .step h3{margin-top:8px;font-size:1.05rem} .pipe .step p{font-size:.92rem;color:var(--ink-2);margin-top:6px}
+.pipe .step.sea{--c:var(--sea)} .pipe .step.seal{--c:var(--seal)} .pipe .step.mix{--c:var(--gold)}
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px} @media (max-width:900px){.cards{grid-template-columns:1fr 1fr}} @media (max-width:600px){.cards{grid-template-columns:1fr}}
+.cards.two{grid-template-columns:1fr 1fr} @media (max-width:700px){.cards.two{grid-template-columns:1fr}}
+.card{display:flex;flex-direction:column;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--bg);color:var(--ink)}
+a.card:hover{text-decoration:none;background:var(--bg-2)} .card .ph{aspect-ratio:16/10;background:var(--bg-3);overflow:hidden} .card .ph img{width:100%;height:100%;object-fit:cover}
+.card .ph.tall{aspect-ratio:3/4} .card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1} .card h3{font-size:1.08rem} .card p{font-size:.94rem;color:var(--ink-2)}
+.card .meta{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:.8rem;color:var(--muted);margin-top:auto;padding-top:6px}
+/* people */
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}
+.person{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:start;color:var(--ink)} a.person:hover{text-decoration:none} a.person:hover .name{text-decoration:underline;text-underline-offset:3px}
+.avatar{width:72px;height:72px;border-radius:50%;object-fit:cover;background:var(--bg-2);border:1px solid var(--rule)} .avatar.init{display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--muted)}
+.person .name{font-family:var(--display);font-weight:600;font-size:1.02rem;letter-spacing:-0.01em} .person .role{font-size:.88rem;color:var(--ink-2);margin-top:2px;line-height:1.35} .person .bio{font-size:.86rem;color:var(--muted);margin-top:6px}
+.profile{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start} @media (max-width:760px){.profile{grid-template-columns:1fr}}
+.profile .side img{width:100%;border-radius:8px} .profile .side .links{display:flex;flex-direction:column;gap:8px;margin-top:16px;font-size:.92rem}
+.profile .main{min-width:0} .profile .main p{margin-top:12px;color:var(--ink-2)} .profile .main p:first-child{margin-top:0}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:6px 14px;font-size:.92rem;margin-top:20px} .kv dt{color:var(--muted)} .kv dd{margin:0}
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:.93rem} .tbl th{text-align:left;font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--muted);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:10px;border-bottom:1px solid var(--rule);vertical-align:top} .tbl td.v{font-family:var(--mono);font-size:.86rem;white-space:nowrap;color:var(--g,var(--ink))}
+.scroll{overflow-x:auto}
+/* publications */
+.pub{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)} .pub .y{font-family:var(--mono);color:var(--muted);font-size:.9rem;padding-top:3px}
+.pub .t{font-weight:600} .pub .a{color:var(--ink-2);font-size:.92rem;margin-top:2px} .pub .v{font-size:.88rem;color:var(--muted);margin-top:2px} .pub .v b{color:var(--ink-2);font-weight:600}
+.chart{border:1px solid var(--rule);border-radius:6px;padding:16px 18px;background:var(--bg-2)} .chart svg{width:100%;height:auto;display:block} .chart .leg{display:flex;gap:16px;font-size:.8rem;color:var(--ink-2);margin-top:8px}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+/* news */
+.timeline{display:grid;gap:0} .item{display:grid;grid-template-columns:120px 1fr 200px;gap:20px;padding:20px 0;border-bottom:1px solid var(--rule);align-items:start} @media (max-width:760px){.item{grid-template-columns:1fr}}
+.item .d{font-family:var(--mono);font-size:.86rem;color:var(--muted);padding-top:3px} .item h3{font-size:1.08rem} .item p{color:var(--ink-2);font-size:.95rem;margin-top:6px} .item .ph{aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:var(--bg-3)} .item .ph img{width:100%;height:100%;object-fit:cover}
+/* project detail */
+.pj{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:start;padding:32px 0;border-top:1px solid var(--rule)} @media (max-width:800px){.pj{grid-template-columns:1fr}}
+.pj .ph{border-radius:8px;overflow:hidden;aspect-ratio:16/10;background:var(--bg-3)} .pj .ph img{width:100%;height:100%;object-fit:cover} .pj .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px} .pj .gal img{aspect-ratio:4/3;object-fit:cover;border-radius:4px;width:100%}
+.pj>div{min-width:0} .pj h3{font-size:1.35rem} .pj .sum{color:var(--ink-2);margin-top:8px} .pj .desc p{color:var(--ink-2);font-size:.95rem;margin-top:10px} .pj .facts{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;font-size:.9rem;margin-top:14px} .pj .facts dt{color:var(--muted)} .pj .facts dd{margin:0}
+/* forms & planned */
+.planned{border:1px dashed var(--gold);background:var(--gold-soft);border-radius:6px;padding:12px 16px;font-size:.92rem;color:var(--ink-2);display:flex;gap:12px;align-items:flex-start}
+.form{display:grid;gap:14px;max-width:640px} .form label{display:grid;gap:6px;font-size:.9rem;font-weight:500} .form input,.form select,.form textarea{font:inherit;padding:10px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink)} .form textarea{min-height:120px} .form .row{display:grid;grid-template-columns:1fr 1fr;gap:14px} @media (max-width:600px){.form .row{grid-template-columns:1fr}}
+.contactgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px} @media (max-width:800px){.contactgrid{grid-template-columns:1fr}}
+.cbox{border:1px solid var(--rule);border-top:3px solid var(--c,var(--ink));border-radius:6px;padding:18px 20px} .cbox.sea{--c:var(--sea)} .cbox.seal{--c:var(--seal)} .cbox.gold{--c:var(--gold)} .cbox h3{font-size:1.05rem} .cbox p{font-size:.92rem;color:var(--ink-2);margin-top:6px} .cbox .mono{display:block;margin-top:8px}
+.shop{display:grid;grid-template-columns:repeat(4,1fr);gap:18px} @media (max-width:900px){.shop{grid-template-columns:1fr 1fr}} .shop .card .ph{aspect-ratio:1;display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--muted);font-size:1.4rem}
+.fund{display:grid;grid-template-columns:1fr 1fr;gap:24px;border:1px solid var(--rule);border-radius:6px;padding:24px;margin-top:28px;background:var(--bg-2)} @media (max-width:760px){.fund{grid-template-columns:1fr}} .fund .big{font-family:var(--display);font-size:2rem;font-weight:700;letter-spacing:-0.03em;color:var(--gold)}
+/* footer */
+footer{border-top:1px solid var(--rule);padding:40px 0 48px;color:var(--muted);font-size:.9rem} .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px} @media (max-width:760px){.fgrid{grid-template-columns:1fr 1fr}} footer ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px} footer a{color:var(--ink-2)} footer .fh{font-weight:600;color:var(--ink);font-size:.9rem}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+<a class="brand" href="../index.html"><img src="../assets/logo-sea-otters.png" alt=""><img src="../assets/logo-seal-lab.png" alt="">SEA OtTeRS &amp; SEAL Lab</a>
+<button class="menu" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">Menu</button>
+<ul><li><a href="../index.html" class="" data-nav="index">Home</a></li><li><a href="../sea-otters.html" class="" data-nav="sea-otters">SEA OtTeRS</a></li><li><a href="../seal-lab.html" class="" data-nav="seal-lab">SEAL Lab</a></li><li><a href="../people.html" class="active " data-nav="people">People</a></li><li><a href="../projects.html" class="" data-nav="projects">Projects</a></li><li><a href="../publications.html" class="" data-nav="publications">Publications</a></li><li><a href="../news.html" class="" data-nav="news">News</a></li><li><a href="../contact.html" class="soon" data-nav="contact">Contact</a></li><li><a href="../internships.html" class="soon" data-nav="internships">Internships</a></li><li><a href="../shop.html" class="soon" data-nav="shop">Shop</a></li></ul></div></header><main class="page"><div class="pagehead"><div class="wrap"><a href="../people.html" class="muted">← People</a><div class="eyebrow " style="margin-top:14px">SEA OtTeRS &amp; SEAL Lab</div>
+<h1>Atthaporn Pramoun</h1><p class="lede"></p></div></div>
+<section class="flush"><div class="wrap"><div class="profile"><div class="side"><img src="../assets/photos/people/atthaporn-pramoun.jpg" alt="Atthaporn Pramoun"><div class="links"></div>
+<dl class="kv"></dl></div>
+<div class="main"><p class="muted">This profile is waiting for its content-sheet row. The photo was shared; bio, role and interests will appear once the row is filled in.</p></div></div></div></section></main><footer><div class="wrap"><div class="fgrid">
+<div><div class="fh">National Astronomical Research Institute of Thailand (Public Organization)</div><p style="margin-top:8px">260 Moo 4, Don Kaew, Mae Rim, Chiang Mai 50180, Thailand</p>
+<p style="margin-top:8px">SEA OtTeRS: <a href="mailto:seaot.narit@gmail.com">seaot.narit@gmail.com</a><br>SEAL Lab: <a href="mailto:krittapas@narit.or.th">krittapas@narit.or.th</a></p></div>
+<div><div class="fh">Groups</div><ul><li><a href="../sea-otters.html">SEA OtTeRS</a></li><li><a href="../seal-lab.html">SEAL Lab</a></li><li><a href="../people.html">People</a></li></ul></div>
+<div><div class="fh">Work</div><ul><li><a href="../projects.html">Projects &amp; facilities</a></li><li><a href="../publications.html">Publications</a></li><li><a href="../news.html">News &amp; events</a></li></ul></div>
+<div><div class="fh">Get involved</div><ul><li><a href="../contact.html">Collaborate</a></li><li><a href="../internships.html">Internships</a></li><li><a href="../shop.html">Shop for the team fund</a></li><li><a href="https://github.com/SEAOT">Site source</a></li></ul></div>
+</div><p style="margin-top:28px">© 2026 SEA OtTeRS &amp; SEAL Lab, NARIT. Photos: NARIT, SEA OtTeRS/SEAL Lab, ESA/ARRAKIHS consortium (CC BY 4.0 where noted). Site generated from the team content sheet.</p></div></footer>
+</body>
+</html>
