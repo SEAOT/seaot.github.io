@@ -89,7 +89,7 @@ CAPS = [c for c in D["caps"] if str(c.get("Show on website? *", "Yes")) != "No"]
 YEARS = [(2016,1,0),(2017,1,1),(2018,2,1),(2019,3,2),(2020,3,1),(2021,0,0),(2022,1,0),(2023,0,0),(2024,1,1),(2025,17,0),(2026,17,4)]
 
 PAGES = [  # (slug, nav label, title, status)
-    ("index", "Home", "SEA OtTeRS & SEAL Lab", "Live"),
+    ("index", "Home", "SEAL × OTTER", "Live"),
     ("sea-otters", "SEA OtTeRS", "SEA OtTeRS", "Live"),
     ("seal-lab", "SEAL Lab", "SEAL Lab", "Live"),
     ("people", "People", "People", "Live"),
@@ -134,7 +134,7 @@ p{margin:0} img{max-width:100%;display:block}
 .nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:60px}
 .brand{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-0.01em;color:var(--ink);display:flex;align-items:center;gap:10px;white-space:nowrap}
-.brand img{width:26px;height:26px;object-fit:contain} .brand:hover{text-decoration:none}
+.brand img.mark{width:34px;height:34px;object-fit:contain} .brand .x{color:var(--seal);font-weight:800;margin:0 2px} .brand:hover{text-decoration:none}
 .nav ul{list-style:none;margin:0;padding:0;display:flex;gap:18px;font-size:.92rem;font-weight:500;flex-wrap:wrap;justify-content:flex-end}
 .nav ul a{color:var(--ink-2);padding:4px 0;border-bottom:2px solid transparent} .nav ul a:hover{color:var(--ink);text-decoration:none}
 .nav ul a.active{color:var(--ink);border-bottom-color:var(--sea)} .nav ul a.soon::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-left:5px;vertical-align:middle}
@@ -153,7 +153,7 @@ section{padding:56px 0;border-top:1px solid var(--rule)} section.flush{border-to
 .hero .lede{font-size:1.2rem;color:var(--ink-2);line-height:1.5;margin-top:18px;max-width:56ch}
 .hero .org{margin-top:22px;font-size:.92rem;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
 .hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.hero-photo{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:4/3;background:var(--bg-2)} .hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-logo{display:grid;place-items:center} .hero-logo img{width:min(100%,460px);aspect-ratio:1} .hero-photo{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:4/3;background:var(--bg-2)} .hero-photo img{width:100%;height:100%;object-fit:cover}
 .hero-photo .cap{position:absolute;left:0;right:0;bottom:0;padding:10px 14px;font-size:.78rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.55))}
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px} @media (max-width:760px){.doors{grid-template-columns:1fr}}
 .door{display:grid;grid-template-columns:64px 1fr;gap:16px;color:var(--ink);border:1px solid var(--rule);border-top:3px solid var(--door);border-radius:6px;padding:22px 22px 24px;background:var(--bg);transition:background .15s}
@@ -217,19 +217,19 @@ def nav(active, mode):
     def href(s): return f"#/{s}" if mode == "preview" else (f"{s}.html" if s != "index" else "index.html")
     items = "".join(f'<li><a href="{href(s)}" class="{"active " if s == active else ""}{"soon" if st == "Planned" else ""}" data-nav="{s}">{E(lbl)}</a></li>' for s, lbl, _, st in PAGES)
     return f'''<header class="nav"><div class="wrap">
-<a class="brand" href="{href("index")}"><img src="assets/logo-sea-otters.png" alt=""><img src="assets/logo-seal-lab.png" alt="">SEA OtTeRS &amp; SEAL Lab</a>
+<a class="brand" href="{href("index")}"><img src="assets/logo-sealxotter-320.png" alt="" class="mark"><span>SEAL <span class="x">×</span> OTTER</span></a>
 <button class="menu" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">Menu</button>
 <ul>{items}</ul></div></header>'''
 
 def footer(mode):
     def href(s): return f"#/{s}" if mode == "preview" else f"{s}.html"
     return f'''<footer><div class="wrap"><div class="fgrid">
-<div><div class="fh">{E(T["Institute / host organisation"])}</div><p style="margin-top:8px">{E(T["Postal address"])}</p>
+<div><div class="fh">SEAL × OTTER · {E(T["Institute / host organisation"])}</div><p style="margin-top:8px">{E(T["Postal address"])}</p>
 <p style="margin-top:8px">SEA OtTeRS: <a href="mailto:{E(T["SEA OtTeRS – contact email"])}">{E(T["SEA OtTeRS – contact email"])}</a><br>SEAL Lab: <a href="mailto:{E(T["SEAL Lab – contact email"])}">{E(T["SEAL Lab – contact email"])}</a></p></div>
 <div><div class="fh">Groups</div><ul><li><a href="{href("sea-otters")}">SEA OtTeRS</a></li><li><a href="{href("seal-lab")}">SEAL Lab</a></li><li><a href="{href("people")}">People</a></li></ul></div>
 <div><div class="fh">Work</div><ul><li><a href="{href("projects")}">Projects &amp; facilities</a></li><li><a href="{href("publications")}">Publications</a></li><li><a href="{href("news")}">News &amp; events</a></li></ul></div>
 <div><div class="fh">Get involved</div><ul><li><a href="{href("contact")}">Collaborate</a></li><li><a href="{href("internships")}">Internships</a></li><li><a href="{href("shop")}">Shop for the team fund</a></li><li><a href="{E(T["GitHub repository URL"])}">Site source</a></li></ul></div>
-</div><p style="margin-top:28px">© {datetime.date.today().year} SEA OtTeRS &amp; SEAL Lab, NARIT. Photos: NARIT, SEA OtTeRS/SEAL Lab, ESA/ARRAKIHS consortium (CC BY 4.0 where noted). Site generated from the team content sheet.</p></div></footer>'''
+</div><p style="margin-top:28px">© {datetime.date.today().year} SEAL × OTTER — SEA OtTeRS &amp; SEAL Lab, NARIT · sealxotter.org. Photos: NARIT, SEA OtTeRS/SEAL Lab, ESA/ARRAKIHS consortium (CC BY 4.0 where noted). Site generated from the team content sheet.</p></div></footer>'''
 
 def L(mode, s, anchor=""):
     return (f"#/{s}" + (f"/{anchor}" if anchor else "")) if mode == "preview" else (f"{s}.html" + (f"#{anchor}" if anchor else ""))
@@ -255,12 +255,12 @@ def page_index(mode):
     feat = [p for p in PROJECTS if p["short"] in ("CoLoRS", "SPDT", "ARRAKIHS")]
     return f'''
 <div class="hero"><div class="wrap"><div class="hero-grid"><div>
-<div class="eyebrow">{E(T["City, country"])} · {E(T["Institute / host organisation"])}</div>
-<h1>{E(T["Team tagline (one sentence)"])}</h1>
-<p class="lede">{E(T["Team intro paragraph"])}</p>
+<div class="eyebrow">SEAL × OTTER · {E(T["City, country"])} · {E(T["Institute / host organisation"])}</div>
+<h1>Extragalactic astronomy, astronomical instrumentation, and precision optics.</h1>
+<p class="lede"><b>{E(T["Team tagline (one sentence)"])}</b> {E(T["Team intro paragraph"])}</p>
 <div class="cta"><a class="btn sea" href="{L(mode,"sea-otters")}">Explore SEA OtTeRS</a><a class="btn seal" href="{L(mode,"seal-lab")}">Visit SEAL Lab</a><a class="btn" href="{L(mode,"contact")}">Collaborate with us</a></div>
 </div>
-<div class="hero-photo">{img("hero_lrs", "Optics of the Low-Resolution Spectrograph on the bench at NARIT")}<div class="cap">LRS optics on the bench · photo NARIT</div></div>
+<div class="hero-logo"><img src="assets/logo-sealxotter.png" alt="SEAL × OTTER — an otter and a seal in spacesuits aligning a mirror with a laser, under a telescope dome and a spiral galaxy"></div>
 </div>
 <div class="doors">
 <a class="door sea" href="{L(mode,"sea-otters")}"><img src="assets/logo-sea-otters.png" alt=""><div><div class="eyebrow sea">Research group</div><div class="acronym">SEA OtTeRS</div><div class="expands">Synergy in Extragalactic Astronomy with Observation through Temporal and Redshift Spaces</div><span class="go">Galaxies, AGN, time-domain astronomy and the spectrographs that serve them →</span></div></a>
@@ -269,7 +269,7 @@ def page_index(mode):
 
 <section><div class="wrap"><div class="eyebrow">The team in numbers</div><div class="stats" style="margin-top:14px">{stats_html}</div></div></section>
 
-<section><div class="wrap"><div class="sec-head"><h2>From the sky to the instrument, and back</h2><p>The two groups are one loop. SEA OtTeRS defines the science and the observing cadence; the instruments it needs are designed, machined, and measured at SEAL Lab; the optics then go back on the telescopes, where the next survey begins.</p></div>
+<section><div class="wrap"><div class="sec-head"><h2>One team, two workshops</h2><p>SEAL × OTTER is the joint effort of SEA OtTeRS and SEAL Lab: one loop from the sky to the instrument and back. SEA OtTeRS defines the science and the observing cadence; the instruments it needs are designed, machined, and measured at SEAL Lab; the optics then go back on the telescopes, where the next survey begins.</p></div>
 <div class="pipe">
 <div class="step sea"><div class="k">01 · OBSERVE</div><h3>Telescopes</h3><p>2.4-m TNT, the 0.7-m TRT network across four continents, GTC, JWST and SDSS archives.</p></div>
 <div class="step sea"><div class="k">02 · ANALYZE</div><h3>Science</h3><p>Galaxy evolution at high redshift, AGN variability and reverberation mapping, machine-learning inference on survey data.</p></div>
@@ -451,7 +451,7 @@ def page_shop(mode):
 # ---------------------------------------------------------------- assembly
 def head(title, mode):
     fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">'
-    return f'<title>{E(title)}</title>\n<meta name="description" content="SEA OtTeRS and SEAL Lab — research and instrumentation groups at NARIT, Chiang Mai.">\n{fonts}\n<style>{CSS}</style>\n'
+    return f'<title>{E(title)}</title>\n<meta name="description" content="SEAL × OTTER — extragalactic astronomy, astronomical instrumentation, and precision optics. The joint team of SEA OtTeRS and SEAL Lab at NARIT, Chiang Mai.">\n<link rel="icon" type="image/png" href="assets/favicon.png">\n{fonts}\n<style>{CSS}</style>\n'
 
 def build_dist():
     out = os.path.join(ROOT, "dist"); shutil.rmtree(out, ignore_errors=True)
@@ -459,13 +459,14 @@ def build_dist():
     pages = {"index": page_index, "sea-otters": lambda m: group_page(m, "sea-otters"), "seal-lab": lambda m: group_page(m, "seal-lab"), "people": page_people, "projects": page_projects, "publications": page_publications, "news": page_news, "contact": page_contact, "internships": page_internships, "shop": page_shop}
     for s, lbl, title, st in PAGES:
         body = pages[s]("dist")
-        doc = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" + head(title + (" · SEA OtTeRS & SEAL Lab" if s != "index" else ""), "dist") + "</head>\n<body>\n" + nav(s, "dist") + f'<main class="page">{body}</main>' + footer("dist") + "\n</body>\n</html>\n"
+        doc = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" + head(title + (" · SEAL × OTTER" if s != "index" else ""), "dist") + "</head>\n<body>\n" + nav(s, "dist") + f'<main class="page">{body}</main>' + footer("dist") + "\n</body>\n</html>\n"
         open(os.path.join(out, f"{s}.html"), "w").write(doc)
     for p in PEOPLE:
         body = page_person(p, "dist").replace('src="assets/', 'src="../assets/').replace('href="people.html', 'href="../people.html').replace('href="projects.html', 'href="../projects.html')
-        doc = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" + head(p["Full name *"] + " · SEA OtTeRS & SEAL Lab", "dist") + "</head>\n<body>\n" + nav("people", "dist").replace('href="', 'href="../').replace('src="assets/', 'src="../assets/') + f'<main class="page">{body}</main>' + footer("dist").replace('href="', 'href="../').replace('href="../mailto', 'href="mailto').replace('href="../http', 'href="http') + "\n</body>\n</html>\n"
+        doc = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" + head(p["Full name *"] + " · SEAL × OTTER", "dist") + "</head>\n<body>\n" + nav("people", "dist").replace('href="', 'href="../').replace('src="assets/', 'src="../assets/') + f'<main class="page">{body}</main>' + footer("dist").replace('href="', 'href="../').replace('href="../mailto', 'href="mailto').replace('href="../http', 'href="http') + "\n</body>\n</html>\n"
         open(os.path.join(out, "people", f"{p['slug']}.html"), "w").write(doc)
-    open(os.path.join(out, "README.md"), "w").write("# SEA OtTeRS & SEAL Lab website\n\nGenerated by `gen.py` from the team content sheet. Open `index.html`, or serve the folder (GitHub Pages works as-is).\n")
+    open(os.path.join(out, "CNAME"), "w").write("sealxotter.org\n")
+    open(os.path.join(out, "README.md"), "w").write("# SEAL x OTTER website\n\nGenerated by `gen.py` from the team content sheet. Open `index.html`, or serve the folder (GitHub Pages works as-is).\n")
 
 def build_preview():
     """One file, all pages, hash routing, images as data URIs (downsized)."""
@@ -492,14 +493,14 @@ def build_preview():
     if(!found){pages.forEach(function(p){p.hidden=p.dataset.page!=='index';}); key='index';}
     document.querySelectorAll('.nav a[data-nav]').forEach(function(a){a.classList.toggle('active',a.dataset.nav===key.split('/')[0]);});
     document.querySelector('.nav ul').classList.remove('open');
-    var t=document.querySelector('main.page:not([hidden])'); document.title=(t&&t.dataset.title?t.dataset.title+' · ':'')+'SEA OtTeRS & SEAL Lab';
+    var t=document.querySelector('main.page:not([hidden])'); document.title=(t&&t.dataset.title?t.dataset.title+' · ':'')+'SEAL × OTTER';
     if(anchor){var el=document.getElementById(anchor); if(el){el.scrollIntoView({block:'start'}); return;}}
     window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',show); show();
 })();
 </script>"""
-    doc = head("SEA OtTeRS & SEAL Lab", "preview") + nav("index", "preview") + secs + footer("preview") + js
+    doc = head("SEAL × OTTER", "preview") + nav("index", "preview") + secs + footer("preview") + js
     # inline images
     def repl(m):
         path = m.group(1)
