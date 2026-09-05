@@ -18,6 +18,8 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 D = json.load(open(os.path.join(ROOT, "sheet_data.json")))
 T = D["team"]
 E = html.escape
+UPDATED = datetime.date.today().strftime("%B %-d, %Y")
+VERSION = "0.4"
 
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
@@ -140,6 +142,18 @@ p{margin:0} img{max-width:100%;display:block}
 .nav ul a.active{color:var(--ink);border-bottom-color:var(--sea)} .nav ul a.soon::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-left:5px;vertical-align:middle}
 .nav .menu{display:none;border:1px solid var(--rule);background:var(--bg);border-radius:6px;padding:6px 10px;font:inherit;color:var(--ink)}
 @media (max-width:900px){.nav ul{display:none;position:absolute;left:0;right:0;top:60px;background:var(--bg);border-bottom:1px solid var(--rule);padding:12px 24px 16px;flex-direction:column;gap:10px} .nav ul.open{display:flex} .nav .menu{display:block}}
+/* status notices */
+.notice{background:var(--gold-soft);border-bottom:1px solid color-mix(in srgb,var(--gold) 35%,transparent);font-size:.86rem;color:var(--ink-2)}
+.notice .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px}
+.notice b{color:var(--ink)} .notice button{font:inherit;font-size:.8rem;background:none;border:1px solid var(--rule);border-radius:4px;padding:3px 8px;color:var(--ink-2);cursor:pointer;white-space:nowrap} .notice[hidden]{display:none}
+.wip{border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-left:4px solid var(--gold);border-radius:6px;padding:16px 18px;background:var(--gold-soft);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.wip .ic{width:34px;height:34px;border-radius:50%;background:var(--gold);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.1rem}
+.wip h3{font-size:1rem} .wip p{font-size:.92rem;color:var(--ink-2);margin-top:4px} .wip ul{margin:8px 0 0;padding-left:18px;font-size:.9rem;color:var(--ink-2)} .wip li{margin:2px 0}
+.wip .st{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.pill.ready{background:var(--sea-soft);color:var(--sea)} .pill.todo{background:var(--bg-3);color:var(--muted)}
+.form.off{opacity:.6} .form.off input,.form.off select,.form.off textarea{background:var(--bg-2);cursor:not-allowed}
+.stub{font-size:.88rem;color:var(--muted);font-style:italic}
+.stub::before{content:"○ ";color:var(--gold);font-style:normal}
 /* page frame */
 .page{display:block} .page[hidden]{display:none}
 .pagehead{padding:56px 0 28px} .pagehead h1{margin-top:8px} .pagehead .lede{font-size:1.18rem;color:var(--ink-2);margin-top:14px;max-width:62ch;line-height:1.5}
@@ -215,11 +229,13 @@ footer{border-top:1px solid var(--rule);padding:40px 0 48px;color:var(--muted);f
 # ---------------------------------------------------------------- page pieces
 def nav(active, mode):
     def href(s): return f"#/{s}" if mode == "preview" else (f"{s}.html" if s != "index" else "index.html")
-    items = "".join(f'<li><a href="{href(s)}" class="{"active " if s == active else ""}{"soon" if st == "Planned" else ""}" data-nav="{s}">{E(lbl)}</a></li>' for s, lbl, _, st in PAGES)
+    items = "".join(f'<li><a href="{href(s)}" class="{"active " if s == active else ""}{"soon" if st == "Planned" else ""}" data-nav="{s}"{" title=%sIn preparation — draft page%s" % (chr(34), chr(34)) if st == "Planned" else ""}>{E(lbl)}</a></li>' for s, lbl, _, st in PAGES)
     return f'''<header class="nav"><div class="wrap">
 <a class="brand" href="{href("index")}"><img src="assets/logo-sealxotter-320.png" alt="" class="mark"><span>SEAL <span class="x">×</span> OTTER</span></a>
 <button class="menu" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">Menu</button>
-<ul>{items}</ul></div></header>'''
+<ul>{items}</ul></div></header>
+<div class="notice" id="notice"><div class="wrap"><span><b>Early release.</b> This site is being published in stages. Pages with a <span style="color:var(--gold)">●</span> in the menu are drafts; everything else is checked by the team as of {UPDATED}. Spotted an error? <a href="mailto:{E(T["SEA OtTeRS – contact email"])}">Tell us</a>.</span><button type="button" onclick="document.getElementById('notice').hidden=true;try{{localStorage.setItem('sxo-notice','1')}}catch(e){{}}">Got it</button></div></div>
+<script>try{{if(localStorage.getItem('sxo-notice'))document.getElementById('notice').hidden=true}}catch(e){{}}</script>'''
 
 def footer(mode):
     def href(s): return f"#/{s}" if mode == "preview" else f"{s}.html"
@@ -229,14 +245,14 @@ def footer(mode):
 <div><div class="fh">Groups</div><ul><li><a href="{href("sea-otters")}">SEA OtTeRS</a></li><li><a href="{href("seal-lab")}">SEAL Lab</a></li><li><a href="{href("people")}">People</a></li></ul></div>
 <div><div class="fh">Work</div><ul><li><a href="{href("projects")}">Projects &amp; facilities</a></li><li><a href="{href("publications")}">Publications</a></li><li><a href="{href("news")}">News &amp; events</a></li></ul></div>
 <div><div class="fh">Get involved</div><ul><li><a href="{href("contact")}">Collaborate</a></li><li><a href="{href("internships")}">Internships</a></li><li><a href="{href("shop")}">Shop for the team fund</a></li><li><a href="{E(T["GitHub repository URL"])}">Site source</a></li></ul></div>
-</div><p style="margin-top:28px">© {datetime.date.today().year} SEAL × OTTER — SEA OtTeRS &amp; SEAL Lab, NARIT · sealxotter.org. Photos: NARIT, SEA OtTeRS/SEAL Lab, ESA/ARRAKIHS consortium (CC BY 4.0 where noted). Site generated from the team content sheet.</p></div></footer>'''
+</div><p style="margin-top:28px">© {datetime.date.today().year} SEAL × OTTER — SEA OtTeRS &amp; SEAL Lab, NARIT · sealxotter.org. Photos: NARIT, SEA OtTeRS/SEAL Lab, ESA/ARRAKIHS consortium (CC BY 4.0 where noted). Site version {VERSION}, content last verified {UPDATED}. Generated from the team content sheet — <a href="mailto:{E(T["SEA OtTeRS – contact email"])}?subject=Website%20correction">report a correction</a>.</p></div></footer>'''
 
 def L(mode, s, anchor=""):
     return (f"#/{s}" + (f"/{anchor}" if anchor else "")) if mode == "preview" else (f"{s}.html" + (f"#{anchor}" if anchor else ""))
 
 def person_card(p, mode):
     ph = f'<img class="avatar" src="{p["photo"]}" alt="">' if p["photo"] else f'<div class="avatar init">{E("".join(w[0] for w in p["Full name *"].split()[:2]))}</div>'
-    role = p["role"] or ("Profile pending" if p.get("_pending") else p["cat"])
+    role = p["role"] or ("Profile in preparation" if p.get("_pending") else p["cat"])
     bio = str(p.get("Short bio (card) *", ""))
     return f'''<a class="person" href="{L(mode, "people", p["slug"]) if mode == "preview" else f"people/{p['slug']}.html"}">{ph}<div><div class="name">{E(p["Full name *"])}{(" · " + E(str(p["Degree / title"]))) if p.get("Degree / title") else ""}</div><div class="role">{E(role)}</div>{f'<div class="bio">{E(bio[:140])}{"…" if len(bio) > 140 else ""}</div>' if bio else ""}</div></a>'''
 
@@ -337,7 +353,7 @@ def page_people(mode):
     for sec in SECTION_ORDER:
         ps = [p for p in PEOPLE if p["section"] == sec]
         if not ps: continue
-        note = ' <span class="muted" style="font-weight:400;font-size:.9rem">— photo received, profile row still to be filled in the content sheet</span>' if sec == "New members" else ""
+        note = ' <span class="stub">Profiles in preparation — names and photos are confirmed; roles and bios are being written.</span>' if sec == "New members" else ""
         out.append(f'<section class="{"flush" if not out else ""}"><div class="wrap"><h2 style="font-size:1.35rem">{E(sec)}{note}</h2><div class="people" style="margin-top:20px">{"".join(person_card(p, mode) for p in ps)}</div></div></section>')
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">People</div><h1>The team</h1><p class="lede">Astronomers, research assistants, opto-mechanical and mechanical engineers, software developers, and the people who keep the lab running. Every name opens a profile with a CV or résumé where one has been shared.</p></div></div>{"".join(out)}'''
 
@@ -352,7 +368,7 @@ def page_person(p, mode):
     if email: links.append(f'<a href="mailto:{E(email)}">{E(email)}</a>')
     long = str(p.get("Long bio (profile page)", "") or "")
     short = str(p.get("Short bio (card) *", "") or "")
-    body = para(long) if long else (f"<p>{E(short)}</p>" if short else '<p class="muted">This profile is waiting for its content-sheet row. The photo was shared; bio, role and interests will appear once the row is filled in.</p>')
+    body = para(long) if long else (f"<p>{E(short)}</p>" if short else '<div class="wip"><div class="ic">!</div><div><h3>Profile in preparation</h3><p>This member has joined the team and confirmed their photo. Their role, biography, and research interests will appear here once the team has reviewed them. Until then we show only what has been confirmed.</p></div></div>')
     interests = str(p.get("Research / engineering interests *", "") or "")
     chips = "".join(f'<span class="pill">{E(i.strip())}</span>' for i in re.split(r"[;\n]", interests) if i.strip()) if interests else ""
     g = "sea" if p["group"] == "SEA OtTeRS" else "seal" if p["group"] == "SEAL Lab" else ""
@@ -375,7 +391,7 @@ def page_projects(mode):
         facts = "".join(f"<dt>{E(k)}</dt><dd>{E(str(p[c]))}</dd>" for k, c in [("Facility", "Facility / telescope"), ("Key numbers", "Key numbers"), ("Timeline", "Timeline"), ("Team", "Team members"), ("Partners", "Collaborators / partners"), ("Funding", "Funding")] if str(p.get(c, "") or "").strip())
         link = f'<p style="margin-top:12px"><a href="{E(str(p["Link"]))}">Project link ↗</a></p>' if str(p.get("Link", "") or "").strip() else ""
         blocks.append(f'''<div class="pj" id="{p["slug"]}"><div><div class="ph">{img(p["img"], p["imgalt"])}</div>{f'<div class="gal">{gal}</div>' if gal else ""}</div>
-<div><div class="chips"><span class="pill {g}">{E(p["Group *"])}</span><span class="pill">{E(p["Type *"])}</span><span class="pill">{E(p["Status *"])}</span></div><h3 style="margin-top:12px">{E(p["Project name *"])} <span class="muted" style="font-weight:400">· {E(p["short"])}</span></h3><p class="sum">{E(p["One-line summary *"])}</p><div class="desc">{para(p.get("Description", "") or "")}</div><dl class="facts">{facts}</dl>{link}</div></div>''')
+<div><div class="chips"><span class="pill {g}">{E(p["Group *"])}</span><span class="pill">{E(p["Type *"])}</span><span class="pill">{E(p["Status *"])}</span></div><h3 style="margin-top:12px">{E(p["Project name *"])} <span class="muted" style="font-weight:400">· {E(p["short"])}</span></h3><p class="sum">{E(p["One-line summary *"])}</p><div class="desc">{para(p.get("Description", "") or "") or '<p class="stub" style="margin-top:10px">Full description in preparation; the summary and key numbers above are current.</p>'}</div><dl class="facts">{facts}</dl>{link}</div></div>''')
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">Projects &amp; facilities</div><h1>What we build and run</h1><p class="lede">Instruments, facilities, and research projects across both groups, ordered as the team ranks them. Numbers in monospace are measured or designed values, not aspirations.</p>
 <div class="chips" style="margin-top:18px">{"".join(f'<a class="pill {"sea" if p["Group *"]=="SEA OtTeRS" else "seal"}" href="{L(mode,"projects",p["slug"])}">{E(p["short"])}</a>' for p in PROJECTS)}</div></div></div>
 <section class="flush"><div class="wrap">{"".join(blocks)}</div></section>'''
@@ -407,43 +423,47 @@ def page_news(mode):
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">News &amp; events</div><h1>What happened, and what is coming</h1><p class="lede">First light, mission milestones, papers, and the workshops and conferences the team hosts in Chiang Mai.</p></div></div>
 <section class="flush"><div class="wrap"><div class="timeline">{items}</div></div></section>'''
 
-PLANNED = '<div class="planned"><span class="pill gold">Planned page</span><span>This page is a working draft. The form below is a layout demo — it does not send anything yet. Content and the form backend are tracked in the <b>Pages</b> sheet of the team content workbook.</span></div>'
+def wip(title, why, ready, todo, meanwhile):
+    return f'''<div class="wip"><div class="ic">!</div><div><h3>{E(title)}</h3><p>{why}</p>
+<div class="st">{"".join(f'<span class="pill ready">✓ {E(r)}</span>' for r in ready)}{"".join(f'<span class="pill todo">○ {E(t)}</span>' for t in todo)}</div>
+<p style="margin-top:10px">{meanwhile}</p></div></div>'''
+PLANNED = ""
 
 def page_contact(mode):
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow gold">Contact for collaborations</div><h1>Work with us</h1><p class="lede">We collaborate on observing programs, instrument access, ultra-precision optics jobs, and student projects. Tell us which, and the right person answers.</p></div></div>
-<section class="flush"><div class="wrap">{PLANNED}
+<section class="flush"><div class="wrap">{wip("This page is in preparation", "The contact addresses below are current and monitored. The inquiry form is shown so you can see what we will ask, but it is not connected yet — nothing you type here is sent.", ["Contact emails", "Visiting address"], ["Inquiry form", "Response-time policy", "Map"], f'<b>Until the form opens:</b> email the group directly — <a href="mailto:{E(T["SEA OtTeRS – contact email"])}">{E(T["SEA OtTeRS – contact email"])}</a> for SEA OtTeRS, <a href="mailto:{E(T["SEAL Lab – contact email"])}">{E(T["SEAL Lab – contact email"])}</a> for SEAL Lab. We answer from those mailboxes.')}
 <div class="contactgrid" style="margin-top:24px">
 <div class="cbox sea"><h3>SEA OtTeRS</h3><p>Observing time on the TNT/TRT with LRS or CoLoRS, joint survey and time-domain programs, machine-learning projects, ARRAKIHS simulations.</p><a class="mono" href="mailto:{E(T["SEA OtTeRS – contact email"])}">{E(T["SEA OtTeRS – contact email"])}</a></div>
 <div class="cbox seal"><h3>SEAL Lab</h3><p>Diamond-turned metallic and freeform mirrors, CubeSat optics, metrology and coating services, technology-transfer partnerships.</p><a class="mono" href="mailto:{E(T["SEAL Lab – contact email"])}">{E(T["SEAL Lab – contact email"])}</a></div>
 <div class="cbox gold"><h3>Visit</h3><p>{E(T["Institute / host organisation"])}<br>{E(T["Postal address"])}</p><span class="mono muted">Mon–Fri · by appointment</span></div></div>
 <h2 style="margin-top:44px">Send an inquiry</h2>
-<form class="form" style="margin-top:18px" onsubmit="event.preventDefault();alert('Demo form — not connected yet.')">
+<form class="form off" style="margin-top:18px" onsubmit="event.preventDefault()"><fieldset disabled style="display:contents">
 <div class="row"><label>Name<input required placeholder="Your name"></label><label>Affiliation<input placeholder="Institute or company"></label></div>
 <label>Email<input type="email" required placeholder="you@example.org"></label>
 <label>Topic<select><option>Observing time / joint program (SEA OtTeRS)</option><option>Instrument access: LRS or CoLoRS</option><option>Optics job: SPDT, metrology, coating (SEAL Lab)</option><option>Student project or internship</option><option>Technology transfer / MoU</option><option>Visit or talk</option><option>Other</option></select></label>
 <label>Message<textarea placeholder="What would you like to do together, and by when?"></textarea></label>
-<div><button class="btn primary" type="submit">Send inquiry</button></div></form></div></section>'''
+</fieldset><div><button class="btn" type="button" disabled>Form not open yet</button> <span class="stub">Preview of the questions we will ask.</span></div></form></div></section>'''
 
 def page_internships(mode):
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow gold">Internship application</div><h1>Intern with SEA OtTeRS or SEAL Lab</h1><p class="lede">Undergraduate and graduate internships in extragalactic astronomy, instrumentation, software, and ultra-precision engineering, supervised by the team in Chiang Mai.</p></div></div>
-<section class="flush"><div class="wrap">{PLANNED}
+<section class="flush"><div class="wrap">{wip("Applications are not open yet", "We are finalizing eligibility, periods, and how applications are reviewed. The topics below are real and current; the form is a preview and does not submit.", ["Internship topics"], ["Eligibility & periods", "Supervisor list", "Application form", "Review timeline"], f'<b>Interested now?</b> Send a short email with your CV and the topic you like to <a href="mailto:{E(T["SEA OtTeRS – contact email"])}">{E(T["SEA OtTeRS – contact email"])}</a> (astronomy, data, software) or <a href="mailto:{E(T["SEAL Lab – contact email"])}">{E(T["SEAL Lab – contact email"])}</a> (engineering). We reply to every message, and we will tell you when the formal call opens.')}
 <div class="cards" style="margin-top:24px"><div class="card"><div class="body"><span class="pill sea">SEA OtTeRS</span><h3>Astronomy &amp; data</h3><p>Galaxy evolution with JWST and GTC data, AGN light curves, machine-learning parameter extraction, ARRAKIHS mock observations on the CHALAWAN cluster.</p></div></div>
 <div class="card"><div class="body"><span class="pill sea">SEA OtTeRS</span><h3>Instrument software</h3><p>Autoguiding and robotic control for LRS and CoLoRS, QuickLook reduction pipelines, scheduler and broker tools.</p></div></div>
 <div class="card"><div class="body"><span class="pill seal">SEAL Lab</span><h3>Precision engineering</h3><p>Opto-mechanical design, FEA, SPDT machining, interferometry and profilometry, additive-manufacturing prototypes.</p></div></div></div>
 <h2 style="margin-top:44px">Apply</h2>
-<form class="form" style="margin-top:18px" onsubmit="event.preventDefault();alert('Demo form — not connected yet.')">
+<form class="form off" style="margin-top:18px" onsubmit="event.preventDefault()"><fieldset disabled style="display:contents">
 <div class="row"><label>Full name<input required></label><label>University / program<input required placeholder="e.g. Chiang Mai University, BSc Physics"></label></div>
 <div class="row"><label>Email<input type="email" required></label><label>Preferred group<select><option>SEA OtTeRS</option><option>SEAL Lab</option><option>Either</option></select></label></div>
 <div class="row"><label>Earliest start<input type="month"></label><label>Duration<select><option>2 months</option><option>3 months</option><option>4–6 months</option><option>Thesis project</option></select></label></div>
 <label>Statement of interest<textarea placeholder="What do you want to learn, and what have you already done (courses, code, hardware)?"></textarea></label>
 <label>CV (PDF)<input type="file" accept="application/pdf"></label>
-<div><button class="btn primary" type="submit">Submit application</button></div></form></div></section>'''
+</fieldset><div><button class="btn" type="button" disabled>Applications open soon</button> <span class="stub">Preview of the application form.</span></div></form></div></section>'''
 
 def page_shop(mode):
     items = [("SEA OtTeRS tee", "T-shirt"), ("SEAL Lab tee", "T-shirt"), ("Otter sticker pack", "Stickers"), ("Mirror-finish mug", "Mug")]
-    cards = "".join(f'<div class="card"><div class="ph">{E(n)}</div><div class="body"><h3>{E(n)}</h3><p>{E(t)} · price to be set</p><div class="meta"><span class="pill gold">Coming soon</span></div></div></div>' for n, t in items)
+    cards = "".join(f'<div class="card"><div class="ph">{E(n)}</div><div class="body"><h3>{E(n)}</h3><p>{E(t)} · not for sale yet</p><div class="meta"><span class="pill todo">○ Design in progress</span></div></div></div>' for n, t in items)
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow gold">Merchandise shop</div><h1>Wear the otter, fund the team</h1><p class="lede">Team merchandise with a single purpose: every baht of profit goes to a wellness and healthcare fund for the students and non-permanent staff who work with SEA OtTeRS and SEAL Lab.</p></div></div>
-<section class="flush"><div class="wrap">{PLANNED.replace("The form below is a layout demo — it does not send anything yet.", "Products, prices and the payment method are not set yet; these are placeholders.")}
+<section class="flush"><div class="wrap">{wip("The shop is not open yet", "Nothing is for sale on this page today. The product cards are placeholders for designs still being drawn, and no prices, orders, or payments are taken here. The purpose of the shop — funding wellness and healthcare for students and non-permanent staff — is decided; the rest is in progress.", ["Purpose of the fund"], ["Designs", "Prices", "Ordering & payment", "Fund rules", "Running totals"], f'<b>Want to support the fund before the shop opens?</b> Write to <a href="mailto:{E(T["SEA OtTeRS – contact email"])}">{E(T["SEA OtTeRS – contact email"])}</a>. We will publish the fund rules and totals on this page before the first sale.')}
 <div class="shop" style="margin-top:24px">{cards}</div>
 <div class="fund"><div><div class="eyebrow gold">Where the money goes</div><div class="big">100% of profit</div><p class="ink2" style="margin-top:8px">After production and shipping costs, all profit is paid into the team wellness and healthcare fund. The fund covers health insurance top-ups, medical expenses, and wellness support for students and non-permanent staff associated with the two groups.</p></div>
 <div><div class="eyebrow">Transparency</div><p class="ink2" style="margin-top:8px">This page will show the running total raised and paid out, updated with each sale cycle. Fund rules and the approval process will be published here before the first sale.</p></div></div></div></section>'''
