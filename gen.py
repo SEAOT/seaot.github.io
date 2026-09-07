@@ -19,7 +19,7 @@ D = json.load(open(os.path.join(ROOT, "sheet_data.json")))
 T = D["team"]
 E = html.escape
 UPDATED = datetime.date.today().strftime("%B %-d, %Y")
-VERSION = "0.4"
+VERSION = "0.5"
 
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
@@ -57,14 +57,29 @@ PROJ_IMG = {"CoLoRS": ("colors_night", "CoLoRS on the 0.7-m Thai Robotic Telesco
             "ARRAKIHS": ("arrakihs", "Simulated ARRAKIHS mock image of a galaxy halo (A. Camazón / ARRAKIHS consortium, CC BY 4.0)"),
             "MACS J1149 RM": ("ultraspec", "ULTRASPEC on the 2.4-m Thai National Telescope"),
             "LRS": ("lrs_tnt", "LRS mounted on the 2.4-m TNT with its cooling system"),
-            "ML-HRO": ("tno_night", "Thai National Observatory under the Milky Way"),
-            "MEGARA-LCBG": ("controlroom", "TNO control room"),
-            "JWST-SF": ("tno_night", "Thai National Observatory at night"),
-            "SDSS-AGN": ("tnt", "The 2.4-m Thai National Telescope"),
-            "LAE-z6.5": ("tnt", "The 2.4-m Thai National Telescope")}
+            "ML-HRO": ("mlhro_pred", "Random-forest star-formation rates recovered from photometry versus the SED-fitted values"),
+            "MEGARA-LCBG": ("megara_shoc571", "The compact H II galaxy SHOC 571 imaged by Euclid (VIS, Y, J), one of the 26 LCBGs observed with MEGARA"),
+            "JWST-SF": ("jwst_map", "Matter-density contrast maps of the JADES GOODS-N and GOODS-S fields with protocluster cores marked"),
+            "SDSS-AGN": ("sdss_sample", "Black-hole mass, Eddington ratio, and bolometric luminosity of the SDSS DR17 AGN sample versus redshift"),
+            "LAE-z6.5": ("lae_maps", "Mass-density maps of the z = 6.5 protocluster in three redshift slices")}
+# figure-type heroes are shown whole (object-fit: contain) instead of cropped
+PROJ_FIG = {"ML-HRO", "JWST-SF", "SDSS-AGN", "LAE-z6.5", "MEGARA-LCBG"}
 PROJ_GALLERY = {"CoLoRS": ["colors_night2", "colors_design"], "LRS": ["lrs_box", "lrs_open"],
                 "SPDT": ["spdt_action", "dynafiz", "coating", "mirrors", "substrates", "cleanroom"],
-                "ARRAKIHS": ["arrakihs_bino"]}
+                "ARRAKIHS": ["arrakihs_bino"],
+                "ML-HRO": ["mlhro_filters", "mlhro_frame"],
+                "MEGARA-LCBG": ["megara_kin", "megara_lsig"],
+                "JWST-SF": ["jwst_sfms", "jwst_zsfr", "jwst_journey"],
+                "SDSS-AGN": ["sdss_grid", "sdss_pca", "sdss_cutouts"],
+                "LAE-z6.5": ["lae_spec", "lae_coadd"]}
+PROJ_CREDIT = {"ML-HRO": "Figures: G. Cherdchoochavalit & K. Chanchaiworawit, SEA OtTeRS (ISAC 2026).",
+               "MEGARA-LCBG": "Figures: Camazón-Pinilla, Guzmán & Chanchaiworawit, A&A (submitted 2026); image: Euclid / MEGARA-GTC.",
+               "JWST-SF": "Figures: Chanchaiworawit et al., in preparation (APRIM 2026); data: JWST/JADES and HST.",
+               "SDSS-AGN": "Figures: Chanchaiworawit & Sarajedini 2024, ApJ 969, 131; cutouts: SDSS.",
+               "LAE-z6.5": "Figures: Chanchaiworawit et al. 2019, ApJ 877, 51; Calvi et al. 2019, MNRAS 489, 3294 (GTC/OSIRIS).",
+               "ARRAKIHS": "Images: A. Camazón (IEEC) / ARRAKIHS Mission Consortium, CC BY 4.0; Satlantis / ARRAKIHS Mission Consortium.",
+               "CoLoRS": "Photos: SEA OtTeRS / NARIT.", "LRS": "Photos: SEA OtTeRS / NARIT.", "SPDT": "Photos: SEAL Lab / NARIT.",
+               "MACS J1149 RM": "Photo: NARIT."}
 for p in PROJECTS:
     p["short"] = str(p["Short name *"]).strip()
     p["slug"] = slug(p["short"])
@@ -213,7 +228,7 @@ a.card:hover{text-decoration:none;background:var(--bg-2)} .card .ph{aspect-ratio
 .item .d{font-family:var(--mono);font-size:.86rem;color:var(--muted);padding-top:3px} .item h3{font-size:1.08rem} .item p{color:var(--ink-2);font-size:.95rem;margin-top:6px} .item .ph{aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:var(--bg-3)} .item .ph img{width:100%;height:100%;object-fit:cover}
 /* project detail */
 .pj{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:start;padding:32px 0;border-top:1px solid var(--rule)} @media (max-width:800px){.pj{grid-template-columns:1fr}}
-.pj .ph{border-radius:8px;overflow:hidden;aspect-ratio:16/10;background:var(--bg-3)} .pj .ph img{width:100%;height:100%;object-fit:cover} .pj .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px} .pj .gal img{aspect-ratio:4/3;object-fit:cover;border-radius:4px;width:100%}
+.pj .ph{border-radius:8px;overflow:hidden;aspect-ratio:16/10;background:var(--bg-3)} .pj .ph img{width:100%;height:100%;object-fit:cover} .pj .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px} .pj .gal img{aspect-ratio:4/3;object-fit:cover;border-radius:4px;width:100%} .pj .ph.fig{aspect-ratio:auto;background:#fff} .pj .ph.fig img{object-fit:contain;height:auto} .pj .gal a{display:block} .pj .fig+.gal img{object-fit:contain;background:#fff;border:1px solid var(--rule)} .pj .cap{font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.45}
 .pj>div{min-width:0} .pj h3{font-size:1.35rem} .pj .sum{color:var(--ink-2);margin-top:8px} .pj .desc p{color:var(--ink-2);font-size:.95rem;margin-top:10px} .pj .facts{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;font-size:.9rem;margin-top:14px} .pj .facts dt{color:var(--muted)} .pj .facts dd{margin:0}
 /* forms & planned */
 .planned{border:1px dashed var(--gold);background:var(--gold-soft);border-radius:6px;padding:12px 16px;font-size:.92rem;color:var(--ink-2);display:flex;gap:12px;align-items:flex-start}
@@ -387,10 +402,11 @@ def page_projects(mode):
     blocks = []
     for p in PROJECTS:
         g = "sea" if p["Group *"] == "SEA OtTeRS" else "seal"
-        gal = "".join(f'<img src="assets/photos/web/{k}.jpg" alt="" loading="lazy">' for k in PROJ_GALLERY.get(p["short"], []))
+        gal = "".join(f'<a href="assets/photos/web/{k}.jpg" target="_blank" rel="noopener" title="Open full size"><img src="assets/photos/web/{k}.jpg" alt="" loading="lazy"></a>' for k in PROJ_GALLERY.get(p["short"], []))
         facts = "".join(f"<dt>{E(k)}</dt><dd>{E(str(p[c]))}</dd>" for k, c in [("Facility", "Facility / telescope"), ("Key numbers", "Key numbers"), ("Timeline", "Timeline"), ("Team", "Team members"), ("Partners", "Collaborators / partners"), ("Funding", "Funding")] if str(p.get(c, "") or "").strip())
         link = f'<p style="margin-top:12px"><a href="{E(str(p["Link"]))}">Project link ↗</a></p>' if str(p.get("Link", "") or "").strip() else ""
-        blocks.append(f'''<div class="pj" id="{p["slug"]}"><div><div class="ph">{img(p["img"], p["imgalt"])}</div>{f'<div class="gal">{gal}</div>' if gal else ""}</div>
+        cred = PROJ_CREDIT.get(p["short"], "")
+        blocks.append(f'''<div class="pj" id="{p["slug"]}"><div><div class="ph{" fig" if p["short"] in PROJ_FIG else ""}">{img(p["img"], p["imgalt"])}</div>{f'<div class="gal">{gal}</div>' if gal else ""}{f'<p class="cap">{E(p["imgalt"])}. {E(cred)}</p>' if cred else ""}</div>
 <div><div class="chips"><span class="pill {g}">{E(p["Group *"])}</span><span class="pill">{E(p["Type *"])}</span><span class="pill">{E(p["Status *"])}</span></div><h3 style="margin-top:12px">{E(p["Project name *"])} <span class="muted" style="font-weight:400">· {E(p["short"])}</span></h3><p class="sum">{E(p["One-line summary *"])}</p><div class="desc">{para(p.get("Description", "") or "") or '<p class="stub" style="margin-top:10px">Full description in preparation; the summary and key numbers above are current.</p>'}</div><dl class="facts">{facts}</dl>{link}</div></div>''')
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">Projects &amp; facilities</div><h1>What we build and run</h1><p class="lede">Instruments, facilities, and research projects across both groups, ordered as the team ranks them. Numbers in monospace are measured or designed values, not aspirations.</p>
 <div class="chips" style="margin-top:18px">{"".join(f'<a class="pill {"sea" if p["Group *"]=="SEA OtTeRS" else "seal"}" href="{L(mode,"projects",p["slug"])}">{E(p["short"])}</a>' for p in PROJECTS)}</div></div></div>
