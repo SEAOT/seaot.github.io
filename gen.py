@@ -19,7 +19,7 @@ D = json.load(open(os.path.join(ROOT, "sheet_data.json")))
 T = D["team"]
 E = html.escape
 UPDATED = datetime.date.today().strftime("%B %-d, %Y")
-VERSION = "0.5"
+VERSION = "0.8"
 
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
@@ -32,12 +32,16 @@ def img(key, alt, cls=""):
     return f'<img src="assets/photos/web/{key}.jpg" alt="{E(alt)}" loading="lazy"{" class=%s" % chr(34)+cls+chr(34) if cls else ""}>'
 
 # ---------------------------------------------------------------- data prep
-PEOPLE = D["people"] + [
-    {"Full name *": "That Chomchuen", "Photo link": "x", "Group *": "SEA OtTeRS", "Category *": "", "Position / role *": "", "Short bio (card) *": "", "Email *": "", "_pending": True},
-    {"Full name *": "Atthaporn Pramoun", "Photo link": "x", "Group *": "", "Category *": "", "Position / role *": "", "Short bio (card) *": "", "Email *": "", "_pending": True},
-    {"Full name *": "Narenrit Thananusak", "Photo link": "x", "Group *": "", "Category *": "", "Position / role *": "", "Short bio (card) *": "", "Email *": "", "_pending": True},
-]
+PEOPLE = list(D["people"])
+_names = {p["Full name *"] for p in PEOPLE}
+for _n in ("That Chomchuen", "Atthaporn Pramoun", "Narenrit Thananusak"):   # members whose sheet row is still empty
+    if _n not in _names:
+        PEOPLE.append({"Full name *": _n, "Photo link": "x", "Group *": "", "Category *": "", "Position / role *": "", "Short bio (card) *": "", "Email *": "", "_pending": True})
 for p in PEOPLE:
+    if not str(p.get("Short bio (card) *", "")).strip() and not str(p.get("Long bio (profile page)", "")).strip():
+        p["_pending"] = True   # sheet row exists but the bio is not written yet
+    for k in ("Position / role *", "Role in the team"):
+        p[k] = " ".join(str(p.get(k, "") or "").split()).rstrip(" /·")
     p["slug"] = slug(p["Full name *"])
     p["group"] = {"SEAOtTeRS": "SEA OtTeRS"}.get(str(p.get("Group *", "")).strip(), str(p.get("Group *", "")).strip())
     cat = str(p.get("Category *", "")).replace("Machanical", "Mechanical")
@@ -360,7 +364,8 @@ def pub_row(p):
     links = []
     if p.get("DOI"): links.append(f'<a href="https://doi.org/{E(str(p["DOI"]))}">DOI</a>')
     if p.get("arXiv ID"): links.append(f'<a href="https://arxiv.org/abs/{E(str(p["arXiv ID"]))}">arXiv:{E(str(p["arXiv ID"]))}</a>')
-    if p.get("ADS link"): links.append(f'<a href="{E(str(p["ADS link"]))}">ADS</a>')
+    if str(p.get("ADS link", "")).startswith("http"): links.append(f'<a href="{E(str(p["ADS link"]))}">{"ADS" if "adsabs" in str(p["ADS link"]) else "Publisher"}</a>')
+    if str(p.get("PDF link", "")).startswith("http"): links.append(f'<a href="{E(str(p["PDF link"]))}">PDF</a>')
     return f'''<div class="pub"><div class="y">{p["year"]}</div><div><div class="t">{E(str(p["Title *"]))}</div><div class="a">{E(str(p["Authors *"]))}</div><div class="v"><b>{v}</b>{(" · " + vp) if vp else ""} · {E(str(p["Type *"]))}{(" · " + " · ".join(links)) if links else ""}</div></div></div>'''
 
 def page_people(mode):
@@ -383,9 +388,9 @@ def page_person(p, mode):
     if email: links.append(f'<a href="mailto:{E(email)}">{E(email)}</a>')
     long = str(p.get("Long bio (profile page)", "") or "")
     short = str(p.get("Short bio (card) *", "") or "")
-    body = para(long) if long else (f"<p>{E(short)}</p>" if short else '<div class="wip"><div class="ic">!</div><div><h3>Profile in preparation</h3><p>This member has joined the team and confirmed their photo. Their role, biography, and research interests will appear here once the team has reviewed them. Until then we show only what has been confirmed.</p></div></div>')
+    body = para(long) if long else (f"<p>{E(short)}</p>" if short else '<div class="wip"><div class="ic">!</div><div><h3>Profile in preparation</h3><p>This member has joined the team. Their biography and research interests will appear here once written and reviewed; until then we show only what has been confirmed.</p></div></div>')
     interests = str(p.get("Research / engineering interests *", "") or "")
-    chips = "".join(f'<span class="pill">{E(i.strip())}</span>' for i in re.split(r"[;\n]", interests) if i.strip()) if interests else ""
+    chips = "".join(f'<span class="pill">{E(i.strip())}</span>' for i in re.split(r"[;\n•]|(?<=[a-z])\. (?=[A-Z])", interests) if i.strip()) if interests else ""
     g = "sea" if p["group"] == "SEA OtTeRS" else "seal" if p["group"] == "SEAL Lab" else ""
     pubs = [q for q in PUBS if p["Full name *"] in str(q.get("Team authors", ""))]
     pubs_html = f'<h2 style="font-size:1.3rem;margin-top:36px">Publications with the team</h2>{"".join(pub_row(q) for q in pubs)}' if pubs else ""

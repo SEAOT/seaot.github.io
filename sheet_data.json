@@ -21,12 +21,12 @@
    "GitHub": "https://github.com/krc2020",
    "Personal website": "",
    "LinkedIn": "https://www.linkedin.com/in/krittapasc/",
-   "Start year": 2021.0,
+   "Start year": 2021,
    "End year (alumni)": "",
    "Current affiliation (alumni)": "",
-   "Order on page": 1.0,
+   "Order on page": 1,
    "Show on website? *": "Yes",
-   "Page slug (auto)": "=IF(A3=\"\",\"\",LOWER(SUBSTITUTE(SUBSTITUTE(TRIM(A3),\" \",\"-\"),\".\",\"\")))",
+   "Page slug (auto)": "krittapas-chanchaiworawit",
    "Notes for the web editor": ""
   },
   {
@@ -34,11 +34,11 @@
    "Degree / title": "BSc",
    "Group *": "SEAOtTeRS",
    "Category *": "Research Assistant",
-   "Position / role *": "Research Assistance · Napping Expert · Lead Researcher in Sleeping · Professional Pizza Devourer ",
+   "Position / role *": "Research Assistance · Napping Expert · Lead Researcher in Sleeping · Professional Pizza Devourer",
    "Affiliation": "National Astronomical Research Institute of Thailand (Public Organization)",
    "Email *": "wissarut@narit.or.th",
-   "Short bio (card) *": "Researching Computational Cosmology and Observational Cosmology using NARIT HPC. Working with ARRAKIHS team. ",
-   "Long bio (profile page)": "Wissarut (Toey) Jarernsupapon researches Cosmology through the usage of simulation with the help of NARIT HPC in SEA OtTeRS group.\n\nCurrently working with ARRAKIHS team with the mock image simulation process and a project on assessing ARRAKIHS capabilities to study Cosmology from its background galaxies and their dN/dz. \n",
+   "Short bio (card) *": "Researching Computational Cosmology and Observational Cosmology using NARIT HPC. Working with ARRAKIHS team.",
+   "Long bio (profile page)": "Wissarut (Toey) Jarernsupapon researches Cosmology through the usage of simulation with the help of NARIT HPC in SEA OtTeRS group.\n\nCurrently working with ARRAKIHS team with the mock image simulation process and a project on assessing ARRAKIHS capabilities to study Cosmology from its background galaxies and their dN/dz.",
    "Research / engineering interests *": "Computational Cosmology, Observational Cosmology from galaxy number counts; background-galaxy completeness and injection-recovery methodology; machine-learning;  astronomical pipeline development on HPC",
    "Role in the team": "RA",
    "Photo link": "",
@@ -55,7 +55,7 @@
    "Current affiliation (alumni)": "",
    "Order on page": "",
    "Show on website? *": "",
-   "Page slug (auto)": "=IF(A4=\"\",\"\",LOWER(SUBSTITUTE(SUBSTITUTE(TRIM(A4),\" \",\"-\"),\".\",\"\")))",
+   "Page slug (auto)": "wissarut-jarernsupapon",
    "Notes for the web editor": ""
   },
   {
@@ -63,28 +63,28 @@
    "Degree / title": "BEng",
    "Group *": "SEAL Lab",
    "Category *": "Machanical Engineer",
-   "Position / role *": "Engineer · Cat's servant · ",
+   "Position / role *": "Engineer · Cat's servant · \nGreek yogurt homemade vendor",
    "Affiliation": "National Astronomical Research Institute of Thailand (Public Organization)",
    "Email *": "picha@narit.or.th",
    "Short bio (card) *": "Mechanical Engineer specializing in additive manufacturing and ultra-precision metallic surface fabrication with Single Point Diamond Turning (SPDT).",
-   "Long bio (profile page)": "",
-   "Research / engineering interests *": "",
-   "Role in the team": "Mechanical Engineer · Design jix fixture, SPDT machining",
+   "Long bio (profile page)": "Picha Ruenarrom is a Mechanical Engineer at the National Astronomical Research Institute of Thailand (NARIT), where she works in precision engineering and advanced manufacturing. Her primary responsibilities include mechanical design, CNC machining, and the operation of Single-Point Diamond Turning (SPDT) systems for the fabrication of ultra-precision reflective surfaces and optical components.\nShe holds a Bachelor of Engineering in Mechanical Engineering with Second Class Honors from Chiang Mai University. Her technical experience spans precision manufacturing and optical metrology, including the use of 3D profilers, confocal microscopes, and laser interferometers for surface characterization and measurement. She is particularly interested in the development additive manufacturing and fabrication of  ultra-precision components for astronomical instrumentation and optical engineering applications.",
+   "Research / engineering interests *": "Ultra-Precision Manufacturing • Single-Point Diamond Turning (SPDT) • Precision Mechanical Design • Optical Fabrication • Optical Metrology & Surface Characterization • CNC Machining • Additive Manufacturing • Aluminum Alloys for Optical Components • Astronomical & Space Instrumentation",
+   "Role in the team": "Mechanical Engineer · Design jix fixture, Single-Point Diamond Turning (SPDT) operation",
    "Photo link": "https://drive.google.com/file/d/1jSgdtA0oZj7yunUAXI9kbUrPaSQ2Zelh/view?usp=drive_link",
    "CV link (PDF)": "",
    "Résumé link (PDF)": "https://drive.google.com/file/d/1fLJh-2pQ1jO8bbSXX5w5J8klVaYDR_LQ/view?usp=drive_link",
    "ORCID": "",
-   "ADS library / author link": "",
+   "ADS library / author link": "Comparative SPDT machinability and surface quality of cast aluminum and additively manufactured aluminum for lightweight components in space missions",
    "Google Scholar": "",
    "GitHub": "",
    "Personal website": "",
-   "LinkedIn": "",
-   "Start year": 2025.0,
+   "LinkedIn": "Picha undefined | LinkedIn",
+   "Start year": 2025,
    "End year (alumni)": "",
    "Current affiliation (alumni)": "",
    "Order on page": "",
    "Show on website? *": "",
-   "Page slug (auto)": "=IF(A5=\"\",\"\",LOWER(SUBSTITUTE(SUBSTITUTE(TRIM(A5),\" \",\"-\"),\".\",\"\")))",
+   "Page slug (auto)": "picha-ruenarrom",
    "Notes for the web editor": ""
   },
   {
@@ -113,7 +113,7 @@
    "Current affiliation (alumni)": "",
    "Order on page": "",
    "Show on website? *": "",
-   "Page slug (auto)": "=IF(A6=\"\",\"\",LOWER(SUBSTITUTE(SUBSTITUTE(TRIM(A6),\" \",\"-\"),\".\",\"\")))",
+   "Page slug (auto)": "gunmethus-cherdchoochavalit",
    "Notes for the web editor": ""
   },
   {
@@ -137,12 +137,12 @@
    "GitHub": "",
    "Personal website": "",
    "LinkedIn": "Tarathon Intaros | LinkedIn",
-   "Start year": 2025.0,
+   "Start year": 2025,
    "End year (alumni)": "",
    "Current affiliation (alumni)": "",
    "Order on page": "",
    "Show on website? *": "",
-   "Page slug (auto)": "=IF(A7=\"\",\"\",LOWER(SUBSTITUTE(SUBSTITUTE(TRIM(A7),\" \",\"-\"),\".\",\"\")))",
+   "Page slug (auto)": "tarathon-intaros",
    "Notes for the web editor": ""
   },
   {
@@ -157,7 +157,7 @@
    "Long bio (profile page)": "",
    "Research / engineering interests *": "",
    "Role in the team": "",
-   "Photo link": "",
+   "Photo link": "https://drive.google.com/file/d/1rT6wr4H4nk8V_9jHSExNE21SCvjoNZWW/view",
    "CV link (PDF)": "",
    "Résumé link (PDF)": "",
    "ORCID": "",
@@ -171,13 +171,100 @@
    "Current affiliation (alumni)": "",
    "Order on page": "",
    "Show on website? *": "",
-   "Page slug (auto)": "=IF(A8=\"\",\"\",LOWER(SUBSTITUTE(SUBSTITUTE(TRIM(A8),\" \",\"-\"),\".\",\"\")))",
+   "Page slug (auto)": "manlika-pinkaew",
+   "Notes for the web editor": ""
+  },
+  {
+   "Full name *": "That Chomchuen",
+   "Degree / title": "",
+   "Group *": "",
+   "Category *": "",
+   "Position / role *": "",
+   "Affiliation": "",
+   "Email *": "",
+   "Short bio (card) *": "",
+   "Long bio (profile page)": "",
+   "Research / engineering interests *": "",
+   "Role in the team": "",
+   "Photo link": "https://drive.google.com/file/d/1f8E6r7HTiR2tkCEPa6ZAvgOPAXJNBToX/view",
+   "CV link (PDF)": "",
+   "Résumé link (PDF)": "",
+   "ORCID": "",
+   "ADS library / author link": "",
+   "Google Scholar": "",
+   "GitHub": "",
+   "Personal website": "",
+   "LinkedIn": "",
+   "Start year": "",
+   "End year (alumni)": "",
+   "Current affiliation (alumni)": "",
+   "Order on page": "",
+   "Show on website? *": "",
+   "Page slug (auto)": "that-chomchuen",
+   "Notes for the web editor": ""
+  },
+  {
+   "Full name *": "Atthaporn Pramoun",
+   "Degree / title": "",
+   "Group *": "",
+   "Category *": "",
+   "Position / role *": "",
+   "Affiliation": "",
+   "Email *": "",
+   "Short bio (card) *": "",
+   "Long bio (profile page)": "",
+   "Research / engineering interests *": "",
+   "Role in the team": "",
+   "Photo link": "https://drive.google.com/file/d/1IX0SDrUGtw-ukN5V81qZhDkU4IlQgiJ1/view",
+   "CV link (PDF)": "",
+   "Résumé link (PDF)": "",
+   "ORCID": "",
+   "ADS library / author link": "",
+   "Google Scholar": "",
+   "GitHub": "",
+   "Personal website": "",
+   "LinkedIn": "",
+   "Start year": "",
+   "End year (alumni)": "",
+   "Current affiliation (alumni)": "",
+   "Order on page": "",
+   "Show on website? *": "",
+   "Page slug (auto)": "atthaporn-pramoun",
+   "Notes for the web editor": ""
+  },
+  {
+   "Full name *": "Narenrit Thananusak",
+   "Degree / title": "PhD Student",
+   "Group *": "SEAOtTeRS",
+   "Category *": "Research Assistant",
+   "Position / role *": "Research assistance /",
+   "Affiliation": "Thailand Academy of Science, Mahidol University / \nNational Astronomical Research Institute of Thailand (Public Organization)",
+   "Email *": "n.thananusak@gmail.com",
+   "Short bio (card) *": "",
+   "Long bio (profile page)": "",
+   "Research / engineering interests *": "",
+   "Role in the team": "",
+   "Photo link": "https://drive.google.com/file/d/1_BZIussVJ_vhv4hTjF2F4oLd5MABvvKG/view",
+   "CV link (PDF)": "",
+   "Résumé link (PDF)": "",
+   "ORCID": "",
+   "ADS library / author link": "",
+   "Google Scholar": "",
+   "GitHub": "",
+   "Personal website": "",
+   "LinkedIn": "",
+   "Start year": 2026,
+   "End year (alumni)": "",
+   "Current affiliation (alumni)": "",
+   "Order on page": "",
+   "Show on website? *": "",
+   "Page slug (auto)": "narenrit-thananusak",
    "Notes for the web editor": ""
   }
  ],
  "pubs": [
   {
-   "Year *": 2026.0,
+   "Year *": 2026,
    "Title *": "Unveiling the Origin of Scatter in the L(Hβ)–σ Relation: The Role of non-Gaussian Kinematics in Local LCBGs",
    "Authors *": "Camazón-Pinilla, A.; Guzmán, R.; Chanchaiworawit, K.",
    "Journal / venue *": "Astronomy & Astrophysics (submitted)",
@@ -194,7 +281,7 @@
    "Notes": "Submitted. MEGARA/GTC IFU spectroscopy of 26 local LCBGs; kinematic correction reduces the L(Hβ)–σ scatter from 0.28 to 0.22 dex."
   },
   {
-   "Year *": 2024.0,
+   "Year *": 2024,
    "Title *": "Ensemble Variability Properties of Active Galactic Nuclei in the SDSS DR17",
    "Authors *": "Chanchaiworawit, K.; Sarajedini, V.",
    "Journal / venue *": "ApJ",
@@ -211,7 +298,7 @@
    "Notes": "PCA decomposition of blended SDSS spectra and structure functions for intrinsically low-luminosity AGN (z < 0.84)."
   },
   {
-   "Year *": 2020.0,
+   "Year *": 2020,
    "Title *": "An ionised super-bubble before complete re-ionisation of the universe",
    "Authors *": "Rodríguez Espinosa, J. M.; Mas-Hesse, J. M.; Calvi, R.; Salvador-Solé, E.; Chanchaiworawit, K.; et al.",
    "Journal / venue *": "MNRAS Letters",
@@ -228,7 +315,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2019.0,
+   "Year *": 2019,
    "Title *": "Physical Properties of the Coma-Analog Protocluster at z ~ 6.5",
    "Authors *": "Chanchaiworawit, K.; Guzmán, R.; Salvador-Solé, E.; et al.",
    "Journal / venue *": "ApJ",
@@ -245,7 +332,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2019.0,
+   "Year *": 2019,
    "Title *": "Spectroscopic Confirmation of the LAE Protocluster at z = 6.5",
    "Authors *": "Calvi, R.; Rodríguez Espinosa, J. M.; Chanchaiworawit, K.; et al.",
    "Journal / venue *": "MNRAS",
@@ -262,7 +349,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2019.0,
+   "Year *": 2019,
    "Title *": "The Design and On-sky Results of the Prototype of a Low-Resolution Spectrograph for the Thai National Telescope",
    "Authors *": "Paenoi, J.; Buisset, C.; Suwansukho, K.; et al. (incl. Chanchaiworawit, K.)",
    "Journal / venue *": "Current Applied Science and Technology",
@@ -279,7 +366,7 @@
    "Notes": "LRS prototype: R ≈ 800–1,300 over 440–740 nm; prototype installed Dec 2018."
   },
   {
-   "Year *": 2017.0,
+   "Year *": 2017,
    "Title *": "Gran Telescopio Canarias Observations of an Overdense Region of Lyman-α Emitters at z = 6.5",
    "Authors *": "Chanchaiworawit, K.; Guzmán, R.; Rodríguez Espinosa, J. M.; et al.",
    "Journal / venue *": "MNRAS",
@@ -296,7 +383,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2026.0,
+   "Year *": 2026,
    "Title *": "LRS and CoLoRS: the next generation instruments for rapid spectroscopic follow-up for the Thai National Telescope and the Thai Robotic Telescopes Network",
    "Authors *": "Chanchaiworawit, K.; Tharawan, K.; Chomchuen, T.; Paenoi, J.; Thomrungpiyathan, T.; et al. (17 authors)",
    "Journal / venue *": "Proc. SPIE 14149, Ground-based and Airborne Instrumentation for Astronomy XI",
@@ -313,7 +400,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2026.0,
+   "Year *": 2026,
    "Title *": "Single point diamond turning capability for the next generation astronomical instruments in Thailand",
    "Authors *": "Intaros, T.; Chanchaiworawit, K.; Ruenarrom, P.; Tanun, S.; Tinyanont, S.; et al.",
    "Journal / venue *": "Proc. SPIE 14154, Advances in Optical and Mechanical Technologies for Telescopes and Instrumentation VII",
@@ -330,7 +417,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2026.0,
+   "Year *": 2026,
    "Title *": "Development of upgraded mechanical components for the low-resolution spectrograph (LRS) and the compact low-resolution spectrograph (CoLoRS)",
    "Authors *": "Tharawan, K.; Chanchaiworawit, K.; Paenoi, J.; Tanun, S.; Kuha, T.; et al.",
    "Journal / venue *": "Proc. SPIE 14154, Advances in Optical and Mechanical Technologies for Telescopes and Instrumentation VII",
@@ -347,15 +434,15 @@
    "Notes": ""
   },
   {
-   "Year *": 2026.0,
+   "Year *": 2026,
    "Title *": "Comparative SPDT machinability and surface quality of cast aluminum and additively manufactured aluminum for lightweight components in space missions",
    "Authors *": "Ruenarrom, P.; Atkins, C.; Chanchaiworawit, K.; Intaros, T.; Chahid, Y.; et al.",
    "Journal / venue *": "Proc. SPIE 14145, Space Telescopes and Instrumentation 2026: Optical, Infrared, and Millimeter Wave",
    "Volume, page / article no.": "14145, 141452R",
    "DOI": "",
    "arXiv ID": "",
-   "ADS link": "",
-   "PDF link": "",
+   "ADS link": "https://www.spiedigitallibrary.org/conference-proceedings-of-spie/14145/141452R/Comparative-SPDT-machinability-and-surface-quality-of-cast-aluminum-and/10.1117/12.3104367.full",
+   "PDF link": "https://drive.google.com/file/d/1mtfi8ng9W2JlkpYUTWXuwcRT7AoEyj3x/view?usp=drive_link",
    "Type *": "Conference proceedings",
    "Group *": "SEAL Lab",
    "Related project": "SPDT",
@@ -364,7 +451,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2026.0,
+   "Year *": 2026,
    "Title *": "A unified software architecture for real-time autoguiding and robotization of low-resolution spectrographs at TRT and TNT",
    "Authors *": "Chomchuen, T.; Chanchaiworawit, K.; Prasit, P.; Tharawan, K.; Thomrungpiyathan, T.; et al.",
    "Journal / venue *": "Proc. SPIE 14155, Software and Cyberinfrastructure for Astronomy IX",
@@ -381,7 +468,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2025.0,
+   "Year *": 2025,
    "Title *": "CoLoRS as the new spectroscopic capability for small robotic telescopes: on-sky performance and image quality",
    "Authors *": "Chanchaiworawit, K.; Thomrungpiyathan, T.; Boonsang, T.; Tinyanont, S.; Chomchuen, T.; et al. (13 authors)",
    "Journal / venue *": "Proc. SPIE 13624, Astronomical Optics: Design, Manufacture, and Test of Space and Ground Systems V",
@@ -398,7 +485,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2025.0,
+   "Year *": 2025,
    "Title *": "CoLoRS as the new spectroscopic capability for small robotic telescopes: optomechanical design",
    "Authors *": "Thomrungpiyathan, T.; Chanchaiworawit, K.; Boonsang, T.; Tinyanont, S.; Paenoi, J.; et al.",
    "Journal / venue *": "Proc. SPIE 13599, Optomechanical Engineering 2025",
@@ -415,7 +502,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2022.0,
+   "Year *": 2022,
    "Title *": "Lightweight, aluminum, mirror design optimization for conventional and additive manufacturing processes",
    "Authors *": "Paenoi, J.; Bourgenot, C.; Atkins, C.; Snell, R.; Todd, I.; …; Chanchaiworawit, K.; et al. (18 authors)",
    "Journal / venue *": "Proc. SPIE 12188, Advances in Optical and Mechanical Technologies for Telescopes and Instrumentation V",
@@ -432,7 +519,7 @@
    "Notes": ""
   },
   {
-   "Year *": 2026.0,
+   "Year *": 2026,
    "Title *": "Photometric reverberation mapping of a z = 0.535 AGN with ULTRASPEC on the Thai National Telescope",
    "Authors *": "Chanchaiworawit, K.; et al.",
    "Journal / venue *": "ApJ (in preparation)",
@@ -449,7 +536,7 @@
    "Notes": "Manuscript in preparation."
   },
   {
-   "Year *": 2026.0,
+   "Year *": 2026,
    "Title *": "Enhanced Star Formation at Cosmic Dawn as the Influence of Large-Scale Structure Formation",
    "Authors *": "Chanchaiworawit, K.; et al.",
    "Journal / venue *": "in preparation",
@@ -482,8 +569,8 @@
    "Collaborators / partners": "",
    "Funding": "",
    "Link": "",
-   "Image link": "",
-   "Order on page": 5.0,
+   "Image link": "colors_night.jpg (hero) + colors_night2, colors_design — SEA OtTeRS / NARIT (SPIE 2026 deck)",
+   "Order on page": 5,
    "Show on website? *": "Yes"
   },
   {
@@ -501,8 +588,8 @@
    "Collaborators / partners": "Durham University (CfAI); UKATC; RAL Space",
    "Funding": "NARIT program ST68/ST69/ST70; PMU-B FY2569 N46 Research Institutions Empowerment Program",
    "Link": "",
-   "Image link": "",
-   "Order on page": 1.0,
+   "Image link": "spdt_action.jpg (hero) + spdt_action, dynafiz, coating, mirrors, substrates, cleanroom — SEAL Lab / NARIT (SPDT poster, ST70 deck)",
+   "Order on page": 1,
    "Show on website? *": "Yes"
   },
   {
@@ -520,8 +607,8 @@
    "Collaborators / partners": "ARRAKIHS consortium (ESA)",
    "Funding": "",
    "Link": "https://www.arrakihs-mission.eu/",
-   "Image link": "",
-   "Order on page": 2.0,
+   "Image link": "arrakihs.jpg (hero: simulated galaxy halo, A. Camazón / ARRAKIHS consortium, CC BY 4.0) + arrakihs_bino (Satlantis / ARRAKIHS consortium)",
+   "Order on page": 2,
    "Show on website? *": "Yes"
   },
   {
@@ -539,8 +626,8 @@
    "Collaborators / partners": "",
    "Funding": "",
    "Link": "",
-   "Image link": "",
-   "Order on page": 3.0,
+   "Image link": "ultraspec.jpg (hero: ULTRASPEC on the TNT — NARIT website)",
+   "Order on page": 3,
    "Show on website? *": "Yes"
   },
   {
@@ -558,8 +645,8 @@
    "Collaborators / partners": "",
    "Funding": "",
    "Link": "",
-   "Image link": "",
-   "Order on page": 4.0,
+   "Image link": "lrs_tnt.jpg (hero) + lrs_box, lrs_open — SEA OtTeRS / NARIT",
+   "Order on page": 4,
    "Show on website? *": "Yes"
   },
   {
@@ -577,8 +664,8 @@
    "Collaborators / partners": "",
    "Funding": "",
    "Link": "",
-   "Image link": "",
-   "Order on page": 6.0,
+   "Image link": "mlhro_pred.jpg (hero: RF SFR prediction vs actual) + mlhro_filters, mlhro_frame — G. Cherdchoochavalit, ISAC 2026 deck slide 4",
+   "Order on page": 6,
    "Show on website? *": "Yes"
   },
   {
@@ -596,8 +683,8 @@
    "Collaborators / partners": "",
    "Funding": "",
    "Link": "",
-   "Image link": "",
-   "Order on page": 7.0,
+   "Image link": "megara_shoc571.png (hero: Euclid VIS/Y/J image of SHOC 571) + megara_kin (Fig. 4), megara_lsig (Fig. 17) — Camazón-Pinilla, Guzmán & Chanchaiworawit, A&A submitted 2026",
+   "Order on page": 7,
    "Show on website? *": "Yes"
   },
   {
@@ -615,8 +702,8 @@
    "Collaborators / partners": "",
    "Funding": "",
    "Link": "",
-   "Image link": "",
-   "Order on page": 8.0,
+   "Image link": "jwst_map.jpg (hero: GOODS-N/S density-contrast maps) + jwst_sfms, jwst_zsfr, jwst_journey — Chanchaiworawit et al. in prep, APRIM 2026 deck slides 7, 8, 9, 14",
+   "Order on page": 8,
    "Show on website? *": "Yes"
   },
   {
@@ -634,8 +721,8 @@
    "Collaborators / partners": "V. Sarajedini (Florida Atlantic University)",
    "Funding": "",
    "Link": "",
-   "Image link": "",
-   "Order on page": 9.0,
+   "Image link": "sdss_sample.png (hero: MBH / REdd / Lbol vs z) + sdss_grid, sdss_pca (arXiv:2405.13148 figures), sdss_cutouts (SDSS) — Chanchaiworawit & Sarajedini 2024, ApJ 969, 131",
+   "Order on page": 9,
    "Show on website? *": "Yes"
   },
   {
@@ -653,8 +740,8 @@
    "Collaborators / partners": "R. Guzmán (University of Florida); J. M. Rodríguez Espinosa; E. Salvador-Solé",
    "Funding": "",
    "Link": "",
-   "Image link": "",
-   "Order on page": 10.0,
+   "Image link": "lae_maps.jpg (hero: three-slice density maps, Chanchaiworawit+2019 via APRIM 2026 slide 2) + lae_spec, lae_coadd (Calvi+2019, arXiv:1908.01827)",
+   "Order on page": 10,
    "Show on website? *": "Yes"
   }
  ],
@@ -809,17 +896,167 @@
   "Postal address": "260 Moo 4, Don Kaew, Mae Rim, Chiang Mai 50180, Thailand",
   "City, country": "Chiang Mai, Thailand",
   "Team tagline (one sentence)": "From the observed sky to the instruments that make it work.",
-  "Team intro paragraph": "Our team consists of young, multi-discipline personnels--astronomer/astrophysicist, research assistants, optomechanical engineers, mechanical engineers, and full-stack developers. We are attacking challenges in astronomical research on two fronts--novel research methods and cutting-edge instrumentation technology. ",
+  "Team intro paragraph": "Our team consists of young, multi-discipline personnels--astronomer/astrophysicist, research assistants, optomechanical engineers, mechanical engineers, and full-stack developers. We are attacking challenges in astronomical research on two fronts--novel research methods and cutting-edge instrumentation technology.",
   "SEA OtTeRS – contact email": "seaot.narit@gmail.com",
-  "SEA OtTeRS – intro paragraph": "We pool access to small- to world-class telescopes to explore how the Universe has evolved and how it has influenced interactions with its large-scale structure and galaxies. The observations are made through redshift surveys and time-domain monitoring to peer into the ever-changing nature of galaxies and active galactic nuclei. Machine Learning techniques and Artificial Intelligence are used to aid in extracting hidden parameters and information where the data are sparse or incomplete. At the same time, we are building all-in-house low-resolution spectrographs for the 2.4-m and 0.7-m telescopes with robotic capabilities to seve as the workhorse for spectroscopic follow up of transients and time-domain events in Thailand. ",
+  "SEA OtTeRS – intro paragraph": "We pool access to small- to world-class telescopes to explore how the Universe has evolved and how it has influenced interactions with its large-scale structure and galaxies. The observations are made through redshift surveys and time-domain monitoring to peer into the ever-changing nature of galaxies and active galactic nuclei. Machine Learning techniques and Artificial Intelligence are used to aid in extracting hidden parameters and information where the data are sparse or incomplete. At the same time, we are building all-in-house low-resolution spectrographs for the 2.4-m and 0.7-m telescopes with robotic capabilities to seve as the workhorse for spectroscopic follow up of transients and time-domain events in Thailand.",
   "SEAL Lab – contact email": "krittapas@narit.or.th",
-  "SEAL Lab – intro paragraph": "The team is spearheading the development of manufacturing capabilities for metallic optics for astronomical and space instruments, with the first and most complex 5-axis ultra-precision single-point diamond-turning facilities in Southeast Asia. Partnering with world-class research institutes in the UK and the US, we transfer and localize technologies in machining and manufacturing freeform optics for astronomical uses and space missions. We aim to be the regional leader in ultra-precision (nanometer-scale) metallic reflective optics for both astronomical instrumentation and industrial solutions. ",
+  "SEAL Lab – intro paragraph": "The team is spearheading the development of manufacturing capabilities for metallic optics for astronomical and space instruments, with the first and most complex 5-axis ultra-precision single-point diamond-turning facilities in Southeast Asia. Partnering with world-class research institutes in the UK and the US, we transfer and localize technologies in machining and manufacturing freeform optics for astronomical uses and space missions. We aim to be the regional leader in ultra-precision (nanometer-scale) metallic reflective optics for both astronomical instrumentation and industrial solutions.",
   "Team ADS library URL": "https://ui.adsabs.harvard.edu/public-libraries/wJ8q-RRzSAOOUo9uY1ocqA",
   "Team GitHub organisation URL": "https://github.com/SEAOT",
   "Google Scholar / ORCID group link": "",
   "Social links (X, Facebook, YouTube, ...)": "",
-  "Public website domain (once you have one)": "",
+  "Public website domain (once you have one)": "https://sealxotter.org",
   "GitHub repository URL": "https://github.com/SEAOT",
-  "Other telescopes / facilities to name": "2.4-m Thai National Telescope (TNT); 0.7-m Thai Robotic Telescope (TRT); 10.4-m Gran Telescopio Canarias (GTC)"
- }
+  "Other telescopes / facilities to name": "2.4-m Thai National Telescope (TNT); 0.7-m Thai Robotic Telescope (TRT); 10.4-m Gran Telescopio Canarias (GTC)",
+  "Joint brand name": "SEAL × OTTER",
+  "Joint brand descriptor": "Extragalactic Astronomy, Astronomical Instrumentation, & Precision Optics",
+  "Logo files": "logo-sealxotter.png (joint); logo-sea-otters.png; logo-seal-lab.png — web copies in the site repo assets/, originals as *-src.png; hi-res copies to be uploaded to the Drive Photos folder",
+  "Hosting": "GitHub Pages from SEAOT/seaot.github.io (branch main, folder docs/); custom domain sealxotter.org via Cloudflare DNS (A 185.199.108-111.153, CNAME www → seaot.github.io)",
+  "Site status": "Early release (site version 0.7, Sep 7, 2026). Live pages: Home, SEA OtTeRS, SEAL Lab, People, Projects, Publications, News. Draft pages (● in menu): Contact, Internships, Shop — see Pages sheet."
+ },
+ "pages": [
+  {
+   "Page *": "Home",
+   "Slug": "index",
+   "Status *": "Live",
+   "Nav label": "Home",
+   "Purpose (one line) *": "Brief landing page: what the team does, two groups, headline numbers, latest news and featured projects with photos.",
+   "Key content / fields": "Hero; group cards; stats; featured projects; latest news; footer",
+   "Owner": "Krittapas Chanchaiworawit",
+   "Link / form URL": "",
+   "Order in nav": "1",
+   "Show on website? *": "Yes",
+   "Notes": "Generated from Team info + Projects + News"
+  },
+  {
+   "Page *": "SEA OtTeRS",
+   "Slug": "sea-otters",
+   "Status *": "Live",
+   "Nav label": "SEA OtTeRS",
+   "Purpose (one line) *": "Group page: research themes, instruments (LRS, CoLoRS), facilities, people, publications.",
+   "Key content / fields": "Intro paragraph; research themes; projects tagged SEA OtTeRS; people tagged SEA OtTeRS/Both",
+   "Owner": "Krittapas Chanchaiworawit",
+   "Link / form URL": "",
+   "Order in nav": "2",
+   "Show on website? *": "Yes",
+   "Notes": ""
+  },
+  {
+   "Page *": "SEAL Lab",
+   "Slug": "seal-lab",
+   "Status *": "Live",
+   "Nav label": "SEAL Lab",
+   "Purpose (one line) *": "Group page: SPDT facility, capabilities table, production line, partners, people, publications.",
+   "Key content / fields": "Intro paragraph; capabilities table; projects tagged SEAL Lab; people tagged SEAL Lab/Both",
+   "Owner": "Krittapas Chanchaiworawit",
+   "Link / form URL": "",
+   "Order in nav": "3",
+   "Show on website? *": "Yes",
+   "Notes": ""
+  },
+  {
+   "Page *": "People",
+   "Slug": "people",
+   "Status *": "Live",
+   "Nav label": "People",
+   "Purpose (one line) *": "Team directory grouped by category, each card linking to a profile page with CV/résumé.",
+   "Key content / fields": "People sheet",
+   "Owner": "All members",
+   "Link / form URL": "",
+   "Order in nav": "4",
+   "Show on website? *": "Yes",
+   "Notes": "Profile pages are generated per person (Page slug column)"
+  },
+  {
+   "Page *": "Projects & Facilities",
+   "Slug": "projects",
+   "Status *": "Live",
+   "Nav label": "Projects",
+   "Purpose (one line) *": "All research projects, instruments and facilities with photos and key numbers.",
+   "Key content / fields": "Projects sheet + photo library",
+   "Owner": "Krittapas Chanchaiworawit",
+   "Link / form URL": "",
+   "Order in nav": "5",
+   "Show on website? *": "Yes",
+   "Notes": ""
+  },
+  {
+   "Page *": "Publications",
+   "Slug": "publications",
+   "Status *": "Live",
+   "Nav label": "Publications",
+   "Purpose (one line) *": "Selected papers on top; full list by year and type; link to ADS library.",
+   "Key content / fields": "Publications sheet; Team ADS library URL",
+   "Owner": "Krittapas Chanchaiworawit",
+   "Link / form URL": "",
+   "Order in nav": "6",
+   "Show on website? *": "Yes",
+   "Notes": ""
+  },
+  {
+   "Page *": "News & Events",
+   "Slug": "news",
+   "Status *": "Live",
+   "Nav label": "News",
+   "Purpose (one line) *": "Dated items: runs, first light, papers, workshops and conferences organized.",
+   "Key content / fields": "News sheet + event posters",
+   "Owner": "All members",
+   "Link / form URL": "",
+   "Order in nav": "7",
+   "Show on website? *": "Yes",
+   "Notes": ""
+  },
+  {
+   "Page *": "Contact for collaborations",
+   "Slug": "contact",
+   "Status *": "Planned",
+   "Nav label": "Contact",
+   "Purpose (one line) *": "Entry point for potential collaborators: who to contact for observing time, instrument access, SPDT/optics jobs, student projects, and visiting.",
+   "Key content / fields": "Contact block per group; collaboration types; response expectation; visiting address and map; short inquiry form",
+   "Owner": "Krittapas Chanchaiworawit",
+   "Link / form URL": "",
+   "Order in nav": "8",
+   "Show on website? *": "Yes",
+   "Notes": "Published as a draft (v5, Sep 2026) with an 'in preparation' panel. DECIDED: group contacts (seaot.narit@gmail.com / krittapas@narit.or.th), visiting address, collaboration types. PENDING: inquiry form backend (Google Form vs Formspree), response-time promise, map embed. Form is shown disabled ('Form not open yet'); visitors are told to email meanwhile."
+  },
+  {
+   "Page *": "Internship application",
+   "Slug": "internship",
+   "Status *": "Planned",
+   "Nav label": "Internships",
+   "Purpose (one line) *": "Application form for internship opportunities in SEA OtTeRS and SEAL Lab (undergraduate, graduate, engineering).",
+   "Key content / fields": "Program description; eligibility; periods and deadlines; supervisor list; application form (CV upload, transcript, statement, preferred group, dates)",
+   "Owner": "Krittapas Chanchaiworawit",
+   "Link / form URL": "",
+   "Order in nav": "9",
+   "Show on website? *": "Yes",
+   "Notes": "Published as a draft (v5) with an 'applications not open yet' panel. DECIDED: internship topics (astronomy & data; instrument software; precision engineering). PENDING: eligibility & periods, supervisor list, application form (backend + who receives), review timeline. Form shown disabled ('Applications open soon'); CV-by-email fallback to the two group addresses."
+  },
+  {
+   "Page *": "Merchandise shop",
+   "Slug": "shop",
+   "Status *": "Planned",
+   "Nav label": "Shop",
+   "Purpose (one line) *": "Team merchandise (SEA OtTeRS / SEAL Lab designs). All profit goes to a wellness and healthcare fund for associated students and non-permanent staff.",
+   "Key content / fields": "Product cards (T-shirts, stickers, mugs, posters); price; order/pre-order link; fund statement and how the fund is used; transparency note (totals raised)",
+   "Owner": "",
+   "Link / form URL": "",
+   "Order in nav": "10",
+   "Show on website? *": "Yes",
+   "Notes": "Published as a draft (v5) with a 'shop not open yet' panel; nothing is for sale and no prices are shown. DECIDED: purpose of the fund (wellness & healthcare for students and non-permanent staff). PENDING: designs (Canva), prices, ordering & payment (PromptPay QR / Shopee / Line), fund rules, running totals. Placeholder cards: SEA OtTeRS tee, SEAL Lab tee, otter sticker pack, mirror-finish mug — all 'Design in progress'."
+  },
+  {
+   "Page *": "Site-wide: early-release notice",
+   "Slug": "",
+   "Status *": "Live",
+   "Nav label": "",
+   "Purpose (one line) *": "Tells visitors which pages are checked and which are drafts, so nothing on the site reads as more finished than it is.",
+   "Key content / fields": "Notice bar under the menu (dismissable, remembers choice); ● dot on draft pages in the menu; footer line 'Site version X, content last verified <date>' with a report-a-correction link; 'Profile in preparation' panels on unfinished people pages; 'description in preparation' stubs on projects.",
+   "Owner": "Krittapas Chanchaiworawit",
+   "Link / form URL": "",
+   "Order in nav": "",
+   "Show on website? *": "Yes",
+   "Notes": "Added in v5 (Sep 5, 2026). The 'last verified' date is set on each rebuild — update the sheet, rerun gen.py, push."
+  }
+ ]
 }
