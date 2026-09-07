@@ -187,7 +187,7 @@ section{padding:56px 0;border-top:1px solid var(--rule)} section.flush{border-to
 .doors{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px} @media (max-width:760px){.doors{grid-template-columns:1fr}}
 .door{display:grid;grid-template-columns:64px 1fr;gap:16px;color:var(--ink);border:1px solid var(--rule);border-top:3px solid var(--door);border-radius:6px;padding:22px 22px 24px;background:var(--bg);transition:background .15s}
 .door:hover{background:var(--bg-2);text-decoration:none} .door.sea{--door:var(--sea)} .door.seal{--door:var(--seal)}
-.door img{width:64px;height:64px;object-fit:contain} .door .acronym{font-family:var(--display);font-size:1.6rem;font-weight:700;letter-spacing:-0.02em}
+.door img{width:110px;height:110px;object-fit:contain} .gbadge{width:132px;height:132px;object-fit:contain;display:block;margin-bottom:14px} .door .acronym{font-family:var(--display);font-size:1.6rem;font-weight:700;letter-spacing:-0.02em}
 .door .expands{color:var(--ink-2);margin-top:4px;font-size:.95rem;line-height:1.4} .door .go{display:inline-block;margin-top:12px;font-weight:600;color:var(--door)}
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--bg-2)} @media (max-width:980px){.stats{grid-template-columns:repeat(3,1fr)}} @media (max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
@@ -345,7 +345,7 @@ def group_page(mode, key):
 <div class="card"><div class="ph">{img("coating","Coating chamber")}</div><div class="body"><h3>High-vacuum coating</h3><p>Reflective coatings verified by spectrophotometry over 400–700 nm.</p></div></div></div></div></section>'''
     themes_html = "".join(f'<div class="card"><div class="body"><h3>{E(t)}</h3><p>{E(d)}</p></div></div>' for t, d in themes)
     return f'''
-<div class="pagehead"><div class="wrap"><div class="hero-grid"><div><div class="eyebrow {g}">{E(full)}</div><h1>{E(name)}</h1><p class="lede">{E(intro)}</p>
+<div class="pagehead"><div class="wrap"><div class="hero-grid"><div><img class="gbadge" src="assets/{"logo-sea-otters" if sea else "logo-seal-lab"}.png" alt="{E(name)} logo"><div class="eyebrow {g}">{E(full)}</div><h1>{E(name)}</h1><p class="lede">{E(intro)}</p>
 <div class="cta" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px"><a class="btn {g}" href="{L(mode,"contact")}">Work with {E(name)}</a><a class="btn" href="{L(mode,"publications")}">Publications</a></div></div>
 <div class="hero-photo">{img(*hero)}<div class="cap">{E(hero[1])}</div></div></div></div></div>
 <section><div class="wrap group {g}"><div class="sec-head"><h2>What we work on</h2><p>{"Redshift surveys and time-domain monitoring, with machine learning where the data are sparse." if sea else "Nanometer-scale reflective optics for both astronomical instrumentation and industrial solutions."}</p></div><div class="cards">{themes_html}</div></div></section>
