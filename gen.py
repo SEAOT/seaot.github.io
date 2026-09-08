@@ -19,7 +19,7 @@ D = json.load(open(os.path.join(ROOT, "sheet_data.json")))
 T = D["team"]
 E = html.escape
 UPDATED = datetime.date.today().strftime("%B %-d, %Y")
-VERSION = "0.9"
+VERSION = "0.10"
 
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
@@ -65,24 +65,46 @@ PROJ_IMG = {"CoLoRS": ("colors_night", "CoLoRS on the 0.7-m Thai Robotic Telesco
             "MEGARA-LCBG": ("megara_shoc571", "The compact H II galaxy SHOC 571 imaged by Euclid (VIS, Y, J), one of the 26 LCBGs observed with MEGARA"),
             "JWST-SF": ("jwst_map", "Matter-density contrast maps of the JADES GOODS-N and GOODS-S fields with protocluster cores marked"),
             "SDSS-AGN": ("sdss_sample", "Black-hole mass, Eddington ratio, and bolometric luminosity of the SDSS DR17 AGN sample versus redshift"),
-            "LAE-z6.5": ("lae_maps", "Mass-density maps of the z = 6.5 protocluster in three redshift slices")}
+            "LAE-z6.5": ("lae_maps", "Mass-density maps of the z = 6.5 protocluster in three redshift slices"),
+            "EMIR-HII": ("emir_footprint", "SHOC 571 in Euclid VIS/Y/J imaging with the MEGARA footprint and Hα contours"),
+            "AGN-MORPH": ("agnm_n_mbh", "Sérsic index of the inner and outer host components versus black-hole mass, by redshift bin"),
+            "PC-NOON": ("jwst_map", "Matter-density contrast maps of the JADES fields, the starting point for the cosmic-noon census"),
+            "IFU-SPIN": ("ifu_targets", "SDSS images of the first MEGARA targets with the IFU position angles"),
+            "DARTS": ("darts_mirror", "The diamond-turned slit-viewing mirror mounted on the DARTS bench, with its DynaFiz form map"),
+            "AM-MIRRORS": ("am_substrates", "Six cast and 3D-printed aluminum substrates before and after single-point diamond turning"),
+            "TSC-CUBESAT": ("tsc_align", "MHESI leadership viewing the 6U CubeSat telescope optics under alignment at SEAL Lab"),
+            "HARMONI": ("harmoni_eso", "Artist's impression of the HARMONI instrument model for ESO's Extremely Large Telescope")}
 # figure-type heroes are shown whole (object-fit: contain) instead of cropped
-PROJ_FIG = {"ML-HRO", "JWST-SF", "SDSS-AGN", "LAE-z6.5", "MEGARA-LCBG"}
-PROJ_GALLERY = {"CoLoRS": ["colors_night2", "colors_design"], "LRS": ["lrs_box", "lrs_open"],
-                "SPDT": ["spdt_action", "dynafiz", "coating", "mirrors", "substrates", "cleanroom"],
-                "ARRAKIHS": ["arrakihs_bino"],
+PROJ_FIG = {"ML-HRO", "JWST-SF", "SDSS-AGN", "LAE-z6.5", "MEGARA-LCBG", "EMIR-HII", "AGN-MORPH", "PC-NOON", "IFU-SPIN", "DARTS", "AM-MIRRORS"}
+PROJ_GALLERY = {"CoLoRS": ["colors_night2", "colors_design", "colors_cad"], "LRS": ["lrs_box", "lrs_open", "lrs_model", "lrs_raytrace", "lrs_cooling"],
+                "SPDT": ["spdt_action", "dynafiz", "coating", "mirrors", "substrates", "cleanroom", "seal_interior", "seal_team", "zegage"],
+                "ARRAKIHS": ["arrakihs_bino", "arrakihs_assembly", "arrakihs_narit"],
                 "ML-HRO": ["mlhro_filters", "mlhro_frame"],
                 "MEGARA-LCBG": ["megara_kin", "megara_lsig"],
                 "JWST-SF": ["jwst_sfms", "jwst_zsfr", "jwst_journey"],
                 "SDSS-AGN": ["sdss_grid", "sdss_pca", "sdss_cutouts"],
-                "LAE-z6.5": ["lae_spec", "lae_coadd"]}
+                "LAE-z6.5": ["lae_spec", "lae_coadd"],
+                "AGN-MORPH": ["agnm_model", "agnm_heat"],
+                "IFU-SPIN": ["ifu_kin", "ifu_select", "jwst_journey", "manga"],
+                "DARTS": ["darts_kmirror_lab", "darts_kmirror_cad", "darts_render"],
+                "AM-MIRRORS": ["am_lattice", "am_micro", "am_ral"],
+                "TSC-CUBESAT": ["tsc_layout", "tsc_6u_mirrors", "tsc_3u_mirror", "tsc_cubesat"],
+                "HARMONI": ["spdt_machine2"]}
 PROJ_CREDIT = {"ML-HRO": "Figures: G. Cherdchoochavalit & K. Chanchaiworawit, SEA OtTeRS (ISAC 2026).",
                "MEGARA-LCBG": "Figures: Camazón-Pinilla, Guzmán & Chanchaiworawit, A&A (submitted 2026); image: Euclid / MEGARA-GTC.",
                "JWST-SF": "Figures: Chanchaiworawit et al., in preparation (APRIM 2026); data: JWST/JADES and HST.",
                "SDSS-AGN": "Figures: Chanchaiworawit & Sarajedini 2024, ApJ 969, 131; cutouts: SDSS.",
                "LAE-z6.5": "Figures: Chanchaiworawit et al. 2019, ApJ 877, 51; Calvi et al. 2019, MNRAS 489, 3294 (GTC/OSIRIS).",
-               "ARRAKIHS": "Images: A. Camazón (IEEC) / ARRAKIHS Mission Consortium, CC BY 4.0; Satlantis / ARRAKIHS Mission Consortium.",
-               "CoLoRS": "Photos: SEA OtTeRS / NARIT.", "LRS": "Photos: SEA OtTeRS / NARIT.", "SPDT": "Photos: SEAL Lab / NARIT.",
+               "ARRAKIHS": "Images: A. Camazón (IEEC) / ARRAKIHS Mission Consortium, CC BY 4.0; Satlantis / ARRAKIHS Mission Consortium; NARIT (news, 12 Jun 2026).",
+               "EMIR-HII": "Figure: SEA OtTeRS / NARIT; imaging ESA/Euclid.",
+               "AGN-MORPH": "Figures: T. Klipbua, K. Chanchaiworawit & V. Sarajedini, APRIM 2026 talk; data: SDSS.",
+               "PC-NOON": "Figure: Chanchaiworawit et al., in preparation (APRIM 2026).",
+               "IFU-SPIN": "Figures: SEA OtTeRS / NARIT; SDSS imaging; MaNGA illustration: Dana Berry / SkyWorks Digital, David Law, and the SDSS collaboration (CC BY).",
+               "DARTS": "Photos: SEAL Lab / NARIT; K-mirror photo and drawings: NARIT.",
+               "AM-MIRRORS": "Photos and figures: SEAL Lab / NARIT with UK ATC; lattice substrate design and fabrication: UK ATC.",
+               "TSC-CUBESAT": "Photos and drawings: SEAL Lab / NARIT / Thai Space Consortium; CubeSat render: NARIT.",
+               "HARMONI": "HARMONI model: ESO (CC BY 4.0); machine photo: SEAL Lab / NARIT.",
+               "CoLoRS": "Photos: SEA OtTeRS / NARIT.", "LRS": "Photos and drawings: SEA OtTeRS / NARIT.", "SPDT": "Photos: SEAL Lab / NARIT.",
                "MACS J1149 RM": "Photo: NARIT."}
 for p in PROJECTS:
     p["short"] = str(p["Short name *"]).strip()
@@ -296,7 +318,7 @@ def news_card(n, mode):
 # ---------------------------------------------------------------- pages
 def page_index(mode):
     stats = [("2", "research groups, one team", "sea"), ("3", "instruments &amp; capabilities built: CoLoRS, LRS, SPDT line", "seal"), ("46", "publications on ADS, 10 refereed", ""),
-             ("9", "team members and students", ""), ("8", "workshops &amp; conferences organized since 2023", ""), ("1", "ESA mission — ARRAKIHS, first Thai institute", "gold")]
+             (str(len(PEOPLE)), "team members and students", ""), ("8", "workshops &amp; conferences organized since 2023", ""), ("1", "ESA mission — ARRAKIHS, first Thai institute", "gold")]
     stats_html = "".join(f'<div class="stat {c}"><div class="n">{n}</div><div class="l">{l}</div></div>' for n, l, c in stats)
     feat = [p for p in PROJECTS if p["short"] in ("CoLoRS", "SPDT", "ARRAKIHS")]
     return f'''
@@ -551,7 +573,7 @@ def build_preview():
         full = os.path.join(ROOT, path)
         im = Image.open(full); fmt = "PNG" if path.endswith(".png") else "JPEG"
         if fmt == "JPEG":
-            im = im.convert("RGB"); im.thumbnail((1000, 1000)); buf = io.BytesIO(); im.save(buf, "JPEG", quality=70, optimize=True); mime = "image/jpeg"
+            im = im.convert("RGB"); im.thumbnail((900, 900)); buf = io.BytesIO(); im.save(buf, "JPEG", quality=62, optimize=True); mime = "image/jpeg"
         else:
             im.thumbnail((400, 400)); buf = io.BytesIO(); im.save(buf, "PNG", optimize=True); mime = "image/png"
         cache[path] = f"data:{mime};base64," + base64.b64encode(buf.getvalue()).decode(); return cache[path]
