@@ -332,7 +332,7 @@ def page_index(mode):
 <div class="hero-logo"><img src="assets/logo-sealxotter.png" alt="SEAL × OTTER — an otter and a seal in spacesuits aligning a mirror with a laser, under a telescope dome and a spiral galaxy"></div>
 </div>
 <div class="doors">
-<a class="door sea" href="{L(mode,"sea-otters")}"><img src="assets/logo-sea-otters.png" alt=""><div><div class="eyebrow sea">Research group</div><div class="acronym">SEA OtTeRS</div><div class="expands">Synergy in Extragalactic Astronomy with Observation through Temporal and Redshift Spaces</div><span class="go">Galaxies, AGN, time-domain astronomy and the spectrographs that serve them →</span></div></a>
+<a class="door sea" href="{L(mode,"sea-otters")}"><img src="assets/logo-sea-otters.png" alt=""><div><div class="eyebrow sea">Research group</div><div class="acronym">SEA OtTeRS</div><div class="expands">Synergy in Extragalactic Astronomy with Observation through Temporal and Redshift Spaces</div><span class="go">Galaxies, AGN, time-domain astronomy, and the spectrographs that serve them →</span></div></a>
 <a class="door seal" href="{L(mode,"seal-lab")}"><img src="assets/logo-seal-lab.png" alt=""><div><div class="eyebrow seal">Engineering group</div><div class="acronym">SEAL Lab</div><div class="expands">SPDT Engineering, Assembly, and Laser Metrology Laboratory</div><span class="go">Ultra-precision metallic and freeform optics for astronomy and space →</span></div></a>
 </div></div></div>
 
@@ -368,8 +368,8 @@ def group_page(mode, key):
                   ("Galaxy evolution & cosmology", "Lyman-α emitters and protoclusters at the end of reionization; H II galaxies as cosmic distance indicators; low-z analogs with GTC/MEGARA; machine-learning inference of physical parameters for JWST-era galaxies; dark-matter halo science with ARRAKIHS."),
                   ("Instruments for spectroscopy", "All-in-house low-resolution spectrographs for the 2.4-m and 0.7-m telescopes, with robotic control so a transient alert can become a classified spectrum in under 30 minutes.")]
         extra = f'''<section><div class="wrap group"><div class="sec-head"><h2>Facilities we use</h2><p>{E(T["Other telescopes / facilities to name"])}. NARIT's CHALAWAN cluster runs the ARRAKIHS simulations.</p></div>
-<div class="cards"><div class="card"><div class="ph">{img("tnt","The 2.4-m Thai National Telescope")}</div><div class="body"><h3>2.4-m Thai National Telescope</h3><p>Doi Inthanon, 2,457 m. Home of ULTRASPEC, MRES and the LRS. ~120 photometric nights a year.</p></div></div>
-<div class="card"><div class="ph">{img("trt_chile","0.7-m Thai Robotic Telescope at Cerro Tololo, Chile")}</div><div class="body"><h3>Thai Robotic Telescope network</h3><p>0.7-m robotic nodes in Chile, China, the USA, Australia and Thailand — CoLoRS gives every node a spectroscopic voice.</p></div></div>
+<div class="cards"><div class="card"><div class="ph">{img("tnt","The 2.4-m Thai National Telescope")}</div><div class="body"><h3>2.4-m Thai National Telescope</h3><p>Doi Inthanon, 2,457 m. Home of ULTRASPEC, MRES, and the LRS. ~120 photometric nights a year.</p></div></div>
+<div class="card"><div class="ph">{img("trt_chile","0.7-m Thai Robotic Telescope at Cerro Tololo, Chile")}</div><div class="body"><h3>Thai Robotic Telescope network</h3><p>0.7-m robotic nodes in Chile, China, the USA, Australia, and Thailand — CoLoRS gives every node a spectroscopic voice.</p></div></div>
 <div class="card"><div class="ph">{img("trt_map","Map of NARIT telescopes")}</div><div class="body"><h3>Regional and world coverage</h3><p>Longitude coverage near 100° E fills a gap left by the large observatories, with &lt; 6 h to any right ascension across the network.</p></div></div></div></div></section>'''
     else:
         themes = [("Design → CNC → polishing → SPDT → metrology", "A complete production line for metallic and freeform optics, now at TRL 6, with the first 5-axis single-point diamond-turning facility in Southeast Asia."),
@@ -378,7 +378,7 @@ def group_page(mode, key):
         caps = "".join(f'<tr><td>{E(c["Capability / specification *"])}</td><td class="v">{E(c["Value *"])}</td><td>{E(c.get("Applies to",""))}</td><td class="muted">{E(c.get("Notes",""))}</td></tr>' for c in CAPS)
         extra = f'''<section><div class="wrap group seal"><div class="sec-head"><h2>Capabilities</h2><p>Numbers the lab commits to, measured on its own metrology bench.</p></div>
 <div class="scroll"><table class="tbl"><thead><tr><th>CAPABILITY</th><th>VALUE</th><th>APPLIES TO</th><th>NOTES</th></tr></thead><tbody>{caps}</tbody></table></div>
-<div class="cards" style="margin-top:28px"><div class="card"><div class="ph">{img("spdt_machine","Precitech Freeform L")}</div><div class="body"><h3>Freeform L, 5-axis SPDT</h3><p>Ø ≤ 650 mm, form &lt; 0.125 µm P-V, micro-milling and grinding.</p></div></div>
+<div class="cards" style="margin-top:28px"><div class="card"><div class="ph">{img("spdt_machine","Precitech Freeform L")}</div><div class="body"><h3>Freeform L, 5-axis SPDT</h3><p>Ø ≤ 650 mm, form &lt; 0.125 µm PV, micro-milling and grinding.</p></div></div>
 <div class="card"><div class="ph">{img("dynafiz","Zygo DynaFiz interferometer")}</div><div class="body"><h3>DynaFiz interferometry + ZeGage profilometry</h3><p>Form and roughness verification down to 0.15 nm Sq.</p></div></div>
 <div class="card"><div class="ph">{img("coating","Coating chamber")}</div><div class="body"><h3>High-vacuum coating</h3><p>Reflective coatings verified by spectrophotometry over 400–700 nm.</p></div></div></div></div></section>'''
     def _tcard(t):
@@ -412,7 +412,7 @@ def page_people(mode):
         if not ps: continue
         note = ' <span class="stub">Profiles in preparation — names and photos are confirmed; roles and bios are being written.</span>' if sec == "New members" else ""
         out.append(f'<section class="{"flush" if not out else ""}"><div class="wrap"><h2 style="font-size:1.35rem">{E(sec)}{note}</h2><div class="people" style="margin-top:20px">{"".join(person_card(p, mode) for p in ps)}</div></div></section>')
-    return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">People</div><h1>The team</h1><p class="lede">Astronomers, research assistants, opto-mechanical and mechanical engineers, software developers, and the people who keep the lab running. Every name opens a profile with a CV or résumé where one has been shared.</p></div></div>{"".join(out)}'''
+    return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">People</div><h1>The team</h1><p class="lede">Astronomers, research assistants, optomechanical and mechanical engineers, software developers, and the people who keep the lab running. Every name opens a profile with a CV or résumé where one has been shared.</p></div></div>{"".join(out)}'''
 
 def page_person(p, mode):
     ph = f'<img src="{("../" if mode == "dist" else "") + p["photo"]}" alt="{E(p["Full name *"])}">' if p["photo"] else ""
@@ -491,7 +491,7 @@ def page_publications(mode):
     years = sorted({p["year"] for p in PUBS}, reverse=True)
     full = "".join(f'<h2 style="font-size:1.2rem;margin-top:28px;color:var(--muted)">{y}</h2>' + "".join(pub_row(p) for p in PUBS if p["year"] == y) for y in years)
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">Publications</div><h1>Papers and proceedings</h1><p class="lede">Refereed articles, SPIE proceedings, and work in preparation. The full record lives in the team's <a href="{E(T["Team ADS library URL"])}">NASA ADS library ↗</a>.</p></div></div>
-<section class="flush"><div class="wrap"><div class="cards two" style="align-items:start"><div class="chart"><div class="eyebrow">Papers per year</div>{chart_svg()}<div class="leg"><span><i style="background:var(--sea)"></i>refereed</span><span><i style="background:var(--seal);opacity:.55"></i>proceedings and other</span><span class="muted">source: NASA ADS, Sept 2026</span></div></div>
+<section class="flush"><div class="wrap"><div class="cards two" style="align-items:start"><div class="chart"><div class="eyebrow">Papers per year</div>{chart_svg()}<div class="leg"><span><i style="background:var(--sea)"></i>refereed</span><span><i style="background:var(--seal);opacity:.55"></i>proceedings and other</span><span class="muted">source: NASA ADS, Sep 2026</span></div></div>
 <div><div class="eyebrow">Selected</div>{"".join(pub_row(p) for p in SELECTED)}</div></div></div></section>
 <section><div class="wrap"><h2>All publications</h2>{full}</div></section>'''
 
@@ -526,7 +526,7 @@ def page_internships(mode):
 <section class="flush"><div class="wrap">{wip("Applications are not open yet", "We are finalizing eligibility, periods, and how applications are reviewed. The topics below are real and current; the form is a preview and does not submit.", ["Internship topics"], ["Eligibility & periods", "Supervisor list", "Application form", "Review timeline"], f'<b>Interested now?</b> Send a short email with your CV and the topic you like to <a href="mailto:{E(T["SEA OtTeRS – contact email"])}">{E(T["SEA OtTeRS – contact email"])}</a> (astronomy, data, software) or <a href="mailto:{E(T["SEAL Lab – contact email"])}">{E(T["SEAL Lab – contact email"])}</a> (engineering). We reply to every message, and we will tell you when the formal call opens.')}
 <div class="cards" style="margin-top:24px"><div class="card"><div class="body"><span class="pill sea">SEA OtTeRS</span><h3>Astronomy &amp; data</h3><p>Galaxy evolution with JWST and GTC data, AGN light curves, machine-learning parameter extraction, ARRAKIHS mock observations on the CHALAWAN cluster.</p></div></div>
 <div class="card"><div class="body"><span class="pill sea">SEA OtTeRS</span><h3>Instrument software</h3><p>Autoguiding and robotic control for LRS and CoLoRS, QuickLook reduction pipelines, scheduler and broker tools.</p></div></div>
-<div class="card"><div class="body"><span class="pill seal">SEAL Lab</span><h3>Precision engineering</h3><p>Opto-mechanical design, FEA, SPDT machining, interferometry and profilometry, additive-manufacturing prototypes.</p></div></div></div>
+<div class="card"><div class="body"><span class="pill seal">SEAL Lab</span><h3>Precision engineering</h3><p>Optomechanical design, FEA, SPDT machining, interferometry and profilometry, additive-manufacturing prototypes.</p></div></div></div>
 <h2 style="margin-top:44px">Apply</h2>
 <form class="form off" style="margin-top:18px" onsubmit="event.preventDefault()"><fieldset disabled style="display:contents">
 <div class="row"><label>Full name<input required></label><label>University / program<input required placeholder="e.g. Chiang Mai University, BSc Physics"></label></div>
