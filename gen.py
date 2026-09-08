@@ -19,7 +19,7 @@ D = json.load(open(os.path.join(ROOT, "sheet_data.json")))
 T = D["team"]
 E = html.escape
 UPDATED = datetime.date.today().strftime("%B %-d, %Y")
-VERSION = "0.8"
+VERSION = "0.9"
 
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
@@ -90,6 +90,14 @@ for p in PROJECTS:
     p["img"], p["imgalt"] = PROJ_IMG.get(p["short"], ("tno_night", "NARIT facilities"))
     p["order"] = float(p.get("Order on page") or 99)
 PROJECTS.sort(key=lambda p: p["order"])
+THEMES = [t for t in D.get("themes", []) if str(t.get("Show on website? *", "Yes")) != "No"]
+for t in THEMES:
+    t["key"] = str(t["Short name *"]).strip(); t["slug"] = "theme-" + slug(t["key"]); t["order"] = float(t.get("Order") or 99)
+    t["projects"] = sorted([p for p in PROJECTS if str(p.get("Research theme *", "")).strip() == t["key"]], key=lambda p: float(p.get("Theme order") or 99))
+THEMES.sort(key=lambda t: t["order"])
+def themes_of(group): return [t for t in THEMES if t["Group *"] == group]
+for p in PROJECTS:
+    p["full"] = p["short"] in PROJ_IMG and bool(str(p.get("Description", "") or "").strip() or str(p.get("Key numbers", "") or "").strip())
 
 NEWS = sorted(D["news"], key=lambda n: str(n["Date *"]), reverse=True)
 NEWS_IMG = {"SEA-SPARC": "seasparc", "ESA adopts": "arrakihs", "ThaiPASS 2026": "thaipass26", "ThaiPASS 2025": "thaipass25",
@@ -232,7 +240,10 @@ a.card:hover{text-decoration:none;background:var(--bg-2)} .card .ph{aspect-ratio
 .item .d{font-family:var(--mono);font-size:.86rem;color:var(--muted);padding-top:3px} .item h3{font-size:1.08rem} .item p{color:var(--ink-2);font-size:.95rem;margin-top:6px} .item .ph{aspect-ratio:16/10;border-radius:6px;overflow:hidden;background:var(--bg-3)} .item .ph img{width:100%;height:100%;object-fit:cover}
 /* project detail */
 .pj{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:start;padding:32px 0;border-top:1px solid var(--rule)} @media (max-width:800px){.pj{grid-template-columns:1fr}}
-.pj .ph{border-radius:8px;overflow:hidden;aspect-ratio:16/10;background:var(--bg-3)} .pj .ph img{width:100%;height:100%;object-fit:cover} .pj .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px} .pj .gal img{aspect-ratio:4/3;object-fit:cover;border-radius:4px;width:100%} .pj .ph.fig{aspect-ratio:auto;background:#fff} .pj .ph.fig img{object-fit:contain;height:auto} .pj .gal a{display:block} .pj .fig+.gal img{object-fit:contain;background:#fff;border:1px solid var(--rule)} .pj .cap{font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.45}
+.pj .ph{border-radius:8px;overflow:hidden;aspect-ratio:16/10;background:var(--bg-3)} .pj .ph img{width:100%;height:100%;object-fit:cover} .pj .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px} .pj .gal img{aspect-ratio:4/3;object-fit:cover;border-radius:4px;width:100%} .pj .ph.fig{aspect-ratio:auto;background:#fff} .pj .ph.fig img{object-fit:contain;height:auto} .pj .gal a{display:block} .pj .fig+.gal img{object-fit:contain;background:#fff;border:1px solid var(--rule)} .pj .cap{font-size:.74rem;color:var(--muted);margin-top:8px;line-height:1.45} .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px} .tidx{border-left:3px solid var(--sea);padding:2px 0 2px 16px} .tidx.seal{border-color:var(--seal)} .tidx ul{list-style:none;padding:0;margin:8px 0 0} .tidx li{padding:3px 0} .tidx a{font-weight:600;text-decoration:none;color:var(--ink)} .tidx a:hover{text-decoration:underline}
+.theme{padding:34px 0 8px;border-top:1px solid var(--rule)} .theme .th{max-width:760px;margin-bottom:6px} .theme .th h2{font-size:1.7rem;margin:6px 0 8px} .theme .th .lede{font-size:1.02rem;margin-bottom:12px}
+.pjs{border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:14px 0;background:var(--bg-2)} .pjs h3{margin:10px 0 4px;font-size:1.12rem} .pjs .sum{margin:0 0 6px} .pjs .meta{font-size:.9rem;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 6px} .pjs .meta b{font-weight:600;color:var(--muted)} .pjs .stub{font-size:.86rem;color:var(--muted);font-style:italic;margin:6px 0 0}
+@media(max-width:720px){.tgrid{grid-template-columns:1fr}}
 .pj>div{min-width:0} .pj h3{font-size:1.35rem} .pj .sum{color:var(--ink-2);margin-top:8px} .pj .desc p{color:var(--ink-2);font-size:.95rem;margin-top:10px} .pj .facts{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;font-size:.9rem;margin-top:14px} .pj .facts dt{color:var(--muted)} .pj .facts dd{margin:0}
 /* forms & planned */
 .planned{border:1px dashed var(--gold);background:var(--gold-soft);border-radius:6px;padding:12px 16px;font-size:.92rem;color:var(--ink-2);display:flex;gap:12px;align-items:flex-start}
@@ -347,7 +358,10 @@ def group_page(mode, key):
 <div class="cards" style="margin-top:28px"><div class="card"><div class="ph">{img("spdt_machine","Precitech Freeform L")}</div><div class="body"><h3>Freeform L, 5-axis SPDT</h3><p>Ø ≤ 650 mm, form &lt; 0.125 µm P-V, micro-milling and grinding.</p></div></div>
 <div class="card"><div class="ph">{img("dynafiz","Zygo DynaFiz interferometer")}</div><div class="body"><h3>DynaFiz interferometry + ZeGage profilometry</h3><p>Form and roughness verification down to 0.15 nm Sq.</p></div></div>
 <div class="card"><div class="ph">{img("coating","Coating chamber")}</div><div class="body"><h3>High-vacuum coating</h3><p>Reflective coatings verified by spectrophotometry over 400–700 nm.</p></div></div></div></div></section>'''
-    themes_html = "".join(f'<div class="card"><div class="body"><h3>{E(t)}</h3><p>{E(d)}</p></div></div>' for t, d in themes)
+    def _tcard(t):
+        chips = "".join(f'<span class="pill {g}">{E(p["short"])}</span>' for p in t["projects"])
+        return f'<a class="card" href="{L(mode, "projects", t["slug"])}"><div class="body"><h3>{E(t["Theme *"])}</h3><p>{E(str(t.get("One-line summary *", "")))}</p><div class="chips" style="margin-top:10px">{chips}</div></div></a>'
+    themes_html = "".join(_tcard(t) for t in themes_of(name)) or "".join(f'<div class="card"><div class="body"><h3>{E(t)}</h3><p>{E(d)}</p></div></div>' for t, d in themes)
     return f'''
 <div class="pagehead"><div class="wrap"><div class="hero-grid"><div><img class="gbadge" src="assets/{"logo-sea-otters" if sea else "logo-seal-lab"}.png" alt="{E(name)} logo"><div class="eyebrow {g}">{E(full)}</div><h1>{E(name)}</h1><p class="lede">{E(intro)}</p>
 <div class="cta" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px"><a class="btn {g}" href="{L(mode,"contact")}">Work with {E(name)}</a><a class="btn" href="{L(mode,"publications")}">Publications</a></div></div>
@@ -403,19 +417,38 @@ def page_person(p, mode):
 <dl class="kv">{f'<dt>Affiliation</dt><dd>{E(str(p.get("Affiliation","")))}</dd>' if p.get("Affiliation") else ""}{f'<dt>Role in team</dt><dd>{E(str(p.get("Role in the team","")))}</dd>' if p.get("Role in the team") else ""}{f'<dt>Since</dt><dd>{int(float(p["Start year"]))}</dd>' if p.get("Start year") else ""}</dl></div>
 <div class="main">{body}{f'<div class="chips" style="margin-top:18px">{chips}</div>' if chips else ""}{projs_html}{pubs_html}</div></div></div></section>'''
 
+def project_block(p, mode):
+    g = "sea" if p["Group *"] == "SEA OtTeRS" else "seal"
+    status = str(p.get("Status *", "") or "").strip()
+    if not p["full"]:
+        team = str(p.get("Team members", "") or "").strip(); partners = str(p.get("Collaborators / partners", "") or "").strip(); fac = str(p.get("Facility / telescope", "") or "").strip()
+        meta = "".join(f'<span><b>{k}</b> {E(v)}</span>' for k, v in [("Facility", fac), ("Team", team), ("Partners", partners)] if v)
+        return f'''<div class="pjs" id="{p["slug"]}"><div class="chips"><span class="pill {g}">{E(p["short"])}</span><span class="pill">{E(p["Type *"])}</span>{f'<span class="pill">{E(status)}</span>' if status else '<span class="pill todo">○ Status to be confirmed</span>'}</div>
+<h3>{E(p["Project name *"])}</h3><p class="sum">{E(p["One-line summary *"])}</p>{f'<p class="meta">{meta}</p>' if meta else ""}<p class="stub">Details in preparation — this entry has the project title and scope only; results, numbers, and figures will be added once the team has reviewed them.</p></div>'''
+    gal = "".join(f'<a href="assets/photos/web/{k}.jpg" target="_blank" rel="noopener" title="Open full size"><img src="assets/photos/web/{k}.jpg" alt="" loading="lazy"></a>' for k in PROJ_GALLERY.get(p["short"], []))
+    facts = "".join(f"<dt>{E(k)}</dt><dd>{E(str(p[c]))}</dd>" for k, c in [("Facility", "Facility / telescope"), ("Key numbers", "Key numbers"), ("Timeline", "Timeline"), ("Team", "Team members"), ("Partners", "Collaborators / partners"), ("Funding", "Funding")] if str(p.get(c, "") or "").strip())
+    link = f'<p style="margin-top:12px"><a href="{E(str(p["Link"]))}">Project link ↗</a></p>' if str(p.get("Link", "") or "").strip() else ""
+    cred = PROJ_CREDIT.get(p["short"], "")
+    return f'''<div class="pj" id="{p["slug"]}"><div><div class="ph{" fig" if p["short"] in PROJ_FIG else ""}">{img(p["img"], p["imgalt"])}</div>{f'<div class="gal">{gal}</div>' if gal else ""}{f'<p class="cap">{E(p["imgalt"])}. {E(cred)}</p>' if cred else ""}</div>
+<div><div class="chips"><span class="pill {g}">{E(p["Group *"])}</span><span class="pill">{E(p["Type *"])}</span><span class="pill">{E(status)}</span></div><h3 style="margin-top:12px">{E(p["Project name *"])} <span class="muted" style="font-weight:400">· {E(p["short"])}</span></h3><p class="sum">{E(p["One-line summary *"])}</p><div class="desc">{para(p.get("Description", "") or "") or '<p class="stub" style="margin-top:10px">Full description in preparation; the summary and key numbers above are current.</p>'}</div><dl class="facts">{facts}</dl>{link}</div></div>'''
+
+def theme_section(t, mode):
+    g = "sea" if t["Group *"] == "SEA OtTeRS" else "seal"
+    chips = "".join(f'<a class="pill {g}" href="{L(mode, "projects", p["slug"])}">{E(p["short"])}</a>' for p in t["projects"])
+    n_full = sum(1 for p in t["projects"] if p["full"]); n_stub = len(t["projects"]) - n_full
+    return f'''<div class="theme" id="{t["slug"]}"><div class="th"><div class="eyebrow {g}">{E(t["Group *"])} · research theme</div><h2>{E(t["Theme *"])}</h2><p class="lede">{E(str(t.get("One-line summary *", "")))}</p><div class="chips">{chips}</div></div>
+{"".join(project_block(p, mode) for p in t["projects"])}</div>'''
+
 def page_projects(mode):
-    blocks = []
-    for p in PROJECTS:
-        g = "sea" if p["Group *"] == "SEA OtTeRS" else "seal"
-        gal = "".join(f'<a href="assets/photos/web/{k}.jpg" target="_blank" rel="noopener" title="Open full size"><img src="assets/photos/web/{k}.jpg" alt="" loading="lazy"></a>' for k in PROJ_GALLERY.get(p["short"], []))
-        facts = "".join(f"<dt>{E(k)}</dt><dd>{E(str(p[c]))}</dd>" for k, c in [("Facility", "Facility / telescope"), ("Key numbers", "Key numbers"), ("Timeline", "Timeline"), ("Team", "Team members"), ("Partners", "Collaborators / partners"), ("Funding", "Funding")] if str(p.get(c, "") or "").strip())
-        link = f'<p style="margin-top:12px"><a href="{E(str(p["Link"]))}">Project link ↗</a></p>' if str(p.get("Link", "") or "").strip() else ""
-        cred = PROJ_CREDIT.get(p["short"], "")
-        blocks.append(f'''<div class="pj" id="{p["slug"]}"><div><div class="ph{" fig" if p["short"] in PROJ_FIG else ""}">{img(p["img"], p["imgalt"])}</div>{f'<div class="gal">{gal}</div>' if gal else ""}{f'<p class="cap">{E(p["imgalt"])}. {E(cred)}</p>' if cred else ""}</div>
-<div><div class="chips"><span class="pill {g}">{E(p["Group *"])}</span><span class="pill">{E(p["Type *"])}</span><span class="pill">{E(p["Status *"])}</span></div><h3 style="margin-top:12px">{E(p["Project name *"])} <span class="muted" style="font-weight:400">· {E(p["short"])}</span></h3><p class="sum">{E(p["One-line summary *"])}</p><div class="desc">{para(p.get("Description", "") or "") or '<p class="stub" style="margin-top:10px">Full description in preparation; the summary and key numbers above are current.</p>'}</div><dl class="facts">{facts}</dl>{link}</div></div>''')
-    return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">Projects &amp; facilities</div><h1>What we build and run</h1><p class="lede">Instruments, facilities, and research projects across both groups, ordered as the team ranks them. Numbers in monospace are measured or designed values, not aspirations.</p>
-<div class="chips" style="margin-top:18px">{"".join(f'<a class="pill {"sea" if p["Group *"]=="SEA OtTeRS" else "seal"}" href="{L(mode,"projects",p["slug"])}">{E(p["short"])}</a>' for p in PROJECTS)}</div></div></div>
-<section class="flush"><div class="wrap">{"".join(blocks)}</div></section>'''
+    idx = []
+    for grp, g in (("SEA OtTeRS", "sea"), ("SEAL Lab", "seal")):
+        items = "".join(f'<li><a href="{L(mode, "projects", t["slug"])}">{E(t["Theme *"])}</a> <span class="muted">· {len(t["projects"])}</span></li>' for t in themes_of(grp))
+        idx.append(f'<div class="tidx {g}"><div class="eyebrow {g}">{E(grp)}</div><ul>{items}</ul></div>')
+    unthemed = [p for p in PROJECTS if not str(p.get("Research theme *", "")).strip()]
+    extra = f'<div class="theme"><div class="th"><h2>Other projects</h2></div>{"".join(project_block(p, mode) for p in unthemed)}</div>' if unthemed else ""
+    return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">Projects &amp; facilities</div><h1>What we work on, by question</h1><p class="lede">Our work is organized by research theme — the question each line of work answers — rather than by paper. Each theme lists its projects and instruments, finished and ongoing alike; the status chip on every entry tells you which. Numbers in monospace are measured or designed values, not aspirations.</p>
+<div class="tgrid">{"".join(idx)}</div></div></div>
+<section class="flush"><div class="wrap">{"".join(theme_section(t, mode) for t in THEMES)}{extra}</div></section>'''
 
 def chart_svg():
     W, H, pad = 640, 200, 30; n = len(YEARS); bw = (W - 2 * pad) / n; mx = max(t for _, t, _ in YEARS)

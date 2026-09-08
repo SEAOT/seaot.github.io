@@ -35,6 +35,7 @@ D = {"people": rows("People", "Full name *"),
      "projects": rows("Projects", "Project name *"),
      "caps": rows("SEAL Lab capabilities", "Capability / specification *"),
      "news": rows("News", "Date *"),
+     "themes": rows("Themes", "Theme *") if "Themes" in wb.sheetnames else [],
      "team": team}
 if "Pages" in wb.sheetnames:
     ws = wb["Pages"]; hdr = [cell(c) for c in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
