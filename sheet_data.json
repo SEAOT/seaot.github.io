@@ -597,7 +597,7 @@
    "Team members": "Krittapas Chanchaiworawit; Kantapong Tharawan (mechanical engineer); That Chomchuen (software engineer); Plan Nitiwarangkul (exposure-time calculator)",
    "Collaborators / partners": "",
    "Funding": "",
-   "Link": "",
+   "Link": "NARIT TNT/TRT proposal call (Indico) | https://indico.narit.or.th/category/19/",
    "Image link": "colors_night.jpg (hero) + colors_night2, colors_design, colors_cad — SEA OtTeRS / NARIT (SPIE 2026 deck, commissioning poster)",
    "Order on page": 5,
    "Show on website? *": "Yes",
@@ -681,7 +681,7 @@
    "Team members": "Krittapas Chanchaiworawit; Kantapong Tharawan (mechanical engineer); That Chomchuen (software engineer)",
    "Collaborators / partners": "",
    "Funding": "",
-   "Link": "",
+   "Link": "MONET Calc for LRS (Streamlit app) | https://monet-calc.streamlit.app ; NARIT TNT proposal call (Indico) | https://indico.narit.or.th/category/19/",
    "Image link": "lrs_tnt.jpg (hero) + lrs_box, lrs_open, lrs_model, lrs_raytrace, lrs_cooling — SEA OtTeRS / NARIT",
    "Order on page": 4,
    "Show on website? *": "Yes",
@@ -1184,6 +1184,8 @@
    "Notes": ""
   }
  ],
+ "updates": [],
+ "aliases": [],
  "team": {
   "Institute / host organisation": "National Astronomical Research Institute of Thailand (Public Organization)",
   "Department / division": "Research Groups",

@@ -4,7 +4,8 @@
 Usage:  python3 export_sheet.py check.xlsx
 Sheets: People, Publications, Projects, SEAL Lab capabilities, News (header row 1, help row 2,
         data from row 3; blank 'Full name/Title/Project name/Capability/Date' rows are skipped)
-        Team info (Field/Value pairs), Pages (planned pages).
+        Team info (Field/Value pairs), Pages (planned pages), Updates (member research updates),
+        Email aliases (requests for @sealxotter.org addresses; not published).
 """
 import sys, json, datetime, openpyxl
 
@@ -36,6 +37,8 @@ D = {"people": rows("People", "Full name *"),
      "caps": rows("SEAL Lab capabilities", "Capability / specification *"),
      "news": rows("News", "Date *"),
      "themes": rows("Themes", "Theme *") if "Themes" in wb.sheetnames else [],
+     "updates": rows("Updates", "Date *") if "Updates" in wb.sheetnames else [],
+     "aliases": rows("Email aliases", "Full name *") if "Email aliases" in wb.sheetnames else [],
      "team": team}
 if "Pages" in wb.sheetnames:
     ws = wb["Pages"]; hdr = [cell(c) for c in next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]

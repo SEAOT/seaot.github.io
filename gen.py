@@ -12,7 +12,7 @@ Outputs
   preview.html         single-file preview with all pages + hash routing,
                        images inlined (for the Claude artifact)
 """
-import json, os, re, html, base64, shutil, datetime
+import json, os, re, html, base64, shutil, datetime, hashlib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 D = json.load(open(os.path.join(ROOT, "sheet_data.json")))
@@ -151,7 +151,31 @@ PAGES = [  # (slug, nav label, title, status)
     ("contact", "Contact", "Contact for collaborations", "Planned"),
     ("internships", "Internships", "Internship application", "Planned"),
     ("shop", "Shop", "Merchandise shop", "Planned"),
+    ("members", "Members", "Members portal", "Live"),
 ]
+SHEET_ID = "1Is-FZvwCQP1BO49uW6s0GsOB9uuBUuWcUascRUrWav8"
+SHEET_GID = {"people": 2032992512, "projects": 712824048, "news": 1805564453, "updates": 1990776245, "aliases": 904623412, "team": 725570310}
+DRIVE = {"root": "1wMrWaNwlKYRyx-bhVZ8WEmn3Hky84o8W", "profile_photos": "1RQ5yvrwYZG9cehvUw9xo_3YWAudeJiVZ", "cvs": "1QWT0Svg069hU1BTJOuklrAWkfd8KUbid", "photos": "17fI-B8K2AGhBFmPQLf5Wizv7fG3oCPu7", "papers": "1FbRFG49wDEhM4hzPNqXd97h9F9Tcx60v"}
+PORTAL_PASS = os.environ.get("SXO_PORTAL_PASS", "SEALxOTTER-2026")   # team passphrase that unlocks the edit links on the Members page; change it here (or set SXO_PORTAL_PASS) and rebuild
+
+UPDATES = sorted([u for u in D.get("updates", []) if str(u.get("Show on website? *", "Yes")) != "No" and str(u.get("Title *", "") or "").strip()], key=lambda u: str(u["Date *"]), reverse=True)
+for u in UPDATES:
+    u["date"] = str(u["Date *"])[:10]; u["proj"] = str(u.get("Project (short name)", "") or "").strip()
+
+def links_html(cell, default="Project link"):
+    """'Label | url ; Label | url' (or one url per line) -> inline links. A bare url gets the default label."""
+    out = []
+    for part in re.split(r"[\n;]+", str(cell or "")):
+        part = part.strip()
+        if not part: continue
+        label, url = (x.strip() for x in part.split("|", 1)) if "|" in part else (default, part)
+        if url.startswith("http"): out.append(f'<a href="{E(url)}" rel="noopener">{E(label)} ↗</a>')
+    return f'<p class="links">{" · ".join(out)}</p>' if out else ""
+
+def updates_html(items, mode, limit=3):
+    if not items: return ""
+    rows = "".join(f'<li><span class="mono muted">{E(u["date"])}</span> <b>{E(str(u["Title *"]))}</b>{(" — " + E(str(u.get("Member *", "")))) if str(u.get("Member *", "") or "").strip() else ""}<p>{E(str(u.get("Update *", "")))}</p>{links_html(u.get("Link", ""), "Link")}</li>' for u in items[:limit])
+    return f'<div class="upd"><div class="eyebrow">Latest updates</div><ul>{rows}</ul></div>'
 
 # ---------------------------------------------------------------- CSS
 CSS = r"""
@@ -159,10 +183,10 @@ CSS = r"""
   --bg:#FFFFFF; --bg-2:#F4F7F8; --bg-3:#EAEFF1; --ink:#111315; --ink-2:#3D4349; --muted:#6E767D; --rule:#E3E7EA;
   --sea:#1A9C86; --sea-soft:#E4F5F1; --seal:#2F86C9; --seal-soft:#E5F0FA; --gold:#C98A1F; --gold-soft:#FBF1DE; --link:#1A9C86;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace; --display:"Manrope","Helvetica Neue",Arial,sans-serif; --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
-  --max:1140px; --measure:64ch;
+  --max:1140px; --measure:64ch; --nav:#D8F4EB;
 }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0F1214; --bg-2:#171B1E; --bg-3:#1F2529; --ink:#F2F4F5; --ink-2:#C5CACE; --muted:#868E95; --rule:#272D32; --sea:#4FD1B8; --sea-soft:#12312B; --seal:#6FB4EA; --seal-soft:#14283A; --gold:#E2AE55; --gold-soft:#3A2B10; --link:#4FD1B8; } }
-:root[data-theme="dark"]{ --bg:#0F1214; --bg-2:#171B1E; --bg-3:#1F2529; --ink:#F2F4F5; --ink-2:#C5CACE; --muted:#868E95; --rule:#272D32; --sea:#4FD1B8; --sea-soft:#12312B; --seal:#6FB4EA; --seal-soft:#14283A; --gold:#E2AE55; --gold-soft:#3A2B10; --link:#4FD1B8; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0F1214; --bg-2:#171B1E; --bg-3:#1F2529; --ink:#F2F4F5; --ink-2:#C5CACE; --muted:#868E95; --rule:#272D32; --sea:#4FD1B8; --sea-soft:#12312B; --seal:#6FB4EA; --seal-soft:#14283A; --gold:#E2AE55; --gold-soft:#3A2B10; --link:#4FD1B8; --nav:#10342C; } }
+:root[data-theme="dark"]{ --bg:#0F1214; --bg-2:#171B1E; --bg-3:#1F2529; --ink:#F2F4F5; --ink-2:#C5CACE; --muted:#868E95; --rule:#272D32; --sea:#4FD1B8; --sea-soft:#12312B; --seal:#6FB4EA; --seal-soft:#14283A; --gold:#E2AE55; --gold-soft:#3A2B10; --link:#4FD1B8; --nav:#10342C; }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth} @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -183,15 +207,25 @@ p{margin:0} img{max-width:100%;display:block}
 .btn:hover{background:var(--bg-2);text-decoration:none} .btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)} .btn.primary:hover{opacity:.9}
 .btn.sea{background:var(--sea);border-color:var(--sea);color:#fff} .btn.seal{background:var(--seal);border-color:var(--seal);color:#fff}
 /* nav */
-.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--nav) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid color-mix(in srgb,var(--sea) 30%,var(--rule))}
+.tb{font:inherit;font-size:1rem;line-height:1;background:transparent;border:1px solid color-mix(in srgb,var(--sea) 40%,var(--rule));border-radius:999px;width:34px;height:34px;color:var(--ink-2);cursor:pointer;flex:none;display:grid;place-items:center} .tb:hover{background:var(--bg)} .tb .sun{display:none}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .tb .moon{display:none} :root:not([data-theme="light"]) .tb .sun{display:inline} }
+:root[data-theme="dark"] .tb .moon{display:none} :root[data-theme="dark"] .tb .sun{display:inline}
+.links{margin-top:12px;font-size:.92rem} .links a{white-space:nowrap}
+.upd{margin-top:14px;border-top:1px solid var(--rule);padding-top:10px} .upd ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px} .upd li{font-size:.9rem} .upd li p{margin:2px 0 0;color:var(--ink-2);font-size:.88rem} .upd .links{margin-top:2px;font-size:.85rem}
+.portal{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px} @media (max-width:760px){.portal{grid-template-columns:1fr}} .portal .card .body{gap:10px} .portal ol,.portal ul{margin:6px 0 0;padding-left:18px;font-size:.92rem;color:var(--ink-2)} .portal li{margin:3px 0}
+.lock{border:1px solid var(--rule);border-radius:8px;padding:18px 20px;background:var(--bg-2);margin-top:24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap} .lock input{font:inherit;padding:9px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--ink);min-width:220px} .lock .err{color:var(--gold);font-size:.9rem}
+.gate[hidden]{display:none} .links-locked .btn.primary{opacity:.45;pointer-events:none}
+.steps{counter-reset:s;display:grid;gap:12px;margin-top:14px} .steps>div{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start} .steps>div::before{counter-increment:s;content:counter(s);font-family:var(--mono);font-size:.8rem;color:var(--sea);border:1px solid var(--rule);border-radius:50%;width:28px;height:28px;display:grid;place-items:center} .steps p{font-size:.92rem;color:var(--ink-2)}
+details.admin{margin-top:22px;border:1px dashed var(--rule);border-radius:8px;padding:12px 18px} details.admin summary{cursor:pointer;font-weight:600}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:60px}
 .brand{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-0.01em;color:var(--ink);display:flex;align-items:center;gap:10px;white-space:nowrap}
 .brand img.mark{width:34px;height:34px;object-fit:contain} .brand .x{color:var(--seal);font-weight:800;margin:0 2px} .brand:hover{text-decoration:none}
 .nav ul{list-style:none;margin:0;padding:0;display:flex;gap:18px;font-size:.92rem;font-weight:500;flex-wrap:wrap;justify-content:flex-end}
 .nav ul a{color:var(--ink-2);padding:4px 0;border-bottom:2px solid transparent} .nav ul a:hover{color:var(--ink);text-decoration:none}
 .nav ul a.active{color:var(--ink);border-bottom-color:var(--sea)} .nav ul a.soon::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-left:5px;vertical-align:middle}
-.nav .menu{display:none;border:1px solid var(--rule);background:var(--bg);border-radius:6px;padding:6px 10px;font:inherit;color:var(--ink)}
-@media (max-width:900px){.nav ul{display:none;position:absolute;left:0;right:0;top:60px;background:var(--bg);border-bottom:1px solid var(--rule);padding:12px 24px 16px;flex-direction:column;gap:10px} .nav ul.open{display:flex} .nav .menu{display:block}}
+.nav .right{display:flex;align-items:center;gap:14px} .nav .menu{display:none;border:1px solid var(--rule);background:var(--bg);border-radius:6px;padding:6px 10px;font:inherit;color:var(--ink)}
+@media (max-width:900px){.nav ul{display:none;position:absolute;left:0;right:0;top:60px;background:var(--nav);border-bottom:1px solid var(--rule);padding:12px 24px 16px;flex-direction:column;gap:10px} .nav ul.open{display:flex} .nav .menu{display:block}}
 /* status notices */
 .notice{background:var(--gold-soft);border-bottom:1px solid color-mix(in srgb,var(--gold) 35%,transparent);font-size:.86rem;color:var(--ink-2)}
 .notice .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px}
@@ -285,10 +319,9 @@ def nav(active, mode):
     items = "".join(f'<li><a href="{href(s)}" class="{"active " if s == active else ""}{"soon" if st == "Planned" else ""}" data-nav="{s}"{" title=%sIn preparation — draft page%s" % (chr(34), chr(34)) if st == "Planned" else ""}>{E(lbl)}</a></li>' for s, lbl, _, st in PAGES)
     return f'''<header class="nav"><div class="wrap">
 <a class="brand" href="{href("index")}"><img src="assets/logo-sealxotter-320.png" alt="" class="mark"><span>SEAL <span class="x">×</span> OTTER</span></a>
-<button class="menu" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">Menu</button>
-<ul>{items}</ul></div></header>
+<div class="right"><ul>{items}</ul><button class="tb" type="button" aria-label="Switch between light and dark mode" title="Light / dark mode" onclick="(function(){{var r=document.documentElement;var cur=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');var nx=cur==='dark'?'light':'dark';r.setAttribute('data-theme',nx);try{{localStorage.setItem('sxo-theme',nx)}}catch(e){{}}}})()"><span class="moon">☾</span><span class="sun">☀</span></button><button class="menu" aria-label="Menu" onclick="this.parentElement.querySelector('ul').classList.toggle('open')">Menu</button></div></div></header>
 <div class="notice" id="notice"><div class="wrap"><span><b>Early release.</b> This site is being published in stages. Pages with a <span style="color:var(--gold)">●</span> in the menu are drafts; everything else is checked by the team as of {UPDATED}. Spotted an error? <a href="mailto:{E(T["SEA OtTeRS – contact email"])}">Tell us</a>.</span><button type="button" onclick="document.getElementById('notice').hidden=true;try{{localStorage.setItem('sxo-notice','1')}}catch(e){{}}">Got it</button></div></div>
-<script>try{{if(localStorage.getItem('sxo-notice'))document.getElementById('notice').hidden=true}}catch(e){{}}</script>'''
+<script>try{{if(localStorage.getItem('sxo-notice'))document.getElementById('notice').hidden=true;var _t=localStorage.getItem('sxo-theme');if(_t)document.documentElement.setAttribute('data-theme',_t)}}catch(e){{}}</script>'''
 
 def footer(mode):
     def href(s): return f"#/{s}" if mode == "preview" else f"{s}.html"
@@ -297,7 +330,7 @@ def footer(mode):
 <p style="margin-top:8px">SEA OtTeRS: <a href="mailto:{E(T["SEA OtTeRS – contact email"])}">{E(T["SEA OtTeRS – contact email"])}</a><br>SEAL Lab: <a href="mailto:{E(T["SEAL Lab – contact email"])}">{E(T["SEAL Lab – contact email"])}</a></p></div>
 <div><div class="fh">Groups</div><ul><li><a href="{href("sea-otters")}">SEA OtTeRS</a></li><li><a href="{href("seal-lab")}">SEAL Lab</a></li><li><a href="{href("people")}">People</a></li></ul></div>
 <div><div class="fh">Work</div><ul><li><a href="{href("projects")}">Projects &amp; facilities</a></li><li><a href="{href("publications")}">Publications</a></li><li><a href="{href("news")}">News &amp; events</a></li></ul></div>
-<div><div class="fh">Get involved</div><ul><li><a href="{href("contact")}">Collaborate</a></li><li><a href="{href("internships")}">Internships</a></li><li><a href="{href("shop")}">Shop for the team fund</a></li><li><a href="{E(T["GitHub repository URL"])}">Site source</a></li></ul></div>
+<div><div class="fh">Get involved</div><ul><li><a href="{href("contact")}">Collaborate</a></li><li><a href="{href("internships")}">Internships</a></li><li><a href="{href("shop")}">Shop for the team fund</a></li><li><a href="{href("members")}">Members portal</a></li><li><a href="{E(T["GitHub repository URL"])}">Site source</a></li></ul></div>
 </div><p style="margin-top:28px">© {datetime.date.today().year} SEAL × OTTER — SEA OtTeRS &amp; SEAL Lab, NARIT · sealxotter.org. Photos: NARIT, SEA OtTeRS/SEAL Lab, ESA/ARRAKIHS consortium (CC BY 4.0 where noted). Site version {VERSION}, content last verified {UPDATED}. Generated from the team content sheet — <a href="mailto:{E(T["SEA OtTeRS – contact email"])}?subject=Website%20correction">report a correction</a>.</p></div></footer>'''
 
 def L(mode, s, anchor=""):
@@ -450,7 +483,7 @@ def project_block(p, mode):
 <h3>{E(p["Project name *"])}</h3><p class="sum">{E(p["One-line summary *"])}</p>{f'<p class="meta">{meta}</p>' if meta else ""}<p class="stub">Details in preparation — this entry has the project title and scope only; results, numbers, and figures will be added once the team has reviewed them.</p></div>'''
     gal = "".join(f'<a href="assets/photos/web/{k}.jpg" target="_blank" rel="noopener" title="Open full size"><img src="assets/photos/web/{k}.jpg" alt="" loading="lazy"></a>' for k in PROJ_GALLERY.get(p["short"], []))
     facts = "".join(f"<dt>{E(k)}</dt><dd>{E(str(p[c]))}</dd>" for k, c in [("Facility", "Facility / telescope"), ("Key numbers", "Key numbers"), ("Timeline", "Timeline"), ("Team", "Team members"), ("Partners", "Collaborators / partners"), ("Funding", "Funding")] if str(p.get(c, "") or "").strip())
-    link = f'<p style="margin-top:12px"><a href="{E(str(p["Link"]))}">Project link ↗</a></p>' if str(p.get("Link", "") or "").strip() else ""
+    link = links_html(p.get("Link", ""), "Project link") + updates_html([u for u in UPDATES if u["proj"] and u["proj"].lower() == p["short"].lower()], mode)
     cred = PROJ_CREDIT.get(p["short"], "")
     return f'''<div class="pj" id="{p["slug"]}"><div><div class="ph{" fig" if p["short"] in PROJ_FIG else ""}">{img(p["img"], p["imgalt"])}</div>{f'<div class="gal">{gal}</div>' if gal else ""}{f'<p class="cap">{E(p["imgalt"])}. {E(cred)}</p>' if cred else ""}</div>
 <div><div class="chips"><span class="pill {g}">{E(p["Group *"])}</span><span class="pill">{E(p["Type *"])}</span><span class="pill">{E(status)}</span></div><h3 style="margin-top:12px">{E(p["Project name *"])} <span class="muted" style="font-weight:400">· {E(p["short"])}</span></h3><p class="sum">{E(p["One-line summary *"])}</p><div class="desc">{para(p.get("Description", "") or "") or '<p class="stub" style="margin-top:10px">Full description in preparation; the summary and key numbers above are current.</p>'}</div><dl class="facts">{facts}</dl>{link}</div></div>'''
@@ -496,9 +529,14 @@ def page_publications(mode):
 <section><div class="wrap"><h2>All publications</h2>{full}</div></section>'''
 
 def page_news(mode):
-    items = "".join(f'''<div class="item" id="n-{n["date"]}"><div class="d">{n["date"]}</div><div><span class="pill {"sea" if n["Group"]=="SEA OtTeRS" else "seal" if n["Group"]=="SEAL Lab" else ""}">{E(str(n["Group"]))}</span><h3 style="margin-top:8px">{E(n["Headline *"])}</h3><p>{E(str(n["Text *"]))}</p>{f'<p style="margin-top:8px"><a href="{E(str(n["Link"]))}">Event page ↗</a></p>' if str(n.get("Link","") or "").strip() else ""}</div><div class="ph">{img(n["img"], n["Headline *"])}</div></div>''' for n in NEWS)
+    items = "".join(f'''<div class="item" id="n-{n["date"]}"><div class="d">{n["date"]}</div><div><span class="pill {"sea" if n["Group"]=="SEA OtTeRS" else "seal" if n["Group"]=="SEAL Lab" else ""}">{E(str(n["Group"]))}</span><h3 style="margin-top:8px">{E(n["Headline *"])}</h3><p>{E(str(n["Text *"]))}</p>{links_html(n.get("Link", ""), "Event page")}</div><div class="ph">{img(n["img"], n["Headline *"])}</div></div>''' for n in NEWS)
     return f'''<div class="pagehead"><div class="wrap"><div class="eyebrow">News &amp; events</div><h1>What happened, and what is coming</h1><p class="lede">First light, mission milestones, papers, and the workshops and conferences the team hosts in Chiang Mai.</p></div></div>
-<section class="flush"><div class="wrap"><div class="timeline">{items}</div></div></section>'''
+<section class="flush"><div class="wrap"><div class="timeline">{items}</div></div></section>{upd_section(mode)}'''
+
+def upd_section(mode):
+    if not UPDATES: return ""
+    rows = "".join(f'''<div class="item" id="u-{u["date"]}-{slug(str(u["Title *"]))[:30]}"><div class="d">{u["date"]}</div><div>{f'<a class="pill sea" href="{L(mode, "projects", slug(u["proj"]))}">{E(u["proj"])}</a>' if u["proj"] else ""}<h3 style="margin-top:8px">{E(str(u["Title *"]))}</h3><p class="muted" style="font-size:.88rem;margin-top:2px">{E(str(u.get("Member *", "")))}</p><p>{E(str(u.get("Update *", "")))}</p>{links_html(u.get("Link", ""), "Link")}</div><div></div></div>''' for u in UPDATES)
+    return f'''<section><div class="wrap"><div class="sec-head"><h2>Research updates</h2><p>Short progress notes posted by team members through the <a href="{L(mode, "members")}">members portal</a>; each one is checked before it appears here.</p></div><div class="timeline" style="margin-top:18px">{rows}</div></div></section>'''
 
 def wip(title, why, ready, todo, meanwhile):
     return f'''<div class="wip"><div class="ic">!</div><div><h3>{E(title)}</h3><p>{why}</p>
@@ -545,6 +583,68 @@ def page_shop(mode):
 <div class="fund"><div><div class="eyebrow gold">Where the money goes</div><div class="big">100% of profit</div><p class="ink2" style="margin-top:8px">After production and shipping costs, all profit is paid into the team wellness and healthcare fund. The fund covers health insurance top-ups, medical expenses, and wellness support for students and non-permanent staff associated with the two groups.</p></div>
 <div><div class="eyebrow">Transparency</div><p class="ink2" style="margin-top:8px">This page will show the running total raised and paid out, updated with each sale cycle. Fund rules and the approval process will be published here before the first sale.</p></div></div></div></section>'''
 
+
+def portal_blob():
+    """Edit links for the Members page, encrypted with the team passphrase (AES-GCM, PBKDF2-SHA256) so they are not readable in the page source."""
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+    from cryptography.hazmat.primitives import hashes
+    sheet = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/edit#gid="
+    links = {"updates": sheet + str(SHEET_GID["updates"]), "news": sheet + str(SHEET_GID["news"]), "people": sheet + str(SHEET_GID["people"]),
+             "projects": sheet + str(SHEET_GID["projects"]), "aliases": sheet + str(SHEET_GID["aliases"]), "sheet": sheet + str(SHEET_GID["team"]),
+             "photos": f"https://drive.google.com/drive/folders/{DRIVE['profile_photos']}", "cvs": f"https://drive.google.com/drive/folders/{DRIVE['cvs']}",
+             "projphotos": f"https://drive.google.com/drive/folders/{DRIVE['photos']}", "papers": f"https://drive.google.com/drive/folders/{DRIVE['papers']}", "drive": f"https://drive.google.com/drive/folders/{DRIVE['root']}"}
+    salt = hashlib.sha256(b"sealxotter-portal-salt").digest()[:16]; iv = hashlib.sha256(json.dumps(links, sort_keys=True).encode()).digest()[:12]
+    key = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=150000).derive(PORTAL_PASS.encode())
+    ct = AESGCM(key).encrypt(iv, json.dumps(links).encode(), None)
+    return base64.b64encode(salt).decode(), base64.b64encode(iv).decode(), base64.b64encode(ct).decode()
+
+def page_members(mode):
+    salt, iv, ct = portal_blob()
+    mail = E(T["SEA OtTeRS – contact email"])
+    cards = [
+        ("sea", "Research updates", "Post a short progress note on your project — a run completed, a figure ready, a paper submitted. It appears on the News page and under the project it belongs to.",
+         ["Open the <b>Updates</b> tab of the content sheet and add one row per note.", "Fill in the date, your name, the project short name as used on this site (for example <span class=\"mono\">LRS</span>), a title of at most 80 characters, and 2–4 sentences in American English.", "Add a link (paper, poster, dataset, or Drive file) if there is one, and set <i>Show on website?</i> to Yes."], "updates", "Open the Updates tab"),
+        ("seal", "News", "Events, first light, awards, press, and workshops. News items are the public record of the team, so keep them factual and dated.",
+         ["Open the <b>News</b> tab and add a row: date, headline (at most 80 characters), 2–3 sentences, group, and a link.", "For an image, put the file in the <i>Photos</i> folder on Drive and paste its link in <i>Image link</i>.", "Set <i>Show on website?</i> to Yes. Items are sorted by date automatically."], "news", "Open the News tab"),
+        ("sea", "Profile, photo, and CV", "Your profile page is built from your row on the People tab; the photo and CV come from the shared Drive folders.",
+         ["Edit <b>your own row</b> on the People tab: position, short bio (card), long bio (profile page), interests separated by semicolons, and your links (ORCID, ADS, GitHub, LinkedIn).", "Photo: a JPG of at least 800 × 800 px, face centered, named <span class=\"mono\">Firstname-Lastname.jpg</span>, uploaded to the <i>profile photos</i> folder; paste its Drive link into <i>Photo link</i>.", "CV or résumé: a PDF named <span class=\"mono\">Firstname-Lastname_CV.pdf</span> in the <i>CVs</i> folder; paste its link into <i>CV link</i>. Leave personal phone numbers out; only the address you want published goes in <i>Email</i>."], "people", "Open the People tab"),
+        ("gold", "Team email — @sealxotter.org", "A team address such as <span class=\"mono\">firstname@sealxotter.org</span> that forwards to the mailbox you already use. The domain is being registered; addresses are created as soon as it is live.",
+         ["Open the <b>Email aliases</b> tab and add a row: your name, the alias you want (lowercase, the part before the @), the address it should forward to, and today's date.", "The site admin sets up the alias and marks the row <i>Active</i>. You will get a test message at the forwarding address.", "Aliases forward incoming mail only; sending <i>from</i> the alias is a later step (see the admin notes)."], "aliases", "Open the Email aliases tab"),
+    ]
+    cards_html = "".join(f'<div class="card"><div class="body"><span class="pill {c}">{E(h)}</span><h3>{E(h)}</h3><p>{why}</p><ol>{"".join(f"<li>{st}</li>" for st in steps)}</ol><div style="margin-top:auto;padding-top:8px"><a class="btn primary" data-key="{key}" href="#unlock">{E(btn)}</a></div></div></div>' for c, h, why, steps, key, btn in cards)
+    head_html = f'<div class="pagehead"><div class="wrap"><div class="eyebrow">Members portal</div><h1>Keep the site current</h1><p class="lede">This site is generated from the team content sheet and the shared Drive folders. Anything you add there — a research update, a news item, your profile, your photo or CV — appears on the site at the next rebuild. Nothing goes live without a check by the site admin.</p></div></div>'
+    lock_html = '<div class="lock" id="lock"><b>Team passphrase</b><input id="pw" type="password" autocomplete="off" placeholder="Ask the PI if you do not have it" aria-label="Team passphrase"><button class="btn" type="button" id="unlock-btn">Unlock edit links</button><span class="err" id="pw-err" hidden>That is not the passphrase.</span><span class="muted" style="font-size:.86rem">The edit links stay hidden from visitors; the instructions below are public.</span></div>'
+    rules_html = ('<h2 style="margin-top:44px">House rules</h2><div class="cards" style="margin-top:18px">'
+        '<div class="card"><div class="body"><h3>Write in American English</h3><p>Except for proper names (Science Programme Committee, UK Astronomy Technology Centre) and paper titles, which stay as published. Dates as YYYY-MM-DD.</p></div></div>'
+        '<div class="card"><div class="body"><h3>Only what you can back up</h3><p>Numbers, dates, and claims must come from a paper, a proposal, a log, or a measurement. If something is not final, say so ("in preparation", "planned").</p></div></div>'
+        '<div class="card"><div class="body"><h3>Edit your own rows</h3><p>Change other people\'s rows only with their agreement. Never delete a row; set <i>Show on website?</i> to No instead. The sheet keeps a full version history if anything goes wrong.</p></div></div></div>'
+        f'<h2 style="margin-top:44px">When does it appear?</h2><p class="ink2" style="margin-top:10px;max-width:var(--measure)">The site is rebuilt from the sheet by the site admin, normally within a week of a change. To publish something sooner — a press item or a first-light note — email <a href="mailto:{mail}?subject=Website%20rebuild%20request">{mail}</a> with the tab and row you edited. Photos are copied into the site during the same rebuild; CV links point to Drive, so a new PDF is live as soon as its link is in the sheet.</p>')
+    admin_html = ('<div class="gate" id="admin" hidden>'
+        '<details class="admin"><summary>Admin notes — rebuilding the site</summary><div class="steps">'
+        '<div><div><p>Download the sheet as .xlsx and run <span class="mono">python3 export_sheet.py check.xlsx</span> to refresh <span class="mono">sheet_data.json</span>; new profile photos are downloaded from Drive into <span class="mono">assets/photos/people/</span> (600 px JPG); CV links point to Drive directly.</p></div></div>'
+        '<div><div><p>Run <span class="mono">python3 gen.py</span>, review <span class="mono">preview.html</span>, then copy <span class="mono">dist/</span> to <span class="mono">docs/</span> and push. GitHub Pages serves <span class="mono">docs/</span> at sealxotter.org.</p></div></div>'
+        '<div><div><p>Change the team passphrase by editing <span class="mono">PORTAL_PASS</span> in <span class="mono">gen.py</span> (or setting <span class="mono">SXO_PORTAL_PASS</span>) and rebuilding; the edit links on this page are encrypted with it.</p></div></div></div></details>'
+        '<details class="admin"><summary>Admin notes — activating @sealxotter.org addresses</summary><div class="steps">'
+        '<div><div><p>Register <b>sealxotter.org</b> under the team account and add the domain to Cloudflare (free plan), pointing the registrar\'s nameservers at Cloudflare. GitHub Pages keeps working: A records 185.199.108.153, .109.153, .110.153, .111.153 for the apex, CNAME <span class="mono">www</span> → <span class="mono">seaot.github.io</span>, DNS-only (gray cloud) for both.</p></div></div>'
+        '<div><div><p>In the Cloudflare dashboard open <b>Email › Email Routing</b> and enable it; accept the MX and TXT (SPF) records it proposes. This is free and receive-only.</p></div></div>'
+        '<div><div><p>Add each mailbox from the <b>Email aliases</b> tab as a destination address; the owner must click the verification email once. Then create the custom address <span class="mono">alias@sealxotter.org</span> → that destination. Set <span class="mono">seaot@sealxotter.org</span> and <span class="mono">seal@sealxotter.org</span> to forward to the two group mailboxes, and mark the rows <i>Active</i> in the sheet.</p></div></div>'
+        '<div><div><p>Sending <i>as</i> the alias is not covered by forwarding. Options: Gmail\'s "Send mail as" through an SMTP relay, or full mailboxes on Google Workspace (paid, per user). Decide once the domain is live; until then, replies come from the members\' existing addresses.</p></div></div></div></details></div>')
+    js = ('<script>(function(){var P=document.getElementById("portal"),L=document.getElementById("lock"),A=document.getElementById("admin"),B=document.getElementById("unlock-btn"),I=document.getElementById("pw"),ERR=document.getElementById("pw-err");'
+          f'var SALT="{salt}",IV="{iv}",CT="{ct}";'
+          'function b(s){var x=atob(s),u=new Uint8Array(x.length);for(var i=0;i<x.length;i++)u[i]=x.charCodeAt(i);return u;}'
+          'function apply(links){P.querySelectorAll("a[data-key]").forEach(function(a){if(links[a.dataset.key]){a.href=links[a.dataset.key];a.target="_blank";a.rel="noopener";}});P.classList.remove("links-locked");A.hidden=false;'
+          'L.innerHTML="<b>Unlocked.</b> <span class=\\"muted\\" style=\\"font-size:.9rem\\">The buttons above now open the sheet tabs and Drive folders. <a href=\\""+links.drive+"\\" target=\\"_blank\\" rel=\\"noopener\\">All website folders on Drive ↗</a> · <a href=\\""+links.photos+"\\" target=\\"_blank\\" rel=\\"noopener\\">Profile photos ↗</a> · <a href=\\""+links.cvs+"\\" target=\\"_blank\\" rel=\\"noopener\\">CVs ↗</a> · <a href=\\""+links.projphotos+"\\" target=\\"_blank\\" rel=\\"noopener\\">Project and news photos ↗</a></span>";}'
+          'function unlock(pw){if(!pw)return;if(!window.crypto||!crypto.subtle){ERR.textContent="This browser cannot unlock the links (no WebCrypto).";ERR.hidden=false;return;}var enc=new TextEncoder();'
+          'crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveKey"]).then(function(k){return crypto.subtle.deriveKey({name:"PBKDF2",salt:b(SALT),iterations:150000,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["decrypt"]);})'
+          '.then(function(k){return crypto.subtle.decrypt({name:"AES-GCM",iv:b(IV)},k,b(CT));})'
+          '.then(function(pt){var links=JSON.parse(new TextDecoder().decode(pt));try{sessionStorage.setItem("sxo-portal",pw)}catch(e){}apply(links);})'
+          '.catch(function(){ERR.textContent="That is not the passphrase.";ERR.hidden=false;});}'
+          'B.addEventListener("click",function(){unlock(I.value.trim());});I.addEventListener("keydown",function(e){if(e.key==="Enter")unlock(I.value.trim());});'
+          'P.addEventListener("click",function(e){var a=e.target.closest("a[data-key]");if(a&&P.classList.contains("links-locked")){e.preventDefault();I.focus();}});'
+          'try{var s=sessionStorage.getItem("sxo-portal");if(s)unlock(s);}catch(e){}})();</script>')
+    return head_html + '<section class="flush"><div class="wrap">' + lock_html + f'<div class="portal links-locked" id="portal">{cards_html}</div>' + rules_html + admin_html + '</div></section>' + js
+
 # ---------------------------------------------------------------- assembly
 def head(title, mode):
     fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">'
@@ -553,7 +653,7 @@ def head(title, mode):
 def build_dist():
     out = os.path.join(ROOT, "dist"); shutil.rmtree(out, ignore_errors=True)
     os.makedirs(os.path.join(out, "people")); shutil.copytree(os.path.join(ROOT, "assets"), os.path.join(out, "assets"), ignore=shutil.ignore_patterns("*.img"))
-    pages = {"index": page_index, "sea-otters": lambda m: group_page(m, "sea-otters"), "seal-lab": lambda m: group_page(m, "seal-lab"), "people": page_people, "projects": page_projects, "publications": page_publications, "news": page_news, "contact": page_contact, "internships": page_internships, "shop": page_shop}
+    pages = {"index": page_index, "sea-otters": lambda m: group_page(m, "sea-otters"), "seal-lab": lambda m: group_page(m, "seal-lab"), "people": page_people, "projects": page_projects, "publications": page_publications, "news": page_news, "contact": page_contact, "internships": page_internships, "shop": page_shop, "members": page_members}
     for s, lbl, title, st in PAGES:
         body = pages[s]("dist")
         doc = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" + head(title + (" · SEAL × OTTER" if s != "index" else ""), "dist") + "</head>\n<body>\n" + nav(s, "dist") + f'<main class="page">{body}</main>' + footer("dist") + "\n</body>\n</html>\n"
@@ -578,7 +678,7 @@ def build_preview():
         else:
             im.thumbnail((400, 400)); buf = io.BytesIO(); im.save(buf, "PNG", optimize=True); mime = "image/png"
         cache[path] = f"data:{mime};base64," + base64.b64encode(buf.getvalue()).decode(); return cache[path]
-    pages = {"index": page_index, "sea-otters": lambda m: group_page(m, "sea-otters"), "seal-lab": lambda m: group_page(m, "seal-lab"), "people": page_people, "projects": page_projects, "publications": page_publications, "news": page_news, "contact": page_contact, "internships": page_internships, "shop": page_shop}
+    pages = {"index": page_index, "sea-otters": lambda m: group_page(m, "sea-otters"), "seal-lab": lambda m: group_page(m, "seal-lab"), "people": page_people, "projects": page_projects, "publications": page_publications, "news": page_news, "contact": page_contact, "internships": page_internships, "shop": page_shop, "members": page_members}
     secs = "".join(f'<main class="page" data-page="{s}" data-title="{E(t)}"{"" if s == "index" else " hidden"}>{pages[s]("preview")}</main>' for s, lbl, t, st in PAGES)
     secs += "".join(f'<main class="page" data-page="people/{p["slug"]}" data-title="{E(p["Full name *"])}" hidden>{page_person(p, "preview")}</main>' for p in PEOPLE)
     js = r"""<script>
